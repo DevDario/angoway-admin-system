@@ -1,0 +1,90 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Inter", sans-serif;
+
+    .content {
+        width: 20rem;
+        height: 20rem;
+        background-color: none;
+        border: 2px solid #0C6DFF;
+        border-radius: 20px;
+        padding: 25px;
+        display: flex;
+        margin: 8rem auto;
+        flex-direction: column;
+        gap: 25px;
+    }
+}
+
+.highlight {
+    color: #0C6DFF;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .input-field {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .input-label {
+        font-size: 14px;
+        color: #121212;
+        font-weight: bold;
+    }
+
+    .input-error {
+        transition: all 300ms ease-in;
+        border: 2px solid red;
+    }
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.alert-container {
+    margin-top: 10px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error message style */
+.error {
+    color: #D9534F;
+    font-size: 12px;
+    margin-top: 5px;
+}
