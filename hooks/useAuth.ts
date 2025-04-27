@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUseCase } from "../api/usecases/login.usecase";
 import { useEffect, useState } from "react";
 import { getToken, saveToken, removeToken } from "../utils/secure-store";
-import { LoginResponse } from "../types/login.response";
 
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -25,14 +24,13 @@ export function useAuth() {
       setIsCheckingAuth(true);
       setAuthError(null);
     },
-    onSuccess: async (data: LoginResponse) => {
-      saveToken(data.access_token);
-      setAuthToken(data.access_token);
-      //   navigate to dashboard page
+    onSuccess: async (res:any) => {
+      saveToken(res.data.access_token);
+      setAuthToken(res.data.access_token);
       queryClient.invalidateQueries();
     },
-    onError: (error) => {
-      setAuthError(error.message);
+    onError: (req:any) => {
+      setAuthError(req.response.data.message);
     },
     onSettled: () => {
       setIsCheckingAuth(false);
@@ -41,7 +39,6 @@ export function useAuth() {
 
   const logout = async () => {
     removeToken();
-    // navigato to login page
     queryClient.clear();
   };
 
