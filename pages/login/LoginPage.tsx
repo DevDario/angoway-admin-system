@@ -8,6 +8,7 @@ import Button from "../../components/Button";
 import "./LoginPage.css";
 import { z } from "zod";
 import AlertModal from "../../components/AlertModal";
+import ActivityIndicator from "../../components/ActivityIndicator"
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -72,9 +73,7 @@ export default function LoginPage() {
         )}
 
         {isCheckingAuth && (
-          <div className="loading">
-            <span className="spinner"></span>
-          </div>
+          <ActivityIndicator />
         )}
       </div>
     </div>
