@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import LoginPage from "../pages/login/LoginPage";
 import DashboardPage from "../pages/dashboard/DashboardPage";
+import React from "react";
 
 export default function AppRouter() {
   const { authToken } = useAuth();
