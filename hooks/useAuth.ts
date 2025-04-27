@@ -28,6 +28,7 @@ export function useAuth() {
       saveToken(res.data.access_token);
       setAuthToken(res.data.access_token);
       queryClient.invalidateQueries();
+      window.location.reload()
     },
     onError: (req:any) => {
       setAuthError(req.response.data.message);
