@@ -1,4 +1,4 @@
-const TOKEN_KEY: string = process.env.EXPO_PUBLIC_TOKEN_KEY || "access_token";
+const TOKEN_KEY: string = import.meta.env.VITE_EXPO_PUBLIC_TOKEN_KEY || "access_token";
 
 export function saveToken(token: string) {
   try {
