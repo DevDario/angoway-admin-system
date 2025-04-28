@@ -1,79 +1,97 @@
-import { useForm } from "react-hook-form";
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/login.schema";
 import { useAuth } from "../../hooks/useAuth";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import "./LoginPage.css";
-import { z } from "zod";
 import AlertModal from "../../components/AlertModal";
-import ActivityIndicator from "../../components/ActivityIndicator"
+import "./LoginPage.css";
 
-type LoginFormData = z.infer<typeof loginSchema>;
-
-export default function LoginPage() {
+export default function Login() {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
+  } = useForm({
     resolver: zodResolver(loginSchema),
     mode: "onChange",
-    defaultValues: {
-      number: "",
-      password: "",
-    },
+    defaultValues: { number: "", password: "" },
   });
+
   const { useLogin, isCheckingAuth, authError } = useAuth();
 
-  const handleLogin = (data: LoginFormData) => {
+  function handleLogin(data: any) {
     useLogin.mutate(data);
-  };
+  }
 
   return (
     <div className="login-container">
-      <div className="content">
-        <div className="input-container">
-          <div className="input-field">
-            <label className="input-label">Seu Número</label>
-            <Input
+      <div className="login-form-section">
+        <h1 className="login-title">Iniciar Sessão</h1>
+        <form onSubmit={handleSubmit(handleLogin)} className="login-form">
+          <div className="form-group">
+            <label htmlFor="number">Seu Número</label>
+            <Controller
+              control={control}
               name="number"
-              control={control}
-              placeholder="Digite o seu número"
-              error={errors.number?.message}
-              type="tel"
+              render={({ field }) => (
+                <input
+                  type="text"
+                  id="number"
+                  placeholder="Digite o seu número"
+                  {...field}
+                  className={`form-input ${errors.number ? "input-error" : ""}`}
+                />
+              )}
             />
+            {errors.number && (
+              <span className="error-message">{errors.number.message}</span>
+            )}
           </div>
 
-          <div className="input-field">
-            <label className="input-label">Senha</label>
-            <Input
+          <div className="form-group">
+            <label htmlFor="password">Senha</label>
+            <Controller
+              control={control}
               name="password"
-              control={control}
-              placeholder="Digite sua senha"
-              error={errors.password?.message}
-              type="password"
+              render={({ field }) => (
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Digite sua senha"
+                  {...field}
+                  className={`form-input ${
+                    errors.password ? "input-error" : ""
+                  }`}
+                />
+              )}
+            />
+            {errors.password && (
+              <span className="error-message">{errors.password.message}</span>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={isCheckingAuth}
+          >
+            {isCheckingAuth ? "Entrando..." : "Entrar"}
+          </button>
+        </form>
+
+        {authError && <AlertModal text={authError} type="error" />}
+      </div>
+
+      <div className="side-section">
+        <div className="side-section-container">
+          <div className="side-section-image-container">
+            <img
+              src="https://bufferwall.com/download/B20190923T000000374_1200x600.jpg"
+              alt=""
+              className="side-section-image"
             />
           </div>
         </div>
-
-        <div className="button-container">
-          <Button
-            text={isCheckingAuth ? "Entrando..." : "Entrar"}
-            onClick={handleSubmit(handleLogin)}
-            disabled={isCheckingAuth}
-          />
-        </div>
-
-        {authError && (
-          <div className="alert-container">
-            <AlertModal text={authError} type="error" />
-          </div>
-        )}
-
-        {isCheckingAuth && (
-          <ActivityIndicator />
-        )}
       </div>
     </div>
   );
