@@ -79,7 +79,7 @@
 }
 
 .navbar-button:hover {
-    background-color: #121212;
-    border: 1px solid #0C6BFF;
+    background-color: #0C6BFF;
+    color: #FFF;
     transition: all 300ms ease-in;
 }
