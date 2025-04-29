@@ -1,17 +1,34 @@
 import React from "react";
-import "./DashboardDataCard.css"
+import "./DashboardDataCard.css";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+type dataCardProps = {
+  label: string;
+  value: string | number;
+  icon?: IconProp;
+  iconColor?: string;
+};
 
 export default function DashboardDataCard({
   label,
   value,
-}: {
-  label: string;
-  value: string | number;
-}) {
+  icon,
+  iconColor,
+}: dataCardProps) {
   return (
     <div className="data-card-container">
       <div className="data-label">
-        <img src="" alt={label + " icon"} className="card-icon" />
+        <div className="icon-box">
+          <FontAwesomeIcon
+            icon={icon}
+            style={{
+              color: iconColor ? iconColor : "#FFF",
+            }}
+            width={12}
+            height={12}
+          />
+        </div>
         <p className="label">{label}</p>
       </div>
       <div className="data">
