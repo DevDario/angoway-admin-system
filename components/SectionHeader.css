@@ -1,0 +1,21 @@
+.header-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    align-content: center;
+}
+
+.header-container .header-container-icon-box {
+    width: 24px;
+    height: 24px;
+    background-color: #0C6BFF;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-container .header-container-title {
+    font-size: 20px;
+    font-weight: bold;
+}
