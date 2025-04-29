@@ -25,6 +25,16 @@
     align-items: center;
 }
 
+.data-label .icon-box{
+    width: 24px;
+    height: 24px;
+    background-color: #0C6BFF;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .data-label .label {
     color: #FFF;
     font-size: 16px;
