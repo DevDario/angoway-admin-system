@@ -20,10 +20,10 @@
 
 
 .modal-content {
-    background-color: #fcfcfb;
+    background-color: #121212;
     color: #fff;
-    border-radius: 10px;
-    width: 22%;
+    border-radius: 20px;
+    width: 30%;
     max-width: 400px;
     padding: 20px;
     display: flex;
@@ -31,7 +31,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    border: 2px solid #0C6DFF;
 }
 
 .icon-container {
@@ -57,5 +56,5 @@
     font-size: 18px;
     font-weight: 800;
     margin-bottom: 20px;
-    color: #121212;
+    color: #fcfcfb;
 }
