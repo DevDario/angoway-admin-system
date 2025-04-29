@@ -53,7 +53,7 @@
 
 /*  */
 
-.chart-container .chart-box{
+.chart-container .chart-box {
     display: flex;
     flex-direction: column;
     background-color: #121212;
@@ -65,11 +65,21 @@
     margin: 2rem auto;
 }
 
-.chart-container .chart-box .chart-title{
+.chart-container .chart-box .chart-title {
     color: #FFF;
     font-weight: bold;
 }
-.chart-container .chart-box .chart{
+
+.chart-container .chart-box .chart {
     display: flex;
     margin: 0 auto 2rem auto;
+}
+
+.employees-table-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.employees-table-container .employees-table-box{
+    margin-top: 1.4rem;
 }
