@@ -23,11 +23,11 @@ const chartData = [
 const chartConfig = {
   App: {
     label: "App",
-    color: "#2563eb",
+    color: "#0C6BFF",
   },
   semApp: {
     label: "semApp",
-    color: "#60a5fa",
+    color: "#06CBFF",
   },
 } satisfies ChartConfig;
 
