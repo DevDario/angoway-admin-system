@@ -1,0 +1,85 @@
+.navbar-section {
+    padding: 10px 0;
+    border-bottom: 1px solid #161616;
+    margin-bottom: 1.4rem;
+}
+
+.navbar-section .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 40px;
+    align-items: center;
+    align-content: center;
+}
+
+.navbar-section .container .nav-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.navbar-section .container .nav-logo .logo {
+    color: #0C6BFF;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.navbar-section .container .actions-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+}
+
+.container .actions-container .profile-section .profile-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 500px;
+    background-color: #121212;
+    border: 1px solid #161616;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.container .actions-container .profile-section .profile-avatar > .admin-initial{
+    font-weight: bold;
+}
+
+.container .actions-container .exit-button-container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.container .actions-container .exit-button-container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.button {
+    padding: 0px 20px;
+    width: 100px;
+    height: 45px;
+    border-radius: 40px;
+    background-color: #121212;
+    border: 1px solid #161616;
+    outline: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+
+.button:hover {
+    background-color: #121212;
+    border: 1px solid #0C6BFF;
+    transition: all 300ms ease-in;
+}
