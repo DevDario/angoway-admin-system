@@ -1,0 +1,9 @@
+.content-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container .data-summarization-container{
+    display: flex;
+    gap: 15px;
+}
