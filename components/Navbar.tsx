@@ -18,7 +18,7 @@ export default function Navbar() {
             </div>
           </div>
           <div className="exit-button-container">
-            <button className="button" onClick={() => handleLogout}>
+            <button className="navbar-button" onClick={() => handleLogout}>
               Sair
             </button>
           </div>
