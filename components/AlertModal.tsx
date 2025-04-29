@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./AlertModal.css";
-import Button from "./Button";
+import ModalButton from "./ModalButton";
 
 interface AlertModalProps {
   text: string;
@@ -24,7 +24,7 @@ const AlertModal: React.FC<AlertModalProps> = ({ text, type }) => {
           />
         </div>
         <p className="modal-text">{text}</p>
-        <Button text="Fechar" onClick={() => setIsVisible(false)} />
+        <ModalButton text="Fechar" onClick={() => setIsVisible(false)} />
       </div>
     </div>
   );
