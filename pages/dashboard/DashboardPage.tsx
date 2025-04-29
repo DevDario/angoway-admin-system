@@ -11,7 +11,10 @@ import {
   faClose,
   faUser,
   faQuestionCircle,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SectionHeader from "../../components/SectionHeader";
 
 export default function DashboardPage() {
   return (
@@ -55,6 +58,10 @@ export default function DashboardPage() {
             <h2 className="chart-title">Viagens realizadas</h2>
             <Chart />
           </div>
+        </div>
+        <div className="employees-table-container">
+          <SectionHeader icon={faClock} title="Motoristas Recentes" />
+          <div className="employees-table-box"></div>
         </div>
       </div>
     </Layout>
