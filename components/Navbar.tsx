@@ -1,13 +1,12 @@
 import React from "react";
 import "./Navbar.css";
-import Button from "./Button";
 
 export default function Navbar() {
   function handleLogout() {}
 
   return (
     <div className="navbar-section">
-      <div className="container">
+      <div className="navbar-container">
         <div className="nav-logo">
           <h1 className="logo header-text">Angoway</h1>
           <sup>admin</sup>

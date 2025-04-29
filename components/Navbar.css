@@ -4,7 +4,7 @@
     margin-bottom: 1.4rem;
 }
 
-.navbar-section .container {
+.navbar-section .navbar-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -13,20 +13,20 @@
     align-content: center;
 }
 
-.navbar-section .container .nav-logo{
+.navbar-section .navbar-container .nav-logo{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
 }
 
-.navbar-section .container .nav-logo .logo {
+.navbar-section .navbar-container .nav-logo .logo {
     color: #0C6BFF;
     font-weight: bold;
     font-size: 22px;
 }
 
-.navbar-section .container .actions-container {
+.navbar-section .navbar-container .actions-container {
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -36,7 +36,7 @@
 
 }
 
-.container .actions-container .profile-section .profile-avatar {
+.navbar-container .actions-container .profile-section .profile-avatar {
     width: 45px;
     height: 45px;
     border-radius: 500px;
@@ -48,17 +48,17 @@
     align-content: center;
 }
 
-.container .actions-container .profile-section .profile-avatar > .admin-initial{
+.navbar-container .actions-container .profile-section .profile-avatar > .admin-initial{
     font-weight: bold;
 }
 
-.container .actions-container .exit-button-container {
+.navbar-container .actions-container .exit-button-container {
     display: flex;
     align-items: center;
     align-content: center;
 }
 
-.container .actions-container .exit-button-container {
+.navbar-container .actions-container .exit-button-container {
     display: flex;
     align-items: center;
     align-content: center;
