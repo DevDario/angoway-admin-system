@@ -7,3 +7,26 @@
     display: flex;
     gap: 15px;
 }
+
+.chart-container{
+    margin: 2rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container .chart-action-buttons-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-container .chart-action-buttons-container .button{
+    background-color: #0C6BFF;
+    color: #FFF;
+    transition: all 300ms ease-out;
+}
+
+.chart-container .chart-action-buttons-container .button:hover {
+    background-color: #121212;
+    border: 1px solid #161616;
+    transition: all 300ms ease-in;
+}
