@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
   return (
     <button className="button" onClick={onClick} disabled={disabled}>
-      <p>{text}</p>
+      {text}
       {icon && (
         <FontAwesomeIcon
           icon={icon}
