@@ -1,6 +1,6 @@
 .navbar-section {
     padding: 10px 0;
-    border-bottom: 1px solid #161616;
+    border-bottom: 1px solid #212121;
     margin-bottom: 1.4rem;
 }
 
@@ -13,7 +13,7 @@
     align-content: center;
 }
 
-.navbar-section .navbar-container .nav-logo{
+.navbar-section .navbar-container .nav-logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,14 +41,14 @@
     height: 45px;
     border-radius: 500px;
     background-color: #121212;
-    border: 1px solid #161616;
+    border: 1px solid #212121;
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
 }
 
-.navbar-container .actions-container .profile-section .profile-avatar > .admin-initial{
+.navbar-container .actions-container .profile-section .profile-avatar>.admin-initial {
     font-weight: bold;
 }
 
@@ -70,7 +70,7 @@
     height: 45px;
     border-radius: 40px;
     background-color: #121212;
-    border: 1px solid #161616;
+    border: 1px solid #212121;
     outline: none;
     color: #fff;
     font-weight: bold;
