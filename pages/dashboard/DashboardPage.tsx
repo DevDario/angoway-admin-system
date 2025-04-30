@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
+import DashboardTable from "../../components/DashboardTable";
 
 export default function DashboardPage() {
   return (
@@ -61,7 +62,9 @@ export default function DashboardPage() {
         </div>
         <div className="employees-table-container">
           <SectionHeader icon={faClock} title="Motoristas Recentes" />
-          <div className="employees-table-box"></div>
+          <div className="employees-table-box">
+            <DashboardTable />
+          </div>
         </div>
       </div>
     </Layout>
