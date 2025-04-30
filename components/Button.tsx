@@ -9,6 +9,7 @@ type ButtonProps = {
   disabled?: boolean;
   icon?: IconProp;
   iconColor?: string;
+  title?:string
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,10 +17,11 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   disabled,
   icon,
-  iconColor
+  iconColor,
+  title
 }: ButtonProps) => {
   return (
-    <button className="button" onClick={onClick} disabled={disabled}>
+    <button className="button" onClick={onClick} disabled={disabled} title={title}>
       {text}
       {icon && (
         <FontAwesomeIcon
