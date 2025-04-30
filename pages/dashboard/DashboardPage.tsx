@@ -12,6 +12,8 @@ import {
   faUser,
   faQuestionCircle,
   faClock,
+  faMoneyBills,
+  faDownload
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
@@ -49,10 +51,11 @@ export default function DashboardPage() {
               iconColor="#FFF"
             />
             <Button
-              text="Exportar"
+              text="Baixar"
               onClick={() => {}}
-              icon={faFileExport}
+              icon={faDownload}
               iconColor="#FFF"
+              title="exportar dados"
             />
           </div>
           <div className="chart-box">
@@ -64,6 +67,22 @@ export default function DashboardPage() {
           <SectionHeader icon={faClock} title="Motoristas Recentes" />
           <div className="employees-table-box">
             <DashboardTable />
+          </div>
+        </div>
+        <div className="chart-container">
+          <div className="chart-action-buttons-container">
+            <SectionHeader icon={faMoneyBills} title="Faturação (Diário)" />
+            <Button
+              text="Baixar"
+              onClick={() => {}}
+              icon={faDownload}
+              iconColor="#FFF"
+              title="exportar dados"
+            />
+          </div>
+          <div className="chart-box">
+            <h2 className="chart-title">Faturação Total</h2>
+            <Chart />
           </div>
         </div>
       </div>
