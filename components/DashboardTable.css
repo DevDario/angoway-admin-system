@@ -1,0 +1,9 @@
+.employees-table {
+    padding: 3px;
+}
+
+.employees-table .employees-table-header .employees-table-head,
+.employees-table .employees-table-body .employees-table-cell {
+    padding: 10px;
+    border-radius: 5px;
+}
