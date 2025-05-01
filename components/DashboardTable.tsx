@@ -68,7 +68,7 @@ export default function DashboardTable() {
       <TableHeader className="employees-table-header">
         <TableRow className="employees-table-row">
           <TableHead className="w-[100px] employees-table-head">Nome</TableHead>
-          <TableHead className="employees-table-head">Idade</TableHead>
+          <TableHead className="employees-table-head">Data de Nascimento</TableHead>
           <TableHead className="employees-table-head">
             Data de Efectivação
           </TableHead>
