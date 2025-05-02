@@ -12,59 +12,83 @@ import "./DriversTable.css";
 
 const mockEmployees = [
   {
+    id: 1,
     nome: "Jhon Doe",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "1/01/2025",
-    NIA:"#123",
+    exp:"5 Anos",
+    NIA: "#123",
     estado: "Em Serviço",
   },
   {
+    id: 2,
     nome: "Marie Jane",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "02/01/2025",
-    NIA:"#111",
+    exp:"4 Anos",
+    NIA: "#111",
     estado: "Fora de Serviço",
   },
   {
+    id: 3,
     nome: "John Dan",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "03/01/2025",
-    NIA:"#222",
+    exp:"3 Anos",
+    NIA: "#222",
     estado: "Em Serviço",
   },
   {
+    id: 4,
     nome: "Marie Jany",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "04/02/2025",
-    NIA:"#673",
+    exp:"6 Anos",
+    NIA: "#673",
     estado: "Em Serviço",
   },
   {
+    id: 5,
     nome: "Chris Evans",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "12/04/2025",
-    NIA:"#487",
+    exp:"1 Ano",
+    NIA: "#487",
     estado: "Fora de Serviço",
   },
   {
+    id: 6,
     nome: "Peter Parker",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "23/02/2025",
-    NIA:"#444",
+    exp:"3 Anos",
+    NIA: "#444",
     estado: "Em Serviço",
   },
   {
+    id: 7,
     nome: "Anne An",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "23/02/2025",
-    NIA:"#555",
+    exp:"2 Anos",
+    NIA: "#555",
     estado: "Em Serviço",
   },
   {
+    id: 8,
     nome: "Alfred Perry",
+    telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "25/08/2025",
-    NIA:"#134",
+    exp:"3 Anos",
+    NIA: "#134",
     estado: "Em Serviço",
   },
 ];
@@ -75,10 +99,15 @@ export default function DriversTable() {
       <TableCaption>Motoristas na Empresa.</TableCaption>
       <TableHeader className="drivers-table-header">
         <TableRow className="drivers-table-row">
+          <TableHead className="w-[100px] drivers-table-head">ID</TableHead>
           <TableHead className="w-[100px] drivers-table-head">Nome</TableHead>
+          <TableHead className="w-[100px] drivers-table-head">
+            Telefone
+          </TableHead>
           <TableHead className="drivers-table-head">
             Data de Nascimento
           </TableHead>
+          <TableHead className="drivers-table-head">Experiência</TableHead>
           <TableHead className="drivers-table-head">
             Data de Efectivação
           </TableHead>
@@ -90,17 +119,22 @@ export default function DriversTable() {
       </TableHeader>
       <TableBody className="drivers-table-body">
         {mockEmployees.map((e) => (
-          <TableRow>
+          <TableRow key={e.id}>
+            <TableCell className="font-medium p-30 drivers-table-cell">
+              {e.id}
+            </TableCell>
             <TableCell className="font-medium p-30 drivers-table-cell">
               {e.nome}
             </TableCell>
+            <TableCell className="font-medium p-30 drivers-table-cell">
+              {e.telefone}
+            </TableCell>
             <TableCell className="drivers-table-cell">{e.dataNasc}</TableCell>
+            <TableCell className="drivers-table-cell">{e.exp}</TableCell>
             <TableCell className="drivers-table-cell">
               {e.dataEfectivacao}
             </TableCell>
-            <TableCell className="drivers-table-cell">
-              {e.NIA}
-            </TableCell>
+            <TableCell className="drivers-table-cell">{e.NIA}</TableCell>
             <TableCell className="text-right drivers-table-cell font-bold">
               {e.estado}
             </TableCell>
