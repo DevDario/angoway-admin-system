@@ -1,0 +1,9 @@
+.buses-drivers-table {
+    padding: 30px;
+}
+
+.buses-drivers-table .buses-drivers-table-header .buses-drivers-table-head,
+.buses-drivers-table .buses-drivers-table-body .buses-drivers-table-cell {
+    padding: 10px;
+    border-radius: 5px;
+}
