@@ -42,3 +42,48 @@
     border-radius: 10px;
     padding: 20px;
 }
+
+.content-container .actions-area-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 1.4rem;
+}
+
+
+.content-container .actions-area-container .bus-drivers-table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.content-container .actions-area-container .bus-drivers-table-container .bus-drivers-table-box {
+    margin-top: 1.4rem;
+    border: 1px solid #212121;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* FORM */
+
+.content-container .actions-area-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 1.4rem;
+}
+
+
+.content-container .actions-area-container .register-driver-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.content-container .actions-area-container .register-driver-form-container .register-driver-form-box {
+    margin-top: 1.4rem;
+    border: 1px solid #212121;
+    border-radius: 10px;
+    padding: 20px;
+}
+

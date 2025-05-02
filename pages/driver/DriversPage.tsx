@@ -8,9 +8,11 @@ import {
   faClose,
   faPlusCircle,
   faTrashCan,
-  faUserEdit,
+  faEdit,
+  faBusSimple
 } from "@fortawesome/free-solid-svg-icons";
 import DriversTable from "../../components/DriversTable";
+import BusesDriversTable from "../../components/BusesDriversTable";
 import SectionHeader from "../../components/SectionHeader";
 import "./DriversPage.css";
 import Button from "../../components/Button";
@@ -62,7 +64,7 @@ export default function DriversPage() {
               <Button
                 text="Editar"
                 onClick={() => {}}
-                icon={faUserEdit}
+                icon={faEdit}
                 iconColor="#FFF"
                 title="editar"
               />
@@ -70,6 +72,22 @@ export default function DriversPage() {
           </div>
           <div className="employees-table-box">
             <DriversTable />
+          </div>
+        </div>
+        <div className="actions-area-container">
+          <div className="bus-drivers-table-container">
+            <SectionHeader icon={faBusSimple} title="Autocarros Dirigidos" />
+            <div className="bus-drivers-table-box">
+              <BusesDriversTable />
+            </div>
+          </div>
+          <div className="register-driver-form-container">
+            <SectionHeader icon={faPlusCircle} title="Registrar novo Motorista" />
+            <div className="register-driver-form-box">
+              <div className="register-driver-form">
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
