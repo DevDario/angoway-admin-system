@@ -1,0 +1,9 @@
+.drivers-table {
+    padding: 3px;
+}
+
+.drivers-table .drivers-table-header .drivers-table-head,
+.drivers-table .drivers-table-body .drivers-table-cell {
+    padding: 10px;
+    border-radius: 5px;
+}
