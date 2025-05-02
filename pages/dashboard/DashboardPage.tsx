@@ -13,11 +13,13 @@ import {
   faQuestionCircle,
   faClock,
   faMoneyBills,
-  faDownload
+  faDownload,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
 import DashboardTable from "../../components/DashboardTable";
+import { Link } from "react-router";
 
 export default function DashboardPage() {
   return (
@@ -85,6 +87,16 @@ export default function DashboardPage() {
             <Chart />
           </div>
         </div>
+        <Link
+          to={"/drivers"}
+          style={{
+            color: "#0C6BFF",
+            fontWeight: "800",
+            cursor: "pointer",
+          }}
+        >
+          Go to Drivers <FontAwesomeIcon icon={faArrowRight} width={15} height={15} />
+        </Link>
       </div>
     </Layout>
   );
