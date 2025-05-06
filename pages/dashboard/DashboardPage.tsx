@@ -2,12 +2,12 @@ import React from "react";
 import DashboardDataCard from "../../components/DashboardDataCard";
 import Layout from "../_layout";
 import "./DashboardPage.css";
-import Chart from "../../components/Chart";
+import CustomBarChart from "../../components/BarChart";
+import CustomLineChart from "../../components/LineChart";
 import Button from "../../components/Button";
 import {
   faChevronDown,
   faBusSimple,
-  faFileExport,
   faClose,
   faUser,
   faQuestionCircle,
@@ -22,6 +22,7 @@ import DashboardTable from "../../components/DashboardTable";
 import { Link } from "react-router";
 
 export default function DashboardPage() {
+  // custom hooks to fetch chart's, table and cards data
   return (
     <Layout>
       <div className="content-container">
@@ -62,7 +63,10 @@ export default function DashboardPage() {
           </div>
           <div className="chart-box">
             <h2 className="chart-title">Viagens realizadas</h2>
-            <Chart />
+            <CustomBarChart
+              description="Janeiro - Dezembro 2025"
+              footerText="Mostrando o total de viagens realizadas em cada mês."
+            />
           </div>
         </div>
         <div className="employees-table-container">
@@ -82,9 +86,9 @@ export default function DashboardPage() {
               title="exportar dados"
             />
           </div>
-          <div className="chart-box">
+          <div className="chart-box" style={{height: "450px"}}>
             <h2 className="chart-title">Faturação Total</h2>
-            <Chart />
+            <CustomLineChart />
           </div>
         </div>
         <Link
