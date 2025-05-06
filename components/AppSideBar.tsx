@@ -55,7 +55,7 @@ const items = [
 ];
 
 export default function AppSidebar() {
-  const { open } = useSidebar();
+  const { open, setOpen } = useSidebar();
   return (
     <>
       {open && (
@@ -70,6 +70,7 @@ export default function AppSidebar() {
             zIndex: 40,
             cursor: "pointer",
           }}
+          onClick={() => setOpen(false)}
         />
       )}
       <Sidebar
@@ -86,11 +87,11 @@ export default function AppSidebar() {
       >
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupContent style={{ paddingLeft: 18, paddingTop: 50 }}>
+            <SidebarGroupContent style={{ paddingLeft: 9, paddingTop: 50 }}>
               <SidebarMenu style={{ paddingRight: 10 }}>
                 {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild style={{ padding: 10 }}>
+                  <SidebarMenuItem key={item.title} style={{ marginTop: 10 }}>
+                    <SidebarMenuButton asChild style={{ padding: 20 }}>
                       <Link to={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
