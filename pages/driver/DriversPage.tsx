@@ -17,6 +17,7 @@ import SectionHeader from "../../components/SectionHeader";
 import "./DriversPage.css";
 import Button from "../../components/Button";
 import CreateDriverForm from "@/forms/CreateDriverForm";
+import CreateDriverDialog from "../../components/CreateDriverDialog";
 
 export default function DriversPage() {
   return (
@@ -48,13 +49,15 @@ export default function DriversPage() {
           <div className="employees-table-action-buttons-container">
             <SectionHeader icon={faUser} title="Motoristas" />
             <div className="action-buttons">
-              <Button
-                text="Criar"
-                onClick={() => {}}
-                icon={faPlusCircle}
-                iconColor="#FFF"
-                title="cadastrar novo motorista"
-              />
+              <CreateDriverDialog>
+                <Button
+                  text="Criar"
+                  icon={faPlusCircle}
+                  iconColor="#FFF"
+                  onClick={() => {}}
+                  title="cadastrar novo motorista"
+                />
+              </CreateDriverDialog>
               <Button
                 text="Apagar"
                 onClick={() => {}}
