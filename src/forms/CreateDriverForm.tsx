@@ -44,6 +44,7 @@ export default function CreateDriverForm() {
               <FormLabel>Nome</FormLabel>
               <FormControl>
                 <Input
+                  className="input"
                   placeholder="John Doe"
                   {...field}
                   style={{
@@ -65,6 +66,7 @@ export default function CreateDriverForm() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
+                  className="input"
                   placeholder="johndoe@gmail.com"
                   {...field}
                   style={{
@@ -86,6 +88,7 @@ export default function CreateDriverForm() {
               <FormLabel>Número</FormLabel>
               <FormControl>
                 <Input
+                  className="input"
                   placeholder="9xx xxx xxx"
                   {...field}
                   style={{
@@ -107,6 +110,7 @@ export default function CreateDriverForm() {
               <FormLabel>Palavra Passe</FormLabel>
               <FormControl>
                 <Input
+                  className="input"
                   placeholder=""
                   {...field}
                   style={{
@@ -122,7 +126,13 @@ export default function CreateDriverForm() {
         />
         <Button
           type="submit"
-          style={{ height: 45, width: 400, cursor: "pointer", backgroundColor:"#0C6BFF", color:"#FCFCFB" }}
+          style={{
+            height: 45,
+            width: 400,
+            cursor: "pointer",
+            backgroundColor: "#0C6BFF",
+            color: "#FCFCFB",
+          }}
         >
           Cadastrar
         </Button>
