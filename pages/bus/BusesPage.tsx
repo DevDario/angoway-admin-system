@@ -8,7 +8,7 @@ import {
   faEdit,
   faBusSimple,
 } from "@fortawesome/free-solid-svg-icons";
-import DriversTable from "../../components/DriversTable";
+import BusesRoutesTable from "../../components/BusesRoutesTable";
 import BusesTable from "../../components/BusesTable";
 import SectionHeader from "../../components/SectionHeader";
 import "./BusesPage.css";
@@ -70,6 +70,7 @@ export default function BusesPage() {
           <div className="bus-routes-table-container">
             <SectionHeader icon={faBusSimple} title="Rotas Atribuidas" />
             <div className="bus-routes-table-box">
+              <BusesRoutesTable />
             </div>
           </div>
           <div className="register-bus-form-container">
