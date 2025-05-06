@@ -16,7 +16,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../src/components/ui/chart";
-import "./LineChart.css";
 
 const chartData = [
   { day: "1", faturado: 80000 },
