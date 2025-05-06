@@ -1,0 +1,88 @@
+import React from "react";
+import Layout from "../_layout";
+import DashboardDataCard from "../../components/DashboardDataCard";
+import {
+  faUser,
+  faPlusCircle,
+  faTrashCan,
+  faEdit,
+  faBusSimple,
+} from "@fortawesome/free-solid-svg-icons";
+import DriversTable from "../../components/DriversTable";
+import BusesTable from "../../components/BusesTable";
+import SectionHeader from "../../components/SectionHeader";
+import "./BusesPage.css";
+import Button from "../../components/Button";
+
+export default function BusesPage() {
+  return (
+    <Layout>
+      <div className="content-container">
+        <div className="data-summarization-container">
+          <DashboardDataCard
+            label="Autocarros Na Frota"
+            value={8}
+            icon={faBusSimple}
+          />
+          <DashboardDataCard
+            label="Autocarros Ativos"
+            value={6}
+            icon={faBusSimple}
+          />
+          <DashboardDataCard
+            label="Autocarros Inativos"
+            value={2}
+            icon={faBusSimple}
+          />
+        </div>
+        <div className="buses-table-container">
+          <div className="buses-table-action-buttons-container">
+            <SectionHeader icon={faBusSimple} title="Autocarros" />
+            <div className="action-buttons">
+              <Button
+                text="Criar"
+                icon={faPlusCircle}
+                iconColor="#FFF"
+                onClick={() => {}}
+                title="cadastrar novo autocarro"
+              />
+              <Button
+                text="Apagar"
+                onClick={() => {}}
+                icon={faTrashCan}
+                iconColor="#FFF"
+                title="apagar autocarro"
+              />
+              <Button
+                text="Editar"
+                onClick={() => {}}
+                icon={faEdit}
+                iconColor="#FFF"
+                title="editar"
+              />
+            </div>
+          </div>
+          <div className="buses-table-box">
+            <BusesTable />
+          </div>
+        </div>
+        <div className="actions-area-container">
+          <div className="bus-routes-table-container">
+            <SectionHeader icon={faBusSimple} title="Rotas Atribuidas" />
+            <div className="bus-routes-table-box">
+            </div>
+          </div>
+          <div className="register-bus-form-container">
+            <SectionHeader
+              icon={faPlusCircle}
+              title="Registrar novo Autocarro"
+            />
+            <div className="register-bus-form-box">
+              <div className="register-bus-form"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}
