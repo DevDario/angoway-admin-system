@@ -11,6 +11,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
           minHeight: "100vh",
           width: "100vw",
           overflowX: "hidden",
+          position: "relative",
         }}
       >
         <div
@@ -21,12 +22,14 @@ export default function Layout({ children }: { children?: ReactNode }) {
             zIndex: 100,
           }}
         >
-          <SidebarTrigger style={{
-            background: "#0C6BFF",
-            borderRadius: "50%",
-            padding: "10px",
-            cursor:"pointer"
-          }}/>
+          <SidebarTrigger
+            style={{
+              background: "#0C6BFF",
+              borderRadius: "50%",
+              padding: "10px",
+              cursor: "pointer",
+            }}
+          />
         </div>
 
         <AppSidebar />
@@ -35,7 +38,8 @@ export default function Layout({ children }: { children?: ReactNode }) {
             flex: 1,
             overflow: "auto",
             padding: "1rem",
-            marginLeft: "10px", // Give space for the trigger
+            marginLeft: "10px",
+            transition: "margin 0.3s ease",
           }}
         >
           {children}
