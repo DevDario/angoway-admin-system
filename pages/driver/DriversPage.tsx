@@ -9,13 +9,14 @@ import {
   faPlusCircle,
   faTrashCan,
   faEdit,
-  faBusSimple
+  faBusSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import DriversTable from "../../components/DriversTable";
 import BusesDriversTable from "../../components/BusesDriversTable";
 import SectionHeader from "../../components/SectionHeader";
 import "./DriversPage.css";
 import Button from "../../components/Button";
+import CreateDriverForm from "@/forms/CreateDriverForm";
 
 export default function DriversPage() {
   return (
@@ -82,10 +83,13 @@ export default function DriversPage() {
             </div>
           </div>
           <div className="register-driver-form-container">
-            <SectionHeader icon={faPlusCircle} title="Registrar novo Motorista" />
+            <SectionHeader
+              icon={faPlusCircle}
+              title="Registrar novo Motorista"
+            />
             <div className="register-driver-form-box">
               <div className="register-driver-form">
-
+                <CreateDriverForm />
               </div>
             </div>
           </div>
