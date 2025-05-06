@@ -17,6 +17,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "../src/components/ui/sidebar";
 
 // Menu items.
@@ -54,12 +55,38 @@ const items = [
 ];
 
 export default function AppSidebar() {
+  const { open } = useSidebar();
   return (
     <>
-      <Sidebar style={{ width: "250px", flexShrink: 0 }}>
+      {open && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            zIndex: 40,
+            cursor: "pointer",
+          }}
+        />
+      )}
+      <Sidebar
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          height: "100vh",
+          width: "250px",
+          zIndex: 50,
+          transform: open ? "translateX(0)" : "translateX(-100%)",
+          transition: "transform 0.3s ease",
+        }}
+      >
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupContent style={{ paddingLeft: 18,paddingTop: 50 }}>
+            <SidebarGroupContent style={{ paddingLeft: 18, paddingTop: 50 }}>
               <SidebarMenu style={{ paddingRight: 10 }}>
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
