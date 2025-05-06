@@ -1,11 +1,46 @@
-import React, { ReactNode } from 'react'
-import Navbar from '../components/Navbar'
+import React, { ReactNode } from "react";
+import AppSidebar from "../components/AppSideBar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-export default function Layout({children}:{children?: ReactNode}) {
+export default function Layout({ children }: { children?: ReactNode }) {
   return (
-      <div>
-          <Navbar />
+    <SidebarProvider>
+      <div
+        style={{
+          display: "flex",
+          minHeight: "100vh",
+          width: "100vw",
+          overflowX: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "fixed",
+            left: "22px",
+            top: "10px",
+            zIndex: 100,
+          }}
+        >
+          <SidebarTrigger style={{
+            background: "#0C6BFF",
+            borderRadius: "50%",
+            padding: "10px",
+            cursor:"pointer"
+          }}/>
+        </div>
+
+        <AppSidebar />
+        <main
+          style={{
+            flex: 1,
+            overflow: "auto",
+            padding: "1rem",
+            marginLeft: "10px", // Give space for the trigger
+          }}
+        >
           {children}
+        </main>
       </div>
-  )
+    </SidebarProvider>
+  );
 }
