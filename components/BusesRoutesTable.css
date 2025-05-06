@@ -1,0 +1,9 @@
+.buses-route-table {
+    padding: 30px;
+}
+
+.buses-route-table .buses-route-table-header .buses-route-table-head,
+.buses-route-table .buses-route-table-body .buses-route-table-cell {
+    padding: 10px;
+    border-radius: 5px;
+}
