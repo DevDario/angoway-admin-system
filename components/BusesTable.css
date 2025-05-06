@@ -1,0 +1,9 @@
+.buses-table {
+    padding: 3px;
+}
+
+.buses-table .buses-table-header .buses-table-head,
+.buses-table .buses-table-body .buses-table-cell {
+    padding: 10px;
+    border-radius: 5px;
+}
