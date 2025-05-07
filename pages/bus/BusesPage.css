@@ -74,13 +74,13 @@
 }
 
 
-.content-container .actions-area-container .register-driver-form-container {
+.content-container .actions-area-container .register-bus-form-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.content-container .actions-area-container .register-driver-form-container .register-driver-form-box {
+.content-container .actions-area-container .register-bus-form-container .register-bus-form-box {
     margin-top: 1.4rem;
     border: 1px solid #212121;
     border-radius: 10px;
