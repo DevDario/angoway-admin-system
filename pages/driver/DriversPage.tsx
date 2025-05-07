@@ -16,7 +16,7 @@ import BusesDriversTable from "../../components/BusesDriversTable";
 import SectionHeader from "../../components/SectionHeader";
 import "./DriversPage.css";
 import Button from "../../components/Button";
-import CreateDriverForm from "@/forms/CreateDriverForm";
+import CreateDriverForm from "../../src/forms/CreateDriverForm";
 import CreateDriverDialog from "../../components/CreateDriverDialog";
 
 export default function DriversPage() {
