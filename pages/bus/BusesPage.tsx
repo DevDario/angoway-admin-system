@@ -13,6 +13,7 @@ import BusesTable from "../../components/BusesTable";
 import SectionHeader from "../../components/SectionHeader";
 import "./BusesPage.css";
 import Button from "../../components/Button";
+import CreateBusForm from "@/forms/CreateBusForm";
 
 export default function BusesPage() {
   return (
@@ -79,7 +80,9 @@ export default function BusesPage() {
               title="Registrar novo Autocarro"
             />
             <div className="register-bus-form-box">
-              <div className="register-bus-form"></div>
+              <div className="register-bus-form">
+                <CreateBusForm />
+              </div>
             </div>
           </div>
         </div>
