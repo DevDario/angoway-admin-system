@@ -13,7 +13,7 @@ import BusesTable from "../../components/BusesTable";
 import SectionHeader from "../../components/SectionHeader";
 import "./BusesPage.css";
 import Button from "../../components/Button";
-import CreateBusForm from "@/forms/CreateBusForm";
+import CreateBusForm from "../../src/forms/CreateBusForm";
 
 export default function BusesPage() {
   return (
