@@ -5,6 +5,7 @@ import {
   Settings,
   RouteIcon,
   LocateFixedIcon,
+  MessageSquareWarning
 } from "lucide-react";
 import { Link } from "react-router";
 import React from "react";
@@ -46,6 +47,11 @@ const items = [
     title: "Paragens",
     url: "/stops",
     icon: LocateFixedIcon,
+  },
+  {
+    title: "Alertas",
+    url: "/alerts",
+    icon: MessageSquareWarning,
   },
   {
     title: "Configurações",
