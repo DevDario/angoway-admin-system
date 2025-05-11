@@ -20,9 +20,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
 import DashboardTable from "../../components/DashboardTable";
 import { Link } from "react-router";
+import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 
 export default function DashboardPage() {
-  // custom hooks to fetch chart's, table and cards data
+  const { recentAlert } = useAlertsChannel();
   return (
     <Layout>
       <div className="content-container">
@@ -86,11 +87,12 @@ export default function DashboardPage() {
               title="exportar dados"
             />
           </div>
-          <div className="chart-box" style={{height: "450px"}}>
+          <div className="chart-box" style={{ height: "450px" }}>
             <h2 className="chart-title">Faturação Total</h2>
             <CustomLineChart />
           </div>
         </div>
+        {/* toast notification showing the alert */}
         <Link
           to={"/drivers"}
           style={{
@@ -99,7 +101,8 @@ export default function DashboardPage() {
             cursor: "pointer",
           }}
         >
-          Go to Drivers <FontAwesomeIcon icon={faArrowRight} width={15} height={15} />
+          Go to Drivers{" "}
+          <FontAwesomeIcon icon={faArrowRight} width={15} height={15} />
         </Link>
       </div>
     </Layout>
