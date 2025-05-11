@@ -1,0 +1,28 @@
+.content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.alerts-container {
+    margin-top: 2rem;
+}
+
+.header-container {
+    margin-bottom: 2rem;
+}
+
+.alert-chip {
+    margin-top: .5rem;
+}
+
+.alert-preview-container {
+    margin-top: 2rem;
+}
+
+.alert-preview-container .preview-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
