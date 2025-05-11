@@ -33,12 +33,12 @@ export default function AlertPreview({
       </div>
       <div className="message-container">
         <h1 className="message-label preview-label">Mensagem:</h1>
-        <h2 className="message-value">Um autocarro teve um acidente</h2>
+        <h2 className="message-value">{message}</h2>
       </div>
       <div className="location-container">
         <h1 className="location-label preview-label">Localização:</h1>
-        <div className="map-container">
-        </div>
+        <h2 className="location-value">{location.lat + "," + location.lng}</h2>
+        <div className="map-container"></div>
       </div>
     </div>
   );
