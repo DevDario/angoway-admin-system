@@ -3,15 +3,15 @@ import "./AlertPreview.css";
 
 type AlertPreviewProps = {
   type: string;
-  busNIA: string;
-  timestamp: string;
+  driverId: number;
+  timestamp: number;
   message: string;
   location: { lat: number; lng: number };
 };
 
 export default function AlertPreview({
   type,
-  busNIA,
+  driverId,
   timestamp,
   message,
   location,
@@ -25,7 +25,7 @@ export default function AlertPreview({
       </div>
       <div className="emitter-id-container">
         <h1 className="emitter-label preview-label">Emitido:</h1>
-        <h2 className="emitter-id-value">{busNIA}</h2>
+        <h2 className="emitter-id-value">{driverId}</h2>
       </div>
       <div className="timestamp-container">
         <h1 className="timestamp-label preview-label">Emitido em:</h1>
