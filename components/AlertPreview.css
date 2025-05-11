@@ -1,0 +1,66 @@
+.alert-preview-card-container {
+    width: 420px;
+    height: 470px;
+    border-radius: 9px;
+    border: 1px solid #212121;
+    box-shadow: #0e0d0d 0px 10px 20px 0px;
+    transition: all 300ms ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 25px;
+}
+
+.alert-preview-card-container:hover {
+    border: 1px solid #0C6BFF;
+    transition: all 300ms ease-out;
+}
+
+.alert-preview-card-container .alert-type-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.preview-label {
+    font-weight: 600;
+}
+
+.alert-preview-card-container .alert-type-container .alert-type {
+    width: fit-content;
+    height: 30px;
+    padding-right: 10px;
+    border-radius: 5px;
+    background-color: #0C6BFF;
+    align-items: center;
+    align-content: center;
+    justify-content: center
+}
+
+.alert-type-container .alert-type>.alert-type-text {
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 9px;
+}
+
+.alert-preview-card-container .emitter-id-container,
+.alert-preview-card-container .timestamp-container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #212121;
+    padding: 5px;
+    border-radius: 9px;
+    margin-bottom: 5px;
+}
+
+.alert-preview-card-container .message-container,
+.alert-preview-card-container .location-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alert-preview-card-container .message-container .message-value {
+    margin-left: 25px;
+    font-style: italic;
+}
