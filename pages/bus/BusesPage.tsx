@@ -11,6 +11,7 @@ import SectionHeader from "../../components/SectionHeader";
 import "./BusesPage.css";
 import Button from "../../components/Button";
 import CreateBusForm from "../../src/forms/CreateBusForm";
+import CreateBusDialog from "../../components/CreateBusDialog"
 
 export default function BusesPage() {
   function handleDelete() {}
@@ -41,13 +42,15 @@ export default function BusesPage() {
           <div className="buses-table-action-buttons-container">
             <SectionHeader icon={faBusSimple} title="Autocarros" />
             <div className="action-buttons">
-              <Button
-                text="Criar"
-                icon={faPlusCircle}
-                iconColor="#FFF"
-                onClick={() => {}}
-                title="cadastrar novo autocarro"
-              />
+              <CreateBusDialog>
+                <Button
+                  text="Criar"
+                  icon={faPlusCircle}
+                  iconColor="#FFF"
+                  onClick={() => {}}
+                  title="cadastrar novo autocarro"
+                />
+              </CreateBusDialog>
             </div>
           </div>
           <div className="buses-table-box">
