@@ -11,6 +11,7 @@ import {
 import "./DriversTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import IdDialog from "./IdDialog";
 
 const mockEmployees = [
   {
@@ -150,18 +151,20 @@ export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
               {e.estado}
             </TableCell>
             <TableCell className="text-right drivers-table-cell">
-              <button
-                className="action-button"
-                style={{ marginRight: 20, cursor: "pointer" }}
-                onClick={() => onDelete()}
-              >
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  width={18}
-                  height={18}
-                  color="#FCFCFB"
-                />
-              </button>
+              <IdDialog buttonText="Apagar" dialogLabel="ID" dialogTitle="Apagar Motorista">
+                <button
+                  className="action-button"
+                  style={{ marginRight: 20, cursor: "pointer" }}
+                  onClick={() => onDelete()}
+                >
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    width={18}
+                    height={18}
+                    color="#FCFCFB"
+                  />
+                </button>
+              </IdDialog>
               <button
                 className="action-button"
                 style={{ cursor: "pointer" }}

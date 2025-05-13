@@ -11,6 +11,7 @@ import {
 import "./BusesTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import IdDialog from "./IdDialog";
 
 const mockBuses = [
   {
@@ -118,18 +119,20 @@ export default function BusesTable({ onDelete, onEdit }: BusesTableProps) {
             <TableCell className="buses-table-cell">{e.capacidade}</TableCell>
             <TableCell className="buses-table-cell">{e.motorista}</TableCell>
             <TableCell className="text-right buses-table-cell">
-              <button
-                className="action-button"
-                style={{ marginRight: 20, cursor: "pointer" }}
-                onClick={() => onDelete()}
-              >
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  width={18}
-                  height={18}
-                  color="#FCFCFB"
-                />
-              </button>
+              <IdDialog buttonText="Apagar" dialogLabel="ID" dialogTitle="Apagar Autocarro">
+                <button
+                  className="action-button"
+                  style={{ marginRight: 20, cursor: "pointer" }}
+                  onClick={() => onDelete()}
+                >
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    width={18}
+                    height={18}
+                    color="#FCFCFB"
+                  />
+                </button>
+              </IdDialog>
               <button
                 className="action-button"
                 style={{ cursor: "pointer" }}
