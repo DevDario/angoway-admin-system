@@ -3,6 +3,7 @@ import Layout from "../_layout";
 import SectionHeader from "../../components/SectionHeader";
 import { faBoxOpen, faEye, faWarning } from "@fortawesome/free-solid-svg-icons";
 import AlertChip from "../../components/AlertChip";
+import AlertPreview from "../../components/AlertPreview";
 import "./AlertsPage.css";
 import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 import { AlertNotification } from "../../types/alert.notification";
@@ -10,9 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function AlertsPage() {
   const [visible, setVisible] = useState<boolean>(false);
-  const [previewAlert, setPreviewAlert] = useState<AlertNotification | null>(
-    null
-  );
+  const [previewAlert, setPreviewAlert] = useState<AlertNotification>();
   const { alerts } = useAlertsChannel();
 
   function handleAlertSelect(alert: AlertNotification) {
@@ -45,8 +44,15 @@ export default function AlertsPage() {
         <div className="alert-preview-container">
           <SectionHeader title="Preview" icon={faEye} />
           <div className="preview-box">
-            {visible && previewAlert !== null ? (
-              <p>preview alert</p>
+            {visible && (previewAlert !== undefined) ? (
+              <AlertPreview
+                driverId={Number(previewAlert.driverId)}
+                location={previewAlert.loc || {lat:0,lng:0}}
+                message={previewAlert.message}
+                timestamp={Number(previewAlert.timestamp)}
+                type={previewAlert.type}
+                key={"selected-alert"}
+              />
             ) : (
               <p className="preview-box-text">
                 Escolhe um alerta para visualizar
