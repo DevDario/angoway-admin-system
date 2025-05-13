@@ -9,6 +9,8 @@ import {
   TableRow,
 } from "../src/components/ui/table";
 import "./DriversTable.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 
 const mockEmployees = [
   {
@@ -17,7 +19,7 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "1/01/2025",
-    exp:"5 Anos",
+    exp: "5 Anos",
     NIA: "#123",
     estado: "Em Serviço",
   },
@@ -27,7 +29,7 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "02/01/2025",
-    exp:"4 Anos",
+    exp: "4 Anos",
     NIA: "#111",
     estado: "Fora de Serviço",
   },
@@ -37,7 +39,7 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "03/01/2025",
-    exp:"3 Anos",
+    exp: "3 Anos",
     NIA: "#222",
     estado: "Em Serviço",
   },
@@ -47,7 +49,7 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "04/02/2025",
-    exp:"6 Anos",
+    exp: "6 Anos",
     NIA: "#673",
     estado: "Em Serviço",
   },
@@ -57,7 +59,7 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "12/04/2025",
-    exp:"1 Ano",
+    exp: "1 Ano",
     NIA: "#487",
     estado: "Fora de Serviço",
   },
@@ -67,7 +69,7 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "23/02/2025",
-    exp:"3 Anos",
+    exp: "3 Anos",
     NIA: "#444",
     estado: "Em Serviço",
   },
@@ -77,7 +79,7 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "23/02/2025",
-    exp:"2 Anos",
+    exp: "2 Anos",
     NIA: "#555",
     estado: "Em Serviço",
   },
@@ -87,13 +89,19 @@ const mockEmployees = [
     telefone: "+244 912 345 678",
     dataNasc: "01/12/2006",
     dataEfectivacao: "25/08/2025",
-    exp:"3 Anos",
+    exp: "3 Anos",
     NIA: "#134",
     estado: "Em Serviço",
   },
 ];
 
-export default function DriversTable() {
+type DriversTableProps = {
+  data?: typeof mockEmployees;
+  onDelete: () => void;
+  onEdit: () => void;
+};
+
+export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
   return (
     <Table className="drivers-table">
       <TableCaption>Motoristas na Empresa.</TableCaption>
@@ -114,6 +122,9 @@ export default function DriversTable() {
           <TableHead className="drivers-table-head">NIA</TableHead>
           <TableHead className="text-right drivers-table-head">
             Estado
+          </TableHead>
+          <TableHead className="text-right drivers-table-head">
+            Acções
           </TableHead>
         </TableRow>
       </TableHeader>
@@ -137,6 +148,32 @@ export default function DriversTable() {
             <TableCell className="drivers-table-cell">{e.NIA}</TableCell>
             <TableCell className="text-right drivers-table-cell font-bold">
               {e.estado}
+            </TableCell>
+            <TableCell className="text-right drivers-table-cell">
+              <button
+                className="action-button"
+                style={{ marginRight: 20, cursor: "pointer" }}
+                onClick={() => onDelete()}
+              >
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  width={18}
+                  height={18}
+                  color="#FCFCFB"
+                />
+              </button>
+              <button
+                className="action-button"
+                style={{ cursor: "pointer" }}
+                onClick={() => onEdit()}
+              >
+                <FontAwesomeIcon
+                  icon={faUserEdit}
+                  width={18}
+                  height={18}
+                  color="#0C6BFF"
+                />
+              </button>
             </TableCell>
           </TableRow>
         ))}

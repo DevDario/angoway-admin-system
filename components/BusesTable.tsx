@@ -9,6 +9,8 @@ import {
   TableRow,
 } from "../src/components/ui/table";
 import "./BusesTable.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 
 const mockBuses = [
   {
@@ -77,7 +79,13 @@ const mockBuses = [
   },
 ];
 
-export default function BusesTable() {
+type BusesTableProps = {
+  data?: typeof mockBuses;
+  onDelete: () => void;
+  onEdit: () => void;
+};
+
+export default function BusesTable({ onDelete, onEdit }: BusesTableProps) {
   return (
     <Table className="buses-table">
       <TableCaption>Autocarros na Empresa.</TableCaption>
@@ -91,6 +99,7 @@ export default function BusesTable() {
           <TableHead className="buses-table-head">Rota</TableHead>
           <TableHead className="buses-table-head">Capacidade</TableHead>
           <TableHead className="buses-table-head">Motorista</TableHead>
+          <TableHead className="buses-table-head text-right">Acções</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="buses-table-body">
@@ -108,6 +117,32 @@ export default function BusesTable() {
             <TableCell className="buses-table-cell">{e.rota}</TableCell>
             <TableCell className="buses-table-cell">{e.capacidade}</TableCell>
             <TableCell className="buses-table-cell">{e.motorista}</TableCell>
+            <TableCell className="text-right buses-table-cell">
+              <button
+                className="action-button"
+                style={{ marginRight: 20, cursor: "pointer" }}
+                onClick={() => onDelete()}
+              >
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  width={18}
+                  height={18}
+                  color="#FCFCFB"
+                />
+              </button>
+              <button
+                className="action-button"
+                style={{ cursor: "pointer" }}
+                onClick={() => onEdit()}
+              >
+                <FontAwesomeIcon
+                  icon={faUserEdit}
+                  width={18}
+                  height={18}
+                  color="#0C6BFF"
+                />
+              </button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
