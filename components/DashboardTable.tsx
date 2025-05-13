@@ -11,6 +11,7 @@ import {
 import "./DashboardTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import IdDialog from "../components/IdDialog"
 
 const mockEmployees = [
   {
@@ -108,18 +109,20 @@ export default function DashboardTable({
               {e.estado}
             </TableCell>
             <TableCell className="text-right employees-table-cell">
-              <button
-                className="action-button"
-                style={{ marginRight: 20, cursor: "pointer" }}
-                onClick={() => onDelete()}
-              >
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  width={18}
-                  height={18}
-                  color="#FCFCFB"
-                />
-              </button>
+              <IdDialog dialogLabel="ID" dialogTitle="Apagar Motorista" buttonText="Apagar">
+                <button
+                  className="action-button"
+                  style={{ marginRight: 20, cursor: "pointer" }}
+                  onClick={() => onDelete()}
+                >
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    width={18}
+                    height={18}
+                    color="#FCFCFB"
+                  />
+                </button>
+              </IdDialog>
               <button
                 className="action-button"
                 style={{ cursor: "pointer" }}
