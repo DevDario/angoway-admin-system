@@ -36,18 +36,26 @@ export default function AlertsPage() {
             ))
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <FontAwesomeIcon icon={faBoxOpen} width={15} height={15} color="#FCFCFB"/>
-              <p style={{marginLeft:"8px"}}>Sem alertas no momento</p>
+              <FontAwesomeIcon
+                icon={faBoxOpen}
+                width={15}
+                height={15}
+                color="#FCFCFB"
+              />
+              <p style={{ marginLeft: "8px" }}>Sem alertas no momento</p>
             </div>
           )}
         </div>
         <div className="alert-preview-container">
           <SectionHeader title="Preview" icon={faEye} />
           <div className="preview-box">
-            {visible && (previewAlert !== undefined) ? (
+            {visible && previewAlert !== undefined ? (
               <AlertPreview
                 driverId={Number(previewAlert.driverId)}
-                location={previewAlert.loc || {lat:0,lng:0}}
+                driverName={previewAlert.driverName}
+                busNIA={previewAlert.busNIA}
+                route={previewAlert.route}
+                loc={previewAlert.loc || { lat: 0, lng: 0 }}
                 message={previewAlert.message}
                 timestamp={Number(previewAlert.timestamp)}
                 type={previewAlert.type}
