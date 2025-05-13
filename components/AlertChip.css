@@ -1,6 +1,6 @@
 .alert-chip {
     width: 500px;
-    height: 50px;
+    height: max-content;
     border-radius: 9px;
     border: 1px solid #212121;
     padding: 10px;
@@ -19,13 +19,15 @@
     justify-content: space-between;
 }
 
-.alert-chip-container .alert-id-box>h1 {
-    font-weight: bold;
-}
-
+.alert-chip-container .alert-id-box>h1,
 .alert-chip-container .alert-message-body>p {
     font-weight: bold;
 }
+
+.alert-chip-container .alert-message-body{
+    margin-left: 5px;
+}
+
 
 .alert-chip-container .alert-timestamp-body {
     display: flex;
