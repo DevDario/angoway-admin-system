@@ -24,7 +24,7 @@ export default function AlertPreview({
         </div>
       </div>
       <div className="emitter-id-container">
-        <h1 className="emitter-label preview-label">Emitido:</h1>
+        <h1 className="emitter-label preview-label">Emitido Por:</h1>
         <h2 className="emitter-id-value">{driverId}</h2>
       </div>
       <div className="timestamp-container">
