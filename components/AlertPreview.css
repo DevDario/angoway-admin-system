@@ -54,7 +54,8 @@
 }
 
 .alert-preview-card-container .message-container,
-.alert-preview-card-container .location-container {
+.alert-preview-card-container .location-container,
+.alert-preview-card-container .details-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
