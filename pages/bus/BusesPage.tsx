@@ -47,20 +47,6 @@ export default function BusesPage() {
                 onClick={() => {}}
                 title="cadastrar novo autocarro"
               />
-              <Button
-                text="Apagar"
-                onClick={() => {}}
-                icon={faTrashCan}
-                iconColor="#FFF"
-                title="apagar autocarro"
-              />
-              <Button
-                text="Editar"
-                onClick={() => {}}
-                icon={faEdit}
-                iconColor="#FFF"
-                title="editar"
-              />
             </div>
           </div>
           <div className="buses-table-box">

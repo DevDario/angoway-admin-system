@@ -58,20 +58,6 @@ export default function DriversPage() {
                   title="cadastrar novo motorista"
                 />
               </CreateDriverDialog>
-              <Button
-                text="Apagar"
-                onClick={() => {}}
-                icon={faTrashCan}
-                iconColor="#FFF"
-                title="apagar motorista"
-              />
-              <Button
-                text="Editar"
-                onClick={() => {}}
-                icon={faEdit}
-                iconColor="#FFF"
-                title="editar"
-              />
             </div>
           </div>
           <div className="employees-table-box">
