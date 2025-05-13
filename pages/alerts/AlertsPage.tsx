@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Layout from "../_layout";
 import SectionHeader from "../../components/SectionHeader";
-import { faEye, faWarning } from "@fortawesome/free-solid-svg-icons";
+import { faBoxOpen, faEye, faWarning } from "@fortawesome/free-solid-svg-icons";
 import AlertChip from "../../components/AlertChip";
 import "./AlertsPage.css";
 import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 import { AlertNotification } from "../../types/alert.notification";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function AlertsPage() {
   const [visible, setVisible] = useState<boolean>(false);
-  const [previewAlert, setPreviewAlert] = useState<AlertNotification | null>(null);
+  const [previewAlert, setPreviewAlert] = useState<AlertNotification | null>(
+    null
+  );
   const { alerts } = useAlertsChannel();
 
   function handleAlertSelect(alert: AlertNotification) {
@@ -33,7 +36,10 @@ export default function AlertsPage() {
               />
             ))
           ) : (
-            <p>Sem alertas no momento</p>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <FontAwesomeIcon icon={faBoxOpen} width={15} height={15} color="#FCFCFB"/>
+              <p style={{marginLeft:"8px"}}>Sem alertas no momento</p>
+            </div>
           )}
         </div>
         <div className="alert-preview-container">
