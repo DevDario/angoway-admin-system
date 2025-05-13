@@ -2,10 +2,7 @@ import React from "react";
 import Layout from "../_layout";
 import DashboardDataCard from "../../components/DashboardDataCard";
 import {
-  faUser,
   faPlusCircle,
-  faTrashCan,
-  faEdit,
   faBusSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import BusesRoutesTable from "../../components/BusesRoutesTable";
@@ -16,6 +13,10 @@ import Button from "../../components/Button";
 import CreateBusForm from "../../src/forms/CreateBusForm";
 
 export default function BusesPage() {
+  function handleDelete() {}
+
+  function handleEdit() {}
+
   return (
     <Layout>
       <div className="content-container">
@@ -50,7 +51,10 @@ export default function BusesPage() {
             </div>
           </div>
           <div className="buses-table-box">
-            <BusesTable />
+            <BusesTable
+              onDelete={() => handleDelete}
+              onEdit={() => handleEdit}
+            />
           </div>
         </div>
         <div className="actions-area-container">

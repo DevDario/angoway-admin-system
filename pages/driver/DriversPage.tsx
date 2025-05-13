@@ -20,6 +20,19 @@ import CreateDriverForm from "../../src/forms/CreateDriverForm";
 import CreateDriverDialog from "../../components/CreateDriverDialog";
 
 export default function DriversPage() {
+
+  function handleCreate() {
+    
+  }
+
+  function handleDelete() {
+    
+  }
+
+  function handleEdit() {
+    
+  }
+
   return (
     <Layout>
       <div className="content-container">
@@ -54,14 +67,14 @@ export default function DriversPage() {
                   text="Criar"
                   icon={faPlusCircle}
                   iconColor="#FFF"
-                  onClick={() => {}}
+                  onClick={() => handleCreate}
                   title="cadastrar novo motorista"
                 />
               </CreateDriverDialog>
             </div>
           </div>
           <div className="employees-table-box">
-            <DriversTable />
+            <DriversTable onDelete={()=> handleDelete} onEdit={()=> handleEdit}/>
           </div>
         </div>
         <div className="actions-area-container">

@@ -24,6 +24,11 @@ import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
+
+  function handleDelete() {}
+
+  function handleEdit() {}
+
   return (
     <Layout>
       <div className="content-container">
@@ -73,7 +78,10 @@ export default function DashboardPage() {
         <div className="employees-table-container">
           <SectionHeader icon={faClock} title="Motoristas Recentes" />
           <div className="employees-table-box">
-            <DashboardTable />
+            <DashboardTable
+              onDelete={() => handleDelete}
+              onEdit={() => handleEdit}
+            />
           </div>
         </div>
         <div className="chart-container">
