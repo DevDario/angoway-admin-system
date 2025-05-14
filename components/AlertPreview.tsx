@@ -1,7 +1,7 @@
 import React from "react";
 import "./AlertPreview.css";
 import { AlertNotification } from "types/alert.notification";
-
+import AlertPreviewMapView from "../components/AlertPreviewMapView";
 
 export default function AlertPreview({
   type,
@@ -42,7 +42,9 @@ export default function AlertPreview({
       <div className="location-container">
         <h1 className="location-label preview-label">Localização:</h1>
         <h2 className="location-value">{loc?.lat + "," + loc?.lng}</h2>
-        <div className="map-container"></div>
+        <div className="map-container">
+          <AlertPreviewMapView lat={loc?.lat || 0} lng={loc?.lng || 0} />
+        </div>
       </div>
     </div>
   );
