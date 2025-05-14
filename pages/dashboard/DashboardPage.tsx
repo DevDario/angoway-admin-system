@@ -57,12 +57,6 @@ export default function DashboardPage() {
         <div className="chart-container">
           <div className="chart-action-buttons-container">
             <Button
-              text="Mensal"
-              onClick={() => {}}
-              icon={faChevronDown}
-              iconColor="#FFF"
-            />
-            <Button
               text="Baixar"
               onClick={() => {}}
               icon={faDownload}
