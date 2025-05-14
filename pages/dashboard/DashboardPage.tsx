@@ -15,15 +15,18 @@ import {
   faMoneyBills,
   faDownload,
   faArrowRight,
+  faWarning,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
 import DashboardTable from "../../components/DashboardTable";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAlertsChannel } from "../../hooks/useAlertsChannel";
+import {toast} from "sonner"
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
+  const navigator =  useNavigate();
 
   function handleDelete() {}
 
@@ -100,18 +103,14 @@ export default function DashboardPage() {
             <CustomLineChart />
           </div>
         </div>
-        {/* toast notification showing the alert */}
-        <Link
-          to={"/drivers"}
-          style={{
-            color: "#0C6BFF",
-            fontWeight: "800",
-            cursor: "pointer",
-          }}
-        >
-          Go to Drivers{" "}
-          <FontAwesomeIcon icon={faArrowRight} width={15} height={15} />
-        </Link>
+        {recentAlert &&
+          toast(`${recentAlert?.message}`, {
+            action: {
+              label: "Ver",
+              onClick: () => navigator("/alerts"),
+            },
+            icon: <FontAwesomeIcon icon={faWarning} />
+          })}
       </div>
     </Layout>
   );
