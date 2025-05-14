@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker,Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -23,7 +23,9 @@ export default function AlertPreviewMapView({lat, lng}: {lat: number, lng: numbe
         key={"bus-last-loc"}
         position={[lat, lng]}
         icon={customIcon}
-      />
+      >
+        <Popup>Última localização conhecida</Popup>
+      </Marker>
     </MapContainer>
   );
 };
