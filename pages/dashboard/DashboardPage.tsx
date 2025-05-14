@@ -51,7 +51,11 @@ export default function DashboardPage() {
             value={42}
             icon={faUser}
           />
-          <DashboardDataCard label="..." value={10} icon={faQuestionCircle} />
+          <DashboardDataCard
+            label="Autocarros Pendentes"
+            value={10}
+            icon={faBusSimple}
+          />
           <DashboardDataCard label="..." value={10} icon={faQuestionCircle} />
         </div>
         <div className="chart-container">
@@ -103,7 +107,7 @@ export default function DashboardPage() {
               label: "Ver",
               onClick: () => navigator("/alerts"),
             },
-            icon: <FontAwesomeIcon icon={faWarning} />
+            icon: <FontAwesomeIcon icon={faWarning} />,
           })}
       </div>
     </Layout>
