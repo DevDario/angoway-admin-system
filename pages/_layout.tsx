@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import AppSidebar from "../components/AppSideBar";
 import { SidebarProvider, SidebarTrigger } from "../src/components/ui/sidebar";
+import {Toaster} from "../src/components/ui/sonner"
 
 export default function Layout({ children }: { children?: ReactNode }) {
   return (
@@ -42,6 +43,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
             transition: "margin 0.3s ease",
           }}
         >
+          <Toaster richColors position="top-center"/>
           {children}
         </main>
       </div>
