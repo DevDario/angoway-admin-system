@@ -2,6 +2,9 @@ import React from "react";
 import "./AlertPreview.css";
 import { AlertNotification } from "types/alert.notification";
 import AlertPreviewMapView from "../components/AlertPreviewMapView";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "sonner";
 
 export default function AlertPreview({
   type,
@@ -13,6 +16,29 @@ export default function AlertPreview({
   busNIA,
   route,
 }: AlertNotification) {
+  function formatTimestamp(timestamp: number): string {
+    const date = new Date(timestamp);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+    return date.toLocaleString("pt-BR", options);
+  }
+  const formattedTimestamp = formatTimestamp(Number(timestamp));
+
+  function handleCopyLocation() {
+    if (loc) {
+      navigator.clipboard.writeText(`${loc.lat},${loc.lng}`);
+      toast.success("Localização Copiada");
+    } else {
+      toast.error("Não foi possível salvar a Localização");
+    }
+  }
+
   return (
     <div className="alert-preview-card-container">
       <div className="alert-type-container">
@@ -26,7 +52,7 @@ export default function AlertPreview({
       </div>
       <div className="timestamp-container">
         <h1 className="timestamp-label preview-label">Emitido em:</h1>
-        <h2 className="timestamp-value">{timestamp}</h2>
+        <h2 className="timestamp-value">{formattedTimestamp}</h2>
       </div>
       <div className="details-container">
         <h1 className="details-label preview-label">Detalhes do Autocarro:</h1>
@@ -41,7 +67,16 @@ export default function AlertPreview({
       </div>
       <div className="location-container">
         <h1 className="location-label preview-label">Localização:</h1>
-        <h2 className="location-value">{loc?.lat + "," + loc?.lng}</h2>
+        <h2 className="location-value">
+          {loc?.lat + "," + loc?.lng}
+          <FontAwesomeIcon
+            icon={faCopy}
+            style={{ cursor: "pointer", marginLeft: 8 }}
+            onClick={() => handleCopyLocation()}
+            title="Copiar localização"
+            color="#0C6BFF"
+          />
+        </h2>
         <div className="map-container">
           <AlertPreviewMapView lat={loc?.lat || 0} lng={loc?.lng || 0} />
         </div>
