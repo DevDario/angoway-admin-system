@@ -7,8 +7,6 @@ import {
   faCheckCircle,
   faClose,
   faPlusCircle,
-  faTrashCan,
-  faEdit,
   faBusSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import DriversTable from "../../components/DriversTable";
@@ -18,20 +16,16 @@ import "./DriversPage.css";
 import Button from "../../components/Button";
 import CreateDriverForm from "../../src/forms/CreateDriverForm";
 import CreateDriverDialog from "../../components/CreateDriverDialog";
+import { useDriver } from "../../hooks/useDriver";
 
 export default function DriversPage() {
+  const { useDeleteDriver } = useDriver();
 
-  function handleCreate() {
-    
+  async function handleDelete(id: number) {
+    useDeleteDriver.mutateAsync(id)
   }
 
-  function handleDelete() {
-    
-  }
-
-  function handleEdit() {
-    
-  }
+  function handleEdit(id: number) {}
 
   return (
     <Layout>
@@ -67,14 +61,17 @@ export default function DriversPage() {
                   text="Criar"
                   icon={faPlusCircle}
                   iconColor="#FFF"
-                  onClick={() => handleCreate}
+                  onClick={() => {}}
                   title="cadastrar novo motorista"
                 />
               </CreateDriverDialog>
             </div>
           </div>
           <div className="employees-table-box">
-            <DriversTable onDelete={()=> handleDelete} onEdit={()=> handleEdit}/>
+            <DriversTable
+              onDelete={(id: number) => handleDelete(id)}
+              onEdit={(id: number) => handleEdit(id)}
+            />
           </div>
         </div>
         <div className="actions-area-container">
