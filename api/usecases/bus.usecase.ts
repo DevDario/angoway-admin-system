@@ -4,11 +4,17 @@ import { getToken } from "../../utils/secure-store";
 import { BusResponse } from "../../types/bus.response";
 import { ResponseBody } from "../../types/response.body";
 
-export const createBus = async (body: Bus): Promise<ResponseBody> => {
+export const createBus = async ({
+  matricula,
+  capacity,
+  currentLoad,
+  location,
+  routeId
+}: Bus): Promise<ResponseBody> => {
   const token = getToken();
   const response = await api.post(
     "/bus",
-    { body },
+    { matricula, capacity, currentLoad, location, routeId },
     {
       headers: {
         Authorization: `Bearer ${token}`,
