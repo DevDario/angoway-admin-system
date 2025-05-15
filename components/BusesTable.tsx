@@ -12,81 +12,24 @@ import "./BusesTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import IdDialog from "./IdDialog";
-
-const mockBuses = [
-  {
-    id: 1,
-    NIA: "#543",
-    matricula: "LD-32-34-DF",
-    rota: "Patriota-Benfica",
-    capacidade: 40,
-    motorista: "João Silva",
-  },
-  {
-    id: 2,
-    NIA: "#544",
-    matricula: "LD-45-67-GH",
-    rota: "Talatona-Cazenga",
-    capacidade: 35,
-    motorista: "Maria Oliveira",
-  },
-  {
-    id: 3,
-    NIA: "#545",
-    matricula: "LD-78-90-IJ",
-    rota: "Viana-Kilamba",
-    capacidade: 50,
-    motorista: "Carlos Santos",
-  },
-  {
-    id: 4,
-    NIA: "#546",
-    matricula: "LD-12-34-KL",
-    rota: "Benfica-Cidade Alta",
-    capacidade: 45,
-    motorista: "Ana Costa",
-  },
-  {
-    id: 5,
-    NIA: "#547",
-    matricula: "LD-56-78-MN",
-    rota: "Cacuaco-Mutamba",
-    capacidade: 30,
-    motorista: "Pedro Ferreira",
-  },
-  {
-    id: 6,
-    NIA: "#548",
-    matricula: "LD-90-12-OP",
-    rota: "Zango-Maianga",
-    capacidade: 40,
-    motorista: "Sofia Almeida",
-  },
-  {
-    id: 7,
-    NIA: "#549",
-    matricula: "LD-34-56-QR",
-    rota: "Kilamba-Cidade Alta",
-    capacidade: 50,
-    motorista: "Ricardo Lima",
-  },
-  {
-    id: 8,
-    NIA: "#550",
-    matricula: "LD-78-90-ST",
-    rota: "Talatona-Benfica",
-    capacidade: 35,
-    motorista: "Fernanda Rocha",
-  },
-];
+import { useBus } from "../hooks/useBus";
+import { useState, useEffect } from "react";
+import { BusResponse } from "../types/bus.response";
 
 type BusesTableProps = {
-  data?: typeof mockBuses;
-  onDelete: () => void;
-  onEdit: () => void;
+  onDelete: (id: number) => void;
+  onEdit: (id: number) => void;
 };
 
 export default function BusesTable({ onDelete, onEdit }: BusesTableProps) {
+  const { useGetBuses } = useBus();
+  const { data } = useGetBuses;
+  const [buses, setBuses] = useState<BusResponse[] | []>([]);
+
+  useEffect(() => {
+    if (data !== undefined) setBuses(data);
+  }, [data]);
+
   return (
     <Table className="buses-table">
       <TableCaption>Autocarros na Empresa.</TableCaption>
@@ -104,39 +47,37 @@ export default function BusesTable({ onDelete, onEdit }: BusesTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody className="buses-table-body">
-        {mockBuses.map((e) => (
-          <TableRow key={e.id}>
+        {buses.map((bus: BusResponse) => (
+          <TableRow key={bus.id}>
             <TableCell className="font-medium p-30 buses-table-cell">
-              {e.id}
+              {bus.id}
             </TableCell>
             <TableCell className="font-medium p-30 buses-table-cell">
-              {e.NIA}
+              {bus.nia}
             </TableCell>
             <TableCell className="font-medium p-30 buses-table-cell">
-              {e.matricula}
+              {bus.matricula}
             </TableCell>
-            <TableCell className="buses-table-cell">{e.rota}</TableCell>
-            <TableCell className="buses-table-cell">{e.capacidade}</TableCell>
-            <TableCell className="buses-table-cell">{e.motorista}</TableCell>
+            <TableCell className="buses-table-cell">{bus.route}</TableCell>
+            <TableCell className="buses-table-cell">{bus.capacity}</TableCell>
+            <TableCell className="buses-table-cell">{bus.driverName}</TableCell>
             <TableCell className="text-right buses-table-cell">
-              <IdDialog buttonText="Apagar" dialogLabel="ID" dialogTitle="Apagar Autocarro">
-                <button
-                  className="action-button"
-                  style={{ marginRight: 20, cursor: "pointer" }}
-                  onClick={() => onDelete()}
-                >
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    width={18}
-                    height={18}
-                    color="#FCFCFB"
-                  />
-                </button>
-              </IdDialog>
+              <button
+                className="action-button"
+                style={{ marginRight: 20, cursor: "pointer" }}
+                onClick={() => onDelete(bus.id)}
+              >
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  width={18}
+                  height={18}
+                  color="#FCFCFB"
+                />
+              </button>
               <button
                 className="action-button"
                 style={{ cursor: "pointer" }}
-                onClick={() => onEdit()}
+                onClick={() => onEdit(bus.id)}
               >
                 <FontAwesomeIcon
                   icon={faUserEdit}
