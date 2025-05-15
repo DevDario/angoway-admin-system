@@ -35,19 +35,22 @@ export default function IdDialog({
   dialogTitle,
   dialogLabel,
   buttonText,
+  action,
 }: {
   children: ReactNode;
   dialogTitle: string;
   dialogLabel: string;
   buttonText: string;
+  action: (id: number) => void;
 }) {
   const form = useForm({
     resolver: zodResolver(idDialogSchema),
   });
 
   function onSubmit(values: z.infer<typeof idDialogSchema>) {
-    console.log(values);
+    return action(Number(values.id));
   }
+  
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
