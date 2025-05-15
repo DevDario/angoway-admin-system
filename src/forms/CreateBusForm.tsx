@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createBusSchema } from "@/schemas/bus.create.schema";
+import { Bus } from "types/Bus";
+import { useBus } from "../../hooks/useBus";
 
 export default function CreateBusForm() {
   const form = useForm({
@@ -28,8 +30,20 @@ export default function CreateBusForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof createBusSchema>) {
-    console.log(values);
+  const { useCreateBus } = useBus();
+
+  async function handleCreateBus(body: Bus) {
+    useCreateBus.mutateAsync(body);
+  }
+
+  async function onSubmit(values: z.infer<typeof createBusSchema>) {
+    return handleCreateBus({
+      capacity: Number(values.capacidade),
+      currentLoad: 0,
+      location: "",
+      matricula: values.matricula,
+      routeId: Number(values.rota),
+    });
   }
 
   return (
@@ -73,6 +87,7 @@ export default function CreateBusForm() {
                     height: 45,
                     width: 400,
                   }}
+                  type="number"
                 />
               </FormControl>
               <FormMessage />
@@ -94,6 +109,7 @@ export default function CreateBusForm() {
                     height: 45,
                     width: 400,
                   }}
+                  type="number"
                 />
               </FormControl>
               <FormMessage />
@@ -109,13 +125,13 @@ export default function CreateBusForm() {
               <FormControl>
                 <Input
                   className="input"
-                  placeholder="John Doe"
                   {...field}
                   style={{
                     padding: 10,
                     height: 45,
                     width: 400,
                   }}
+                  type="number"
                 />
               </FormControl>
               <FormMessage />
