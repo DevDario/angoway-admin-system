@@ -2,8 +2,9 @@ import { Bus } from "../../types/Bus";
 import { api } from "../axios-instance";
 import { getToken } from "../../utils/secure-store";
 import { BusResponse } from "../../types/bus.response";
+import { ResponseBody } from "../../types/response.body";
 
-export const createBus = async (body: Bus) => {
+export const createBus = async (body: Bus): Promise<ResponseBody> => {
   const token = getToken();
   const response = await api.post(
     "/bus",
@@ -29,7 +30,10 @@ export const getBuses = async (): Promise<BusResponse[] | []> => {
   return response.data;
 };
 
-export const updateBus = async (id: number, body: Bus) => {
+export const updateBus = async (
+  id: number,
+  body: Bus
+): Promise<ResponseBody> => {
   const token = getToken();
   const response = await api.put(
     `/bus/${id}`,
@@ -44,7 +48,7 @@ export const updateBus = async (id: number, body: Bus) => {
   return response.data;
 };
 
-export const deleteBus = async (id: number) => {
+export const deleteBus = async (id: number): Promise<ResponseBody> => {
   const token = getToken();
   const response = await api.delete(`/bus/${id}`, {
     headers: {
