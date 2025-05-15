@@ -1,22 +1,26 @@
 import React from "react";
 import Layout from "../_layout";
 import DashboardDataCard from "../../components/DashboardDataCard";
-import {
-  faPlusCircle,
-  faBusSimple,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faBusSimple } from "@fortawesome/free-solid-svg-icons";
 import BusesRoutesTable from "../../components/BusesRoutesTable";
 import BusesTable from "../../components/BusesTable";
 import SectionHeader from "../../components/SectionHeader";
 import "./BusesPage.css";
 import Button from "../../components/Button";
 import CreateBusForm from "../../src/forms/CreateBusForm";
-import CreateBusDialog from "../../components/CreateBusDialog"
+import CreateBusDialog from "../../components/CreateBusDialog";
+import { useBus } from "../../hooks/useBus";
 
 export default function BusesPage() {
-  function handleDelete() {}
+  const { useDeleteBus, useUpdateBus } = useBus();
 
-  function handleEdit() {}
+  async function handleDelete(id: number) {
+    useDeleteBus.mutateAsync(id);
+  }
+
+  async function handleEdit() {
+    useUpdateBus.mutateAsync();
+  }
 
   return (
     <Layout>
@@ -55,7 +59,7 @@ export default function BusesPage() {
           </div>
           <div className="buses-table-box">
             <BusesTable
-              onDelete={() => handleDelete}
+              onDelete={(id:number) => handleDelete(id)}
               onEdit={() => handleEdit}
             />
           </div>
