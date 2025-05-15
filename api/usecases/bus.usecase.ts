@@ -18,7 +18,7 @@ export const createBus = async (body: Bus) => {
   return response.data;
 };
 
-export const getBuses = async (): Promise<BusResponse | []> => {
+export const getBuses = async (): Promise<BusResponse[] | []> => {
   const token = getToken();
   const response = await api.get("/bus", {
     headers: {
