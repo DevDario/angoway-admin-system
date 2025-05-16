@@ -22,7 +22,7 @@ type DriversTableProps = {
 
 export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
   const { useGetDrivers} = useDriver()
-  const { data,error, isSuccess } = useGetDrivers;
+  const { data,error } = useGetDrivers;
   const [drivers, setDrivers] = useState<DriverResponse[] | []>([]);
 
   useEffect(() => {
@@ -35,9 +35,9 @@ export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
       })
   }
 
-  if (isSuccess) {
-    toast("Lista de Motoristas actualizada");
-  }
+  // if (!error) {
+  //   toast("Lista de Motoristas actualizada");
+  // }
 
   return (
     <Table className="drivers-table">
