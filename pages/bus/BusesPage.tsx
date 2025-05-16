@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../_layout";
 import DashboardDataCard from "../../components/DashboardDataCard";
 import { faPlusCircle, faBusSimple } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,36 @@ import CreateBusDialog from "../../components/CreateBusDialog";
 import { useBus } from "../../hooks/useBus";
 
 export default function BusesPage() {
-  const { useDeleteBus, useUpdateBus } = useBus();
+  const { useDeleteBus, useUpdateBus, useGetBuses, useGetActiveBusesCount, useGetInactiveBusesCount, useGetPendingBusesCount } = useBus();
+
+  const { data: activeBuses } = useGetActiveBusesCount;
+  const { data: inactiveBuses } = useGetInactiveBusesCount;
+  const { data: pendingBuses } = useGetPendingBusesCount;
+  const { data: buses } = useGetBuses;
+
+  const [busesCount, setBusesCount] = useState<number | null>(0);
+  const [activeBusesCount, setActiveBusesCount] = useState<number | null>(0);
+  const [inactiveBusesCount, setInactiveBusesCount] = useState<number | null>(0);
+  const [pendingBusesCount, setPendingBusesCount] = useState<number | null>(0);
+
+  useEffect(() => { 
+    if(activeBuses) {
+      setActiveBusesCount(activeBuses.count);
+    }
+
+    if(inactiveBuses) {
+      setInactiveBusesCount(inactiveBuses.count);
+    }
+
+    if(pendingBuses) {
+      setPendingBusesCount(pendingBuses.count);
+    }
+
+    if(buses) {
+      setBusesCount(buses.length);
+    }
+  }, [buses, activeBuses, inactiveBuses, pendingBuses]);
+
 
   async function handleDelete(id: number) {
     useDeleteBus.mutateAsync(id);
@@ -28,17 +57,22 @@ export default function BusesPage() {
         <div className="data-summarization-container">
           <DashboardDataCard
             label="Autocarros Na Frota"
-            value={8}
+            value={busesCount + ""}
             icon={faBusSimple}
           />
           <DashboardDataCard
             label="Autocarros Ativos"
-            value={6}
+            value={activeBusesCount + ""}
             icon={faBusSimple}
           />
           <DashboardDataCard
             label="Autocarros Inativos"
-            value={2}
+            value={inactiveBusesCount + ""}
+            icon={faBusSimple}
+          />
+          <DashboardDataCard
+            label="Autocarros Pendentes"
+            value={pendingBusesCount + ""}
             icon={faBusSimple}
           />
         </div>
@@ -59,7 +93,7 @@ export default function BusesPage() {
           </div>
           <div className="buses-table-box">
             <BusesTable
-              onDelete={(id:number) => handleDelete(id)}
+              onDelete={(id: number) => handleDelete(id)}
               onEdit={() => handleEdit}
             />
           </div>
