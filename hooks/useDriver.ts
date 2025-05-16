@@ -5,6 +5,10 @@ import {
   deleteDriver,
   updateDriver,
   getDriversWithAssignedBus,
+  getDriversCount,
+  getActiveDriversCount,
+  getInactiveDriversCount,
+  getPendingDriversCount,
 } from "../api/usecases/driver.usecase";
 import { useState } from "react";
 
@@ -70,6 +74,30 @@ export function useDriver() {
       queryKey: ["bus-assigned-drivers"],
       queryFn: getDriversWithAssignedBus,
       staleTime: 1000 * 60 * 5,
+  });
+  
+  const useGetDriversCount = useQuery({
+      queryKey: ["drivers-count"],
+      queryFn: getDriversCount,
+      staleTime: 1000 * 60 * 5,
+    });
+  
+    const useGetActiveDriversCount = useQuery({
+      queryKey: ["active-drivers"],
+      queryFn: getActiveDriversCount,
+      staleTime: 1000 * 60 * 5,
+    });
+  
+    const useGetInactiveDriversCount = useQuery({
+      queryKey: ["inactive-drivers"],
+      queryFn: getInactiveDriversCount,
+      staleTime: 1000 * 60 * 5,
+    });
+  
+    const useGetPendingDriversCount = useQuery({
+      queryKey: ["pending-drivers"],
+      queryFn: getPendingDriversCount,
+      staleTime: 1000 * 60 * 5,
     });
 
   return {
@@ -80,5 +108,9 @@ export function useDriver() {
     useUpdateDriver,
     useDeleteDriver,
     useGetDriversWithAssignedBus,
+    useGetDriversCount,
+    useGetActiveDriversCount,
+    useGetInactiveDriversCount,
+    useGetPendingDriversCount,
   };
 }
