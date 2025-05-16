@@ -6,7 +6,6 @@ import CustomBarChart from "../../components/BarChart";
 import CustomLineChart from "../../components/LineChart";
 import Button from "../../components/Button";
 import {
-  faChevronDown,
   faBusSimple,
   faClose,
   faUser,
@@ -14,19 +13,18 @@ import {
   faClock,
   faMoneyBills,
   faDownload,
-  faArrowRight,
   faWarning,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
 import DashboardTable from "../../components/DashboardTable";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useAlertsChannel } from "../../hooks/useAlertsChannel";
-import {toast} from "sonner"
+import { toast } from "sonner";
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
-  const navigator =  useNavigate();
+  const navigator = useNavigate();
 
   function handleDelete() {}
 
@@ -36,27 +34,32 @@ export default function DashboardPage() {
     <Layout>
       <div className="content-container">
         <div className="data-summarization-container">
-          <DashboardDataCard
-            label="Autocarros Ativos"
-            value={34}
-            icon={faBusSimple}
-          />
-          <DashboardDataCard
-            label="Autocarros Inativos"
-            value={5}
-            icon={faClose}
-          />
-          <DashboardDataCard
-            label="Motoristas Cadastrados"
-            value={42}
-            icon={faUser}
-          />
-          <DashboardDataCard
-            label="Autocarros Pendentes"
-            value={10}
-            icon={faBusSimple}
-          />
-          <DashboardDataCard label="..." value={10} icon={faQuestionCircle} />
+            <DashboardDataCard
+              label="Autocarros"
+              value={34}
+              icon={faBusSimple}
+            />
+            <DashboardDataCard label="Motoristas" value={5} icon={faUser} />
+            <DashboardDataCard
+              label="Autocarros Ativos"
+              value={42}
+              icon={faBusSimple}
+            />
+            <DashboardDataCard
+              label="Autocarros Pendentes"
+              value={10}
+              icon={faBusSimple}
+            />
+            <DashboardDataCard
+              label="Motoristas Pendentes"
+              value={10}
+              icon={faClock}
+            />
+            <DashboardDataCard
+              label="Autocarros Inativos"
+              value={10}
+              icon={faClock}
+            />
         </div>
         <div className="chart-container">
           <div className="chart-action-buttons-container">
