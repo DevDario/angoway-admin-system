@@ -3,6 +3,7 @@ import { api } from "../axios-instance";
 import { getToken } from "../../utils/secure-store";
 import { DriverResponse } from "../../types/driver.response";
 import { DriversWithAssignedBusResponse } from "../../types/drivers-with-assigned-bus.response";
+import { CountDriverResponse } from "../../types/count.driver.response";
 
 export const createDriver = async ({name, email,experienceTime, licenseNumber, password, phone}: Driver) => {
   const token = getToken();
@@ -66,4 +67,48 @@ export const getDriversWithAssignedBus = async (): Promise<DriversWithAssignedBu
   });
 
   return response.data as DriversWithAssignedBusResponse[];
+};
+
+export const getDriversCount = async (): Promise<CountDriverResponse> => {
+  const token = getToken();
+  const response = await api.get("/driver/count", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountDriverResponse;
+};
+
+export const getActiveDriversCount = async (): Promise<CountDriverResponse> => {
+  const token = getToken();
+  const response = await api.get("/driver/count-active", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountDriverResponse;
+};
+
+export const getInactiveDriversCount = async (): Promise<CountDriverResponse> => {
+  const token = getToken();
+  const response = await api.get("/driver/count-inactive", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountDriverResponse;
+};
+
+export const getPendingDriversCount = async (): Promise<CountDriverResponse> => {
+  const token = getToken();
+  const response = await api.get("/driver/pending", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountDriverResponse;
 };
