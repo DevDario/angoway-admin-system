@@ -23,6 +23,7 @@ import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 import { toast } from "sonner";
 import { useBus } from "../../hooks/useBus";
 import { useDriver } from "../../hooks/useDriver";
+import { useTravel } from "../../hooks/useTravel";
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
@@ -35,6 +36,7 @@ export default function DashboardPage() {
     useGetInactiveBusesCount,
   } = useBus();
   const { useGetPendingDriversCount, useGetDriversCount } = useDriver();
+  const { useGetMonthlyTravelCount } = useTravel();
 
   const { data: buses } = useGetBuses;
   const { data: activeBuses } = useGetActiveBusesCount;
@@ -46,6 +48,9 @@ export default function DashboardPage() {
 
   const driversCount = drivers?.count ?? 0;
   const pendingDriversCount = pendingDrivers?.count ?? 0;
+
+  const { data: travels } = useGetMonthlyTravelCount;
+  const travelsProfitCount = Array.isArray(travels) ? travels : [];
 
   const busesCount = buses?.length ?? 0;
   const activeBusesCount = activeBuses?.count ?? 0;
@@ -104,7 +109,7 @@ export default function DashboardPage() {
           <div className="chart-box">
             <h2 className="chart-title">Viagens realizadas</h2>
             <CustomBarChart
-              description="Janeiro - Dezembro 2025"
+              description={`Janeiro - Dezembro ${new Date().getFullYear()}`}
               footerText="Mostrando o total de viagens realizadas em cada mês."
             />
           </div>
