@@ -8,6 +8,7 @@ import {
   getActiveBusesCount,
   getInactiveBusesCount,
   getPendingBusesCount,
+  getBusesWithAssignedRoutes,
 } from "../api/usecases/bus.usecase";
 import { useState } from "react";
 import { Bus } from "../types/Bus";
@@ -94,6 +95,12 @@ export function useBus() {
     staleTime: 1000 * 60 * 5,
   });
 
+  const useGetBusesWithAssignedRoutes = useQuery({
+    queryKey: ["route-assigned-buses"],
+    queryFn: getBusesWithAssignedRoutes,
+    staleTime: 1000 * 60 * 5,
+  });
+
   return {
     error,
     success,
@@ -105,5 +112,6 @@ export function useBus() {
     useGetActiveBusesCount,
     useGetInactiveBusesCount,
     useGetPendingBusesCount,
+    useGetBusesWithAssignedRoutes,
   };
 }
