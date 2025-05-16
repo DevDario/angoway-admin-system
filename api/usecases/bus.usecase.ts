@@ -3,6 +3,7 @@ import { api } from "../axios-instance";
 import { getToken } from "../../utils/secure-store";
 import { BusResponse } from "../../types/bus.response";
 import { ResponseBody } from "../../types/response.body";
+import { CountBusResponse } from "../../types/count.bus.response";
 
 export const createBus = async ({
   matricula,
@@ -34,6 +35,50 @@ export const getBuses = async (): Promise<BusResponse[] | []> => {
   });
 
   return response.data;
+};
+
+export const getBusesCount = async (): Promise<CountBusResponse> => {
+  const token = getToken();
+  const response = await api.get("/bus/count", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountBusResponse;
+};
+
+export const getActiveBusesCount = async (): Promise<CountBusResponse> => {
+  const token = getToken();
+  const response = await api.get("/bus/count-active", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountBusResponse;
+};
+
+export const getInactiveBusesCount = async (): Promise<CountBusResponse> => {
+  const token = getToken();
+  const response = await api.get("/bus/count-inactive", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountBusResponse;
+};
+
+export const getPendingBusesCount = async (): Promise<CountBusResponse> => {
+  const token = getToken();
+  const response = await api.get("/bus/pending", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as CountBusResponse;
 };
 
 export const updateBus = async (
