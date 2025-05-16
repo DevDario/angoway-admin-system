@@ -12,35 +12,24 @@ import CreateBusDialog from "../../components/CreateBusDialog";
 import { useBus } from "../../hooks/useBus";
 
 export default function BusesPage() {
-  const { useDeleteBus, useUpdateBus, useGetBuses, useGetActiveBusesCount, useGetInactiveBusesCount, useGetPendingBusesCount } = useBus();
+  const { 
+    useDeleteBus, 
+    useUpdateBus, 
+    useGetBuses, 
+    useGetActiveBusesCount, 
+    useGetInactiveBusesCount, 
+    useGetPendingBusesCount 
+  } = useBus();
 
+  const { data: buses } = useGetBuses;
   const { data: activeBuses } = useGetActiveBusesCount;
   const { data: inactiveBuses } = useGetInactiveBusesCount;
   const { data: pendingBuses } = useGetPendingBusesCount;
-  const { data: buses } = useGetBuses;
 
-  const [busesCount, setBusesCount] = useState<number | null>(0);
-  const [activeBusesCount, setActiveBusesCount] = useState<number | null>(0);
-  const [inactiveBusesCount, setInactiveBusesCount] = useState<number | null>(0);
-  const [pendingBusesCount, setPendingBusesCount] = useState<number | null>(0);
-
-  useEffect(() => { 
-    if(activeBuses) {
-      setActiveBusesCount(activeBuses.count);
-    }
-
-    if(inactiveBuses) {
-      setInactiveBusesCount(inactiveBuses.count);
-    }
-
-    if(pendingBuses) {
-      setPendingBusesCount(pendingBuses.count);
-    }
-
-    if(buses) {
-      setBusesCount(buses.length);
-    }
-  }, [buses, activeBuses, inactiveBuses, pendingBuses]);
+  const busesCount = buses?.length ?? 0;
+  const activeBusesCount = activeBuses?.count ?? 0;
+  const inactiveBusesCount = inactiveBuses?.count ?? 0;
+  const pendingBusesCount = pendingBuses?.count ?? 0;
 
 
   async function handleDelete(id: number) {
