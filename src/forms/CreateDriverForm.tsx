@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createDriverSchema } from "@/schemas/driver.create.schema";
+import { useDriver } from "../../hooks/useDriver";
+import { toast } from "sonner";
 
 export default function CreateDriverForm() {
   const form = useForm({
@@ -24,13 +26,38 @@ export default function CreateDriverForm() {
       name: "",
       number: "",
       password: "",
-      email: "",
+      email: "@gmail.com",
       role: "DRIVER",
+      licenseNumber: "LD-",
+      experienceTime:"1"
     },
   });
 
+  const { useCreateDriver, success, error } = useDriver();
+  const { isError } = useCreateDriver;
+
   function onSubmit(values: z.infer<typeof createDriverSchema>) {
-    console.log(values);
+    useCreateDriver.mutateAsync({
+      name: values.name,
+      email: values.email,
+      phone: values.number,
+      password: values.password,
+      licenseNumber: values.licenseNumber,
+      experienceTime: Number(values.experienceTime),
+    })
+  }
+
+  if (success) {
+    toast.success(success);
+  }
+
+  if (error || isError) {
+    toast.error("Erro ao cadastrar o motorista !", {
+      description:
+        error !== null
+          ? error
+          : `Houve um erro ao cadastrar o motorista. Tente submeter novamente`,
+    });
   }
 
   return (
@@ -96,6 +123,50 @@ export default function CreateDriverForm() {
                     height: 45,
                     width: 400,
                   }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="licenseNumber"
+          render={({ field }) => (
+            <FormItem style={{ marginBottom: 15 }}>
+              <FormLabel>Número da Carta de Condução</FormLabel>
+              <FormControl>
+                <Input
+                  className="input"
+                  placeholder="LD-123456"
+                  {...field}
+                  style={{
+                    padding: 10,
+                    height: 45,
+                    width: 400,
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="experienceTime"
+          render={({ field }) => (
+            <FormItem style={{ marginBottom: 15 }}>
+              <FormLabel>Experiência (Anos)</FormLabel>
+              <FormControl>
+                <Input
+                  className="input"
+                  {...field}
+                  style={{
+                    padding: 10,
+                    height: 45,
+                    width: 400,
+                  }}
+                  type="number"
                 />
               </FormControl>
               <FormMessage />

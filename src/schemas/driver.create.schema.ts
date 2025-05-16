@@ -26,9 +26,16 @@ export const createDriverSchema = z.object({
   licenseNumber: z
     .string()
     .regex(/^LD-\d{6}$/, "A licença deve estar no formato 'LD-123456' ")
-    .min(8, "A licença deve ter pelo menos 8 caracteres")
-    .max(8, "A licença deve ter no máximo 8 caracteres")
+    .min(9, "A licença deve ter pelo menos 8 caracteres")
+    .max(9, "A licença deve ter no máximo 8 caracteres")
     .nonempty("A licença é obrigatória"),
+  experienceTime: z.string(
+    z
+      .number()
+      .min(1, "A experiência deve ser maior ou igual a 1 Ano")
+      .nonnegative("O valor deve ser positivo")
+      .default(1)
+  ).nonempty("A experiência é obrigatória"),
 });
 
 export type DriverCreateInput = z.infer<typeof createDriverSchema>;

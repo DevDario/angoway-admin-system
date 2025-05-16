@@ -4,11 +4,11 @@ import { getToken } from "../../utils/secure-store";
 import { DriverResponse } from "../../types/driver.response";
 import { DriversWithAssignedBusResponse } from "../../types/drivers-with-assigned-bus.response";
 
-export const createDriver = async (body: Driver) => {
+export const createDriver = async ({name, email,experienceTime, licenseNumber, password, phone}: Driver) => {
   const token = getToken();
   const response = await api.post(
     "/driver",
-    { body },
+    { name, email, experienceTime, licenseNumber, password, phone },
     {
       headers: {
         Authorization: `Bearer ${token}`,
