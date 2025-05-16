@@ -8,13 +8,13 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card";
+} from "../src/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "../src/components/ui/chart";
 
 const chartData = [
   { month: "Janeiro", viagens: 186 },
