@@ -12,7 +12,8 @@ import "./DriversTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { useDriver } from "../hooks/useDriver";
-import { DriverResponse } from "types/driver.response";
+import { DriverResponse } from "../types/driver.response";
+import { toast } from "sonner";
 
 type DriversTableProps = {
   onDelete: (id:number) => void;
@@ -21,12 +22,22 @@ type DriversTableProps = {
 
 export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
   const { useGetDrivers} = useDriver()
-  const { data } = useGetDrivers;
+  const { data,error, isSuccess } = useGetDrivers;
   const [drivers, setDrivers] = useState<DriverResponse[] | []>([]);
 
   useEffect(() => {
     if (data !== undefined) setDrivers(data);
   }, [data]);
+
+  if (error) { 
+    toast.error("Erro ao carregar motoristas", {
+        description: error.message.includes("500") ? "Erro no Servidor. Recarregue a página" : "Tente mais tarde",
+      })
+  }
+
+  if (isSuccess) {
+    toast("Lista de Motoristas actualizada");
+  }
 
   return (
     <Table className="drivers-table">
