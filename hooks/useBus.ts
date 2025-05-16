@@ -4,6 +4,10 @@ import {
   updateBus,
   createBus,
   deleteBus,
+  getBusesCount,
+  getActiveBusesCount,
+  getInactiveBusesCount,
+  getPendingBusesCount,
 } from "../api/usecases/bus.usecase";
 import { useState } from "react";
 import { Bus } from "../types/Bus";
@@ -66,6 +70,30 @@ export function useBus() {
     },
   });
 
+  const useGetBusesCount = useQuery({
+    queryKey: ["buses-count"],
+    queryFn: getBusesCount,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const useGetActiveBusesCount = useQuery({
+    queryKey: ["active-buses"],
+    queryFn: getActiveBusesCount,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const useGetInactiveBusesCount = useQuery({
+    queryKey: ["inactive-buses"],
+    queryFn: getInactiveBusesCount,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const useGetPendingBusesCount = useQuery({
+    queryKey: ["pending-buses"],
+    queryFn: getPendingBusesCount,
+    staleTime: 1000 * 60 * 5,
+  });
+
   return {
     error,
     success,
@@ -73,5 +101,9 @@ export function useBus() {
     useCreateBus,
     useUpdateBus,
     useDeleteBus,
+    useGetBusesCount,
+    useGetActiveBusesCount,
+    useGetInactiveBusesCount,
+    useGetPendingBusesCount,
   };
 }
