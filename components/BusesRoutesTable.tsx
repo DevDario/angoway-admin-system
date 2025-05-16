@@ -9,51 +9,14 @@ import {
   TableRow,
 } from "../src/components/ui/table";
 import "./BusesRoutesTable.css";
-
-const mockBusesRoutes = [
-  {
-    id: 1,
-    rota: "Benfica-Ramiros",
-    NIA: "#123",
-  },
-  {
-    id: 2,
-    rota: "Benfica-Gamek",
-    NIA: "#111",
-  },
-  {
-    id: 3,
-    rota: "Kilamba-Gamek",
-    NIA: "#222",
-  },
-  {
-    id: 4,
-    rota: "1 de Maio-Benfica",
-    NIA: "#673",
-  },
-  {
-    id: 5,
-    rota: "Benfica-Gamek",
-    NIA: "#487",
-  },
-  {
-    id: 6,
-    rota: "Zango-Talatona",
-    NIA: "#444",
-  },
-  {
-    id: 7,
-    rota: "Patriota-Gamek",
-    NIA: "#555",
-  },
-  {
-    id: 8,
-    rota: "Benfica-Gamek",
-    NIA: "#134",
-  },
-];
+import { useBus } from "../hooks/useBus";
 
 export default function BusesRoutesTable() {
+
+  const { useGetBusesWithAssignedRoutes } = useBus()
+  const { data: routeAssignedBuses } = useGetBusesWithAssignedRoutes;
+  const buses = routeAssignedBuses ?? [];
+
   return (
     <Table className="buses-route-table">
       <TableCaption>Rotas atribuidas à cada autocarro.</TableCaption>
@@ -71,16 +34,16 @@ export default function BusesRoutesTable() {
         </TableRow>
       </TableHeader>
       <TableBody className="buses-route-table-body">
-        {mockBusesRoutes.map((e) => (
-          <TableRow key={e.id}>
+        {buses.map((bus) => (
+          <TableRow key={bus.id}>
             <TableCell className="font-medium p-30 buses-route-table-cell">
-              {e.id}
+              {bus.id}
             </TableCell>
             <TableCell className="font-medium p-30 buses-route-table-cell">
-              {e.rota}
+              {bus.route}
             </TableCell>
             <TableCell className="font-medium p-30 buses-route-table-cell">
-              {e.NIA}
+              {bus.nia}
             </TableCell>
           </TableRow>
         ))}
