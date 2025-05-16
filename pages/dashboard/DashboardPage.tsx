@@ -21,10 +21,36 @@ import DashboardTable from "../../components/DashboardTable";
 import { useNavigate } from "react-router";
 import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 import { toast } from "sonner";
+import { useBus } from "../../hooks/useBus";
+import { useDriver } from "../../hooks/useDriver";
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
   const navigator = useNavigate();
+
+  const {
+    useGetBuses,
+    useGetActiveBusesCount,
+    useGetPendingBusesCount,
+    useGetInactiveBusesCount,
+  } = useBus();
+  const { useGetPendingDriversCount, useGetDriversCount } = useDriver();
+
+  const { data: buses } = useGetBuses;
+  const { data: activeBuses } = useGetActiveBusesCount;
+  const { data: inactiveBuses } = useGetInactiveBusesCount;
+  const { data: pendingBuses } = useGetPendingBusesCount;
+
+  const { data: drivers } = useGetDriversCount;
+  const { data: pendingDrivers } = useGetPendingDriversCount;
+
+  const driversCount = drivers?.count ?? 0;
+  const pendingDriversCount = pendingDrivers?.count ?? 0;
+
+  const busesCount = buses?.length ?? 0;
+  const activeBusesCount = activeBuses?.count ?? 0;
+  const inactiveBusesCount = inactiveBuses?.count ?? 0;
+  const pendingBusesCount = pendingBuses?.count ?? 0;
 
   function handleDelete() {}
 
@@ -34,32 +60,36 @@ export default function DashboardPage() {
     <Layout>
       <div className="content-container">
         <div className="data-summarization-container">
-            <DashboardDataCard
-              label="Autocarros"
-              value={34}
-              icon={faBusSimple}
-            />
-            <DashboardDataCard label="Motoristas" value={5} icon={faUser} />
-            <DashboardDataCard
-              label="Autocarros Ativos"
-              value={42}
-              icon={faBusSimple}
-            />
-            <DashboardDataCard
-              label="Autocarros Pendentes"
-              value={10}
-              icon={faBusSimple}
-            />
-            <DashboardDataCard
-              label="Motoristas Pendentes"
-              value={10}
-              icon={faClock}
-            />
-            <DashboardDataCard
-              label="Autocarros Inativos"
-              value={10}
-              icon={faClock}
-            />
+          <DashboardDataCard
+            label="Autocarros"
+            value={busesCount + ""}
+            icon={faBusSimple}
+          />
+          <DashboardDataCard
+            label="Motoristas"
+            value={driversCount + ""}
+            icon={faUser}
+          />
+          <DashboardDataCard
+            label="Autocarros Ativos"
+            value={activeBusesCount + ""}
+            icon={faBusSimple}
+          />
+          <DashboardDataCard
+            label="Autocarros Pendentes"
+            value={pendingBusesCount + ""}
+            icon={faBusSimple}
+          />
+          <DashboardDataCard
+            label="Motoristas Pendentes"
+            value={pendingDriversCount + ""}
+            icon={faClock}
+          />
+          <DashboardDataCard
+            label="Autocarros Inativos"
+            value={inactiveBusesCount + ""}
+            icon={faClock}
+          />
         </div>
         <div className="chart-container">
           <div className="chart-action-buttons-container">
