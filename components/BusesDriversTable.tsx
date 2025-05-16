@@ -9,75 +9,13 @@ import {
   TableRow,
 } from "../src/components/ui/table";
 import "./BusesDriversTable.css";
-
-const mockEmployees = [
-  {
-    id: 1,
-    nome: "Jhon Doe",
-    NIA: "#123",
-    rota: "Benfica-Ramiros",
-    horario: "08H-18H",
-    turno: "Diurno",
-  },
-  {
-    id: 2,
-    nome: "Marie Jane",
-    rota: "Benfica-Gamek",
-    horario: "08H-18H",
-    turno: "Diurno",
-    NIA: "#111",
-  },
-  {
-    id: 3,
-    nome: "John Dan",
-    rota: "Kilamba-Gamek",
-    horario: "08H-18H",
-    turno: "Diurno",
-    NIA: "#222",
-  },
-  {
-    id: 4,
-    nome: "Marie Jany",
-    rota: "1 de Maio-Benfica",
-    horario: "08H-18H",
-    turno: "Diurno",
-    NIA: "#673",
-  },
-  {
-    id: 5,
-    nome: "Chris Evans",
-    rota: "Benfica-Gamek",
-    horario: "18H-8H",
-    turno: "Noturno",
-    NIA: "#487",
-  },
-  {
-    id: 6,
-    nome: "Peter Parker",
-    rota: "Zango-Talatona",
-    horario: "08H-18H",
-    turno: "Diurno",
-    NIA: "#444",
-  },
-  {
-    id: 7,
-    nome: "Anne An",
-    rota: "Patriota-Gamek",
-    horario: "08H-18H",
-    turno: "Diurno",
-    NIA: "#555",
-  },
-  {
-    id: 8,
-    nome: "Alfred Perry",
-    rota: "Benfica-Gamek",
-    horario: "08H-18H",
-    turno: "Diurno",
-    NIA: "#134",
-  },
-];
+import { useDriver } from "../hooks/useDriver";
 
 export default function BusesDriversTable() {
+  const { useGetDriversWithAssignedBus } = useDriver();
+  const { data } = useGetDriversWithAssignedBus;
+  const drivers = data ?? [];
+
   return (
     <Table className="buses-drivers-table">
       <TableCaption>Autocarros Dirigidos por cada motorista.</TableCaption>
@@ -98,24 +36,26 @@ export default function BusesDriversTable() {
         </TableRow>
       </TableHeader>
       <TableBody className="buses-drivers-table-body">
-        {mockEmployees.map((e) => (
-          <TableRow key={e.id}>
+        {drivers.map((driver) => (
+          <TableRow key={driver.id}>
             <TableCell className="font-medium p-30 buses-drivers-table-cell">
-              {e.id}
+              {driver.id}
             </TableCell>
             <TableCell className="font-medium p-30 buses-drivers-table-cell">
-              {e.nome}
+              {driver.name}
             </TableCell>
             <TableCell className="font-medium p-30 buses-drivers-table-cell">
-              {e.rota}
+              {driver.route}
             </TableCell>
             <TableCell className="buses-drivers-table-cell">
-              {e.turno}
+              {driver.shift}
             </TableCell>
             <TableCell className="buses-drivers-table-cell">
-              {e.horario}
+              {driver.schedule}
             </TableCell>
-            <TableCell className="buses-drivers-table-cell font-medium">{e.NIA}</TableCell>
+            <TableCell className="buses-drivers-table-cell font-medium">
+              {driver.NIA}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

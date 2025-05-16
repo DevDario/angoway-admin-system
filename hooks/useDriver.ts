@@ -4,6 +4,7 @@ import {
   createDriver,
   deleteDriver,
   updateDriver,
+  getDriversWithAssignedBus,
 } from "../api/usecases/driver.usecase";
 import { useState } from "react";
 
@@ -65,6 +66,12 @@ export function useDriver() {
     },
   });
 
+  const useGetDriversWithAssignedBus = useQuery({
+      queryKey: ["bus-assigned-drivers"],
+      queryFn: getDriversWithAssignedBus,
+      staleTime: 1000 * 60 * 5,
+    });
+
   return {
     error,
     success,
@@ -72,5 +79,6 @@ export function useDriver() {
     useCreateDriver,
     useUpdateDriver,
     useDeleteDriver,
+    useGetDriversWithAssignedBus,
   };
 }

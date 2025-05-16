@@ -2,6 +2,7 @@ import { Driver } from "../../types/Driver";
 import { api } from "../axios-instance";
 import { getToken } from "../../utils/secure-store";
 import { DriverResponse } from "../../types/driver.response";
+import { DriversWithAssignedBusResponse } from "../../types/drivers-with-assigned-bus.response";
 
 export const createDriver = async (body: Driver) => {
   const token = getToken();
@@ -53,4 +54,16 @@ export const deleteDriver = async (id: number) => {
   });
 
   return response.data;
+};
+
+
+export const getDriversWithAssignedBus = async (): Promise<DriversWithAssignedBusResponse[] | []> => {
+  const token = getToken();
+  const response = await api.get("/driver/bus-assigned", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as DriversWithAssignedBusResponse[];
 };
