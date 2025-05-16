@@ -4,6 +4,7 @@ import { getToken } from "../../utils/secure-store";
 import { BusResponse } from "../../types/bus.response";
 import { ResponseBody } from "../../types/response.body";
 import { CountBusResponse } from "../../types/count.bus.response";
+import { BusesWithAssignedRoutesResponse } from "../../types/buses-with-assigned-routes.response";
 
 export const createBus = async ({
   matricula,
@@ -78,6 +79,17 @@ export const getPendingBusesCount = async (): Promise<CountBusResponse> => {
   });
 
   return response.data as CountBusResponse;
+};
+
+export const getBusesWithAssignedRoutes = async (): Promise<BusesWithAssignedRoutesResponse[] | []> => {
+  const token = getToken();
+  const response = await api.get("/bus/assigned-routes", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as BusesWithAssignedRoutesResponse[];
 };
 
 export const updateBus = async (
