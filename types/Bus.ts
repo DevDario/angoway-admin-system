@@ -3,5 +3,4 @@ export type Bus = {
   routeId: number;
   capacity: number;
   currentLoad: number;
-  location: string;
 };

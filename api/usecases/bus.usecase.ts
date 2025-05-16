@@ -9,13 +9,12 @@ export const createBus = async ({
   matricula,
   capacity,
   currentLoad,
-  location,
   routeId
 }: Bus): Promise<ResponseBody> => {
   const token = getToken();
   const response = await api.post(
     "/bus",
-    { matricula, capacity, currentLoad, location, routeId },
+    { matricula, capacity, currentLoad, routeId },
     {
       headers: {
         Authorization: `Bearer ${token}`,

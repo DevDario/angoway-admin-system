@@ -23,8 +23,8 @@ export default function CreateBusForm() {
   const form = useForm({
     resolver: zodResolver(createBusSchema),
     defaultValues: {
-      matricula: "",
-      capacidade: "",
+      matricula: "LD-",
+      capacidade: "50",
       rota: "",
       motorista: "",
     },
@@ -40,7 +40,6 @@ export default function CreateBusForm() {
     return handleCreateBus({
       capacity: Number(values.capacidade),
       currentLoad: 0,
-      location: "",
       matricula: values.matricula,
       routeId: Number(values.rota),
     });
