@@ -20,7 +20,7 @@ export const createDriver = async (body: Driver) => {
 
 export const getDrivers = async (): Promise<DriverResponse[] | []> => {
   const token = getToken();
-  const response = await api.get("/driver", {
+  const response = await api.get("/driver/all", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
