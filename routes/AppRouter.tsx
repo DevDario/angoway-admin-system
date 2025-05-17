@@ -6,6 +6,7 @@ import BusesPage from "../pages/bus/BusesPage";
 import React from "react";
 import DriversPage from "../pages/driver/DriversPage";
 import AlertsPage from "../pages/alerts/AlertsPage";
+import RoutesPage from "../pages/route/RoutesPage";
 
 export default function AppRouter() {
   const { authToken } = useAuth();
@@ -23,6 +24,7 @@ export default function AppRouter() {
           <Route path="/drivers" element={<DriversPage />} />
           <Route path="/buses" element={<BusesPage />} />
           <Route path="/alerts" element={<AlertsPage />} />
+          <Route path="/routes" element={<RoutesPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </>
       )}
