@@ -5,7 +5,8 @@ import {
   Settings,
   RouteIcon,
   LocateFixedIcon,
-  MessageSquareWarning
+  MessageSquareWarning,
+  Map as MapIcon, // <-- add this import
 } from "lucide-react";
 import { Link } from "react-router";
 import React from "react";
@@ -52,6 +53,11 @@ const items = [
     title: "Alertas",
     url: "/alerts",
     icon: MessageSquareWarning,
+  },
+  {
+    title: "Mapa",
+    url: "/map",
+    icon: MapIcon, // <-- use the map icon
   },
   {
     title: "Configurações",
