@@ -2,8 +2,8 @@ export type Schedule = {
   routeId: number;
   departureLocation: string;
   arrivalLocation: string;
-  departureTime: Date;
-  arrivalTime: Date;
+  departureTime: string;
+  arrivalTime: string;
   estimatedDurationMinutes: number;
   status: string;
   distanceKM: number;
