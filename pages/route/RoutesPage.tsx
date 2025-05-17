@@ -20,14 +20,17 @@ export default function RoutesPage() {
     useGetRoutesCount,
     useGetActiveRoutesCount,
     useGetInactiveRoutesCount,
+    useGetPreviewRoutes,
   } = useRoute();
-  const { data: routesCount } = useGetRoutesCount;
-  const { data: activeRoutesCount } = useGetActiveRoutesCount;
-  const { data: inactiveRoutesCount } = useGetInactiveRoutesCount;
+//   const { data: routesCount } = useGetRoutesCount;
+//   const { data: activeRoutesCount } = useGetActiveRoutesCount;
+//   const { data: inactiveRoutesCount } = useGetInactiveRoutesCount;
+  const { data: routes } = useGetPreviewRoutes;
 
-  const routes = routesCount?.count ?? 0;
-  const activeRoutes = activeRoutesCount?.count ?? 0;
-  const inactiveRoutes = inactiveRoutesCount?.count ?? 0;
+  const numRoutes =  0;
+  const activeRoutes =  0;
+  const inactiveRoutes =  0;
+  const routesData = Array.isArray(routes) ? routes : [];
 
   function handleDelete(id: number): void {
     throw new Error("Function not implemented.");
@@ -41,7 +44,11 @@ export default function RoutesPage() {
     <Layout>
       <div className="content-container">
         <div className="data-summarization-container">
-          <DashboardDataCard label="Rotas" value={routes} icon={faDirections} />
+          <DashboardDataCard
+            label="Rotas"
+            value={numRoutes}
+            icon={faDirections}
+          />
           <DashboardDataCard
             label="Rotas Ativas"
             value={activeRoutes}
@@ -59,6 +66,18 @@ export default function RoutesPage() {
           key={"preview-routes-section"}
         />
         <div className="routes-card-container">
+          {/* {routesData.map((route, index) => (
+            <RoutePreviewCard
+              name={route.name}
+              destination={route.destination}
+              origin={route.origin}
+              status={route.status}
+              key={index}
+              stops={route.stops}
+              schedules={route.schedules}
+            />
+          ))} */}
+
           <RoutePreviewCard
             destination={{ lat: -9.0037, lng: 13.2732 }}
             origin={{ lat: -8.8383, lng: 13.2344 }}
