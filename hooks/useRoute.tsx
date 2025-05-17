@@ -6,6 +6,7 @@ import {
   getInactiveRoutesCount,
   getOneRoute,
   getRoutes,
+  getPreviewRoutes,
   getRoutesCount,
   updateRoute,
   updateRouteStatus,
@@ -19,6 +20,12 @@ export function useRoute() {
   const useGetRoutes = useQuery({
     queryKey: ["routes"],
     queryFn: getRoutes,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const useGetPreviewRoutes = useQuery({
+    queryKey: ["routes"],
+    queryFn: getPreviewRoutes,
     staleTime: 1000 * 60 * 5,
   });
 
@@ -120,6 +127,7 @@ export function useRoute() {
     useCreateRoute,
     useDeleteRoute,
     useGetRoutesCount,
+    useGetPreviewRoutes,
     useGetActiveRoutesCount,
     useGetInactiveRoutesCount,
     useGetOneRoute,

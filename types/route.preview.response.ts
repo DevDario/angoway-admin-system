@@ -1,5 +1,4 @@
 import { Stop } from "./Stop";
-import {Schedule} from "./Schedule"
 
 export type RoutePreviewResponse = {
   name: string;
@@ -7,5 +6,5 @@ export type RoutePreviewResponse = {
   destination: { lat: number; lng: number };
   status: string;
   stops: Stop[];
-  schedules: Partial<Schedule>[];
+  schedules: { departureTime: string; arrivalTime: string }[];
 };

@@ -3,6 +3,7 @@ import { api } from "../axios-instance";
 import { getToken } from "../../utils/secure-store";
 import { RouteResponse } from "../../types/route.response";
 import { CountRouteResponse } from "../../types/count.route.response";
+import { RoutePreviewResponse } from "types/route.preview.response";
 
 export const createRoute = async ({name, origin, destination, status}: Route) => {
   const token = getToken();
@@ -22,6 +23,17 @@ export const createRoute = async ({name, origin, destination, status}: Route) =>
 export const getRoutes = async (): Promise<RouteResponse[] | []> => {
   const token = getToken();
   const response = await api.get("/routes", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const getPreviewRoutes = async (): Promise<RoutePreviewResponse[] | []> => {
+  const token = getToken();
+  const response = await api.get("/routes/detailed", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
