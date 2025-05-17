@@ -1,0 +1,60 @@
+.route-preview-card {
+    width: 600px;
+    height: max-content;
+    border-radius: 9px;
+    border: 1px solid #212121;
+    padding: 15px;
+    box-shadow: #0e0d0d 0px 10px 20px 0px;
+}
+
+.route-preview-card .route-preview-card-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+.route-preview-card .route-preview-card-header .route-preview-card-title {
+    margin-bottom: .5rem;
+    font-weight: bold;
+}
+
+.route-preview-card-header .route-preview
+
+.route-preview-card .route-preview-card-container,
+.route-preview-card .route-preview-card-container .route-preview-card-details,
+.route-preview-card-details-container .route-stops-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.route-preview-card-details{
+    margin-top: .8rem;
+}
+
+.route-preview-card .route-preview-card-container .route-preview-card-details .route-preview-card-details-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.route-preview-card-details-container .route-stops-container {
+    gap: .5rem;
+}
+
+.route-preview-card-details-title {
+    width: fit-content;
+    height: 30px;
+    padding: .2rem;
+    border-radius: 5px;
+    background-color: #0C6BFF;
+    align-items: center;
+    align-content: center;
+    justify-content: center
+}
+
+.route-stops-container .stops-list > li{
+    font-style: italic;
+}
