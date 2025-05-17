@@ -17,7 +17,7 @@ export function useRoute() {
   const [success, setSuccess] = useState<string | null>(null);
 
   const useGetRoutes = useQuery({
-    queryKey: ["drivers"],
+    queryKey: ["routes"],
     queryFn: getRoutes,
     staleTime: 1000 * 60 * 5,
   });
@@ -106,7 +106,7 @@ export function useRoute() {
     staleTime: 1000 * 60 * 5,
   });
 
-  const useGetInactiveDriversCount = useQuery({
+  const useGetInactiveRoutesCount = useQuery({
     queryKey: ["inactive-routes"],
     queryFn: getInactiveRoutesCount,
     staleTime: 1000 * 60 * 5,
@@ -121,7 +121,7 @@ export function useRoute() {
     useDeleteRoute,
     useGetRoutesCount,
     useGetActiveRoutesCount,
-    useGetInactiveDriversCount,
+    useGetInactiveRoutesCount,
     useGetOneRoute,
     useUpdateRouteStatus,
   };
