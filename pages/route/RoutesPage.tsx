@@ -2,24 +2,59 @@ import Layout from "../_layout";
 import DashboardDataCard from "../../components/DashboardDataCard";
 import {
   faDirections,
+  faPlusCircle,
   faRoad,
   faRoute,
 } from "@fortawesome/free-solid-svg-icons";
 import "./RoutesPage.css";
 import RoutePreviewCard from "../../components/RoutePreviewCard";
 import SectionHeader from "../../components/SectionHeader";
+import Button from "../../components/Button";
+import TriggerableDialog from "../../components/TriggerableDialog";
+import CreateRouteForm from "@/forms/CreateRouteForm";
+import RoutesTable from "../../components/RoutesTable";
+import { useRoute } from "../../hooks/useRoute";
 
 export default function RoutesPage() {
+  const {
+    useGetRoutesCount,
+    useGetActiveRoutesCount,
+    useGetInactiveRoutesCount,
+  } = useRoute();
+  const { data: routesCount } = useGetRoutesCount;
+  const { data: activeRoutesCount } = useGetActiveRoutesCount;
+  const { data: inactiveRoutesCount } = useGetInactiveRoutesCount;
+
+  const routes = routesCount?.count ?? 0;
+  const activeRoutes = activeRoutesCount?.count ?? 0;
+  const inactiveRoutes = inactiveRoutesCount?.count ?? 0;
+
+  function handleDelete(id: number): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function handleEdit(id: number): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Layout>
       <div className="content-container">
         <div className="data-summarization-container">
-          <DashboardDataCard label="Rotas" value={0} icon={faDirections} />
-          <DashboardDataCard label="Rotas Ativas" value={0} icon={faRoad} />
-          <DashboardDataCard label="Rotas Inativas" value={0} icon={faRoad} />
+          <DashboardDataCard label="Rotas" value={routes} icon={faDirections} />
+          <DashboardDataCard
+            label="Rotas Ativas"
+            value={activeRoutes}
+            icon={faRoad}
+          />
+          <DashboardDataCard
+            label="Rotas Inativas"
+            value={inactiveRoutes}
+            icon={faRoad}
+          />
         </div>
         <SectionHeader
-          title="Rotas"
+          title="Rotas (Preview)"
           icon={faRoute}
           key={"preview-routes-section"}
         />
@@ -74,6 +109,31 @@ export default function RoutesPage() {
               },
             ]}
           />
+        </div>
+        <div className="routes-table-container">
+          <div className="routes-table-action-buttons-container">
+            <SectionHeader icon={faRoute} title="Rotas" />
+            <div className="action-buttons">
+              <TriggerableDialog
+                title="Cadastrar Rota"
+                form={<CreateRouteForm />}
+              >
+                <Button
+                  text="Criar"
+                  icon={faPlusCircle}
+                  iconColor="#FFF"
+                  onClick={() => {}}
+                  title="cadastrar nova rota"
+                />
+              </TriggerableDialog>
+            </div>
+          </div>
+          <div className="routes-table-box">
+            <RoutesTable
+              onDelete={(id: number) => handleDelete(id)}
+              onEdit={(id: number) => handleEdit(id)}
+            />
+          </div>
         </div>
       </div>
     </Layout>

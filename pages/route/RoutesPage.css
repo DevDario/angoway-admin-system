@@ -10,3 +10,59 @@
     justify-content: flex-start;
     flex-wrap: wrap;
 }
+
+.content-container .routes-table-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.4rem;
+}
+
+.content-container .routes-table-container .routes-table-action-buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-container .routes-table-container .routes-table-action-buttons-container .action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.content-container .routes-table-container .routes-table-action-buttons-container .button {
+    background-color: #0C6BFF;
+    color: #FFF;
+    transition: all 300ms ease-out;
+}
+
+.content-container .routes-table-container .routes-table-action-buttons-container .button:hover {
+    background-color: #121212;
+    border: 1px solid #212121;
+    transition: all 300ms ease-in;
+}
+
+.content-container .routes-table-container .routes-table-box {
+    margin-top: 1.4rem;
+    border: 1px solid #212121;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.content-container .actions-area-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 1.4rem;
+}
+
+
+.content-container .actions-area-container .bus-routes-table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.content-container .actions-area-container .bus-routes-table-container .bus-routes-table-box {
+    margin-top: 1.4rem;
+    border: 1px solid #212121;
+    border-radius: 10px;
+    padding: 20px;
+}
