@@ -1,0 +1,91 @@
+.settings-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.settings-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.settings-main {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.settings-sidebar {
+    min-width: 180px;
+    border-right: 1px solid #222;
+    padding: 1rem 0;
+    height: fit-content;
+}
+
+.settings-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-sidebar li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    color: #fff;
+    border-left: 4px solid transparent;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.settings-sidebar li.active,
+.settings-sidebar li:hover {
+    border-left: 4px solid #0C6BFF;
+    color: #FFF;
+}
+
+.sidebar-icon {
+    display: flex;
+    align-items: center;
+}
+
+.settings-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.settings-section {
+    background: #181818;
+    border: 1px solid #222;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+}
+
+.settings-fields label {
+    display: block;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.settings-fields input,
+.settings-fields textarea,
+.settings-fields select {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.7rem;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background: #232323;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.settings-fields input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+}

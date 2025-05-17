@@ -7,6 +7,7 @@ import React from "react";
 import DriversPage from "../pages/driver/DriversPage";
 import AlertsPage from "../pages/alerts/AlertsPage";
 import RoutesPage from "../pages/route/RoutesPage";
+import SettingsPage from "../pages/settings/SettingsPage";
 
 export default function AppRouter() {
   const { authToken } = useAuth();
@@ -25,6 +26,7 @@ export default function AppRouter() {
           <Route path="/buses" element={<BusesPage />} />
           <Route path="/alerts" element={<AlertsPage />} />
           <Route path="/routes" element={<RoutesPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </>
       )}
