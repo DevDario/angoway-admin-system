@@ -1,0 +1,9 @@
+.routes-table {
+    padding: 3px;
+}
+
+.routes-table .routes-table-header .routes-table-head,
+.routes-table .routes-table-body .routes-table-cell {
+    padding: 10px;
+    border-radius: 5px;
+}
