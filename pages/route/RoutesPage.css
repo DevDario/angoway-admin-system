@@ -1,0 +1,12 @@
+.content-container .header-container{
+    margin: 2rem 0 1rem 0;
+}
+
+.content-container .routes-card-container{
+    margin-top: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
