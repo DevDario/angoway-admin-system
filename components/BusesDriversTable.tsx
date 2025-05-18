@@ -29,8 +29,6 @@ export default function BusesDriversTable() {
           <TableHead className="w-[100px] buses-drivers-table-head">
             Rota
           </TableHead>
-          <TableHead className="buses-drivers-table-head">Turno</TableHead>
-          <TableHead className="buses-drivers-table-head">Horário</TableHead>
           <TableHead className="buses-drivers-table-head">NIA</TableHead>
         </TableRow>
       </TableHeader>
@@ -44,13 +42,7 @@ export default function BusesDriversTable() {
               {driver.name}
             </TableCell>
             <TableCell className="font-medium p-30 buses-drivers-table-cell">
-              {driver.route}
-            </TableCell>
-            <TableCell className="buses-drivers-table-cell">
-              {driver.shift}
-            </TableCell>
-            <TableCell className="buses-drivers-table-cell">
-              {driver.schedule}
+              {driver.route.name}
             </TableCell>
             <TableCell className="buses-drivers-table-cell font-medium">
               {driver.NIA}
