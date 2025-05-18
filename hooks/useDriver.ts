@@ -11,6 +11,7 @@ import {
   getPendingDriversCount,
 } from "../api/usecases/driver.usecase";
 import { useState } from "react";
+import { Driver } from "../types/Driver";
 
 export function useDriver() {
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +24,7 @@ export function useDriver() {
   });
 
   const useUpdateDriver = useMutation({
-    mutationFn: async () => updateDriver,
+    mutationFn: ({id, body}:{id:number, body: Driver}) => updateDriver(id, body),
     onMutate: () => {
       setError(null);
       setSuccess(null);
