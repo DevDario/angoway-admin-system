@@ -18,7 +18,7 @@ import AlertModal from "../../components/AlertModal";
 import { toast } from "sonner";
 
 const busIcon = new L.Icon({
-  iconUrl: "/busStopIcon.png",
+  iconUrl: "/busMarker.png",
   iconSize: [32, 32],
 });
 
