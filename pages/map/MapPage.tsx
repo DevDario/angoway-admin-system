@@ -1,76 +1,32 @@
-import React, { useRef } from "react";
+import React from "react";
 import Layout from "../_layout";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapPage.css";
-
-// Dummy data for demonstration. Replace with real data from your hooks/api.
-const activeDrivers = [
-  {
-    id: 1,
-    name: "João Silva",
-    busId: "BUS-101",
-    route: "Luanda - Viana",
-    lat: -8.8383,
-    lng: 13.2344,
-  },
-  {
-    id: 2,
-    name: "Maria Santos",
-    busId: "BUS-102",
-    route: "Viana - Cacuaco",
-    lat: -8.95,
-    lng: 13.25,
-  },
-  {
-    id: 3,
-    name: "Carlos Lima",
-    busId: "BUS-103",
-    route: "Cacuaco - Talatona",
-    lat: -8.92,
-    lng: 13.3,
-  },
-  {
-    id: 4,
-    name: "Carlos Lima",
-    busId: "BUS-103",
-    route: "Cacuaco - Talatona",
-    lat: -8.92,
-    lng: 13.3,
-  },
-  {
-    id: 5,
-    name: "Carlos Lima",
-    busId: "BUS-103",
-    route: "Cacuaco - Talatona",
-    lat: -8.92,
-    lng: 13.3,
-  },
-  {
-    id: 6,
-    name: "Carlos Lima",
-    busId: "BUS-103",
-    route: "Cacuaco - Talatona",
-    lat: -8.92,
-    lng: 13.3,
-  },
-  {
-    id: 7,
-    name: "Carlos Lima",
-    busId: "BUS-103",
-    route: "Cacuaco - Talatona",
-    lat: -8.92,
-    lng: 13.3,
-  },
-];
+import { useBusesLocation } from "../../hooks/useBusesLocation";
+import {
+  AlertTriangle,
+  AlertTriangleIcon,
+  ArrowLeftRightIcon,
+  KeySquareIcon,
+  LocateFixedIcon,
+  UserIcon,
+  UserSearchIcon,
+} from "lucide-react";
+import AlertModal from "../../components/AlertModal";
+import { toast } from "sonner";
 
 const busIcon = new L.Icon({
   iconUrl: "/busStopIcon.png",
   iconSize: [32, 32],
 });
 
-// Helper component to animate map view
+const busAlertIcon = new L.Icon({
+  iconUrl: "/navigationIcon.png",
+  iconSize: [32, 32],
+});
+
 function FlyToLocation({ position }: { position: [number, number] | null }) {
   const map = useMap();
   React.useEffect(() => {
@@ -85,9 +41,20 @@ export default function MapPage() {
   const [selectedPosition, setSelectedPosition] = React.useState<
     [number, number] | null
   >(null);
+  const { buses } = useBusesLocation();
+  const [success, setSuccess] = React.useState<string>("");
 
-  function handleDeactivateDriver(id: number): void {
-    alert(`Motorista com ID ${id} desativado.`);
+  function handleDeactivateDriver(id: number) {
+    setSuccess("Autocarro desativado");
+  }
+
+  function handleCopyLocation(bus) {
+    if (bus.lat) {
+      navigator.clipboard.writeText(`${bus.lat},${bus.lng}`);
+      toast.success("Localização Copiada");
+    } else {
+      toast.error("Não foi possível salvar a Localização");
+    }
   }
 
   return (
@@ -96,37 +63,60 @@ export default function MapPage() {
         <aside className="map-page-sidebar">
           <h2 className="sidebar-title">Motoristas Ativos</h2>
           <ul className="drivers-list">
-            {activeDrivers.map((driver) => (
-              <li
-                key={driver.id}
-                className="driver-list-item"
-                onClick={() => setSelectedPosition([driver.lat, driver.lng])}
-                tabIndex={0}
-                style={{ cursor: "pointer" }}
-              >
-                <div className="driver-route">{driver.route}</div>
-                <div className="driver-name">{driver.name}</div>
-                <div className="driver-busid">Autocarro: {driver.busId}</div>
-                <div
-                  style={{ display: "flex", gap: "8px", marginBottom: "2px" }}
+            {buses.length > 0 ? (
+              buses.map((bus) => (
+                <li
+                  key={bus.busId}
+                  className="driver-list-item"
+                  onClick={() => setSelectedPosition([bus.lat, bus.lng])}
+                  tabIndex={0}
+                  style={{ cursor: "pointer" }}
                 >
-                  <button
-                    style={{
-                      background: "#ffeaea",
-                      color: "#d32f2f",
-                      borderRadius: "4px",
-                      padding: "4px",
-                      cursor: "pointer",
-                      fontWeight: 500,
-                      fontSize: "14px",
-                    }}
-                    onClick={() => handleDeactivateDriver(driver.id)}
-                  >
-                    Desativar
-                  </button>
-                </div>
-              </li>
-            ))}
+                  <div className="driver-route">{bus.route}</div>
+                  <div className="driver-name">{bus.driverName}</div>
+                  <div className="driver-busid">Autocarro: {bus.busId}</div>
+                  {bus.status === "IN_TRANSIT" ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "8px",
+                        marginTop: "4px",
+                        marginBottom: "2px",
+                      }}
+                    >
+                      <button
+                        style={{
+                          background: "#ffeaea",
+                          color: "#d32f2f",
+                          borderRadius: "4px",
+                          padding: "4px",
+                          cursor: "pointer",
+                          fontWeight: 500,
+                          fontSize: "14px",
+                        }}
+                        onClick={() => handleDeactivateDriver(bus.busId)}
+                      >
+                        Desativar
+                      </button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </li>
+              ))
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                <UserSearchIcon size={20} />
+                <p>Nenhum Motorista Ativo</p>
+              </div>
+            )}
           </ul>
         </aside>
         <div className="map-area">
@@ -140,26 +130,179 @@ export default function MapPage() {
               url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
               attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             />
-            {activeDrivers.map((driver) => (
-              <Marker
-                key={driver.id}
-                position={[driver.lat, driver.lng]}
-                icon={busIcon}
-              >
-                <Popup>
-                  <div>
-                    <strong>{driver.name}</strong>
-                    <br />
-                    Autocarro: {driver.busId}
-                    <br />
-                    <small>{driver.route}</small>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
+            {buses.map(
+              (bus) =>
+                bus.status !== "IN_TRANSIT" ? (
+                  <Marker
+                    key={bus.busId}
+                    position={[bus.lat, bus.lng]}
+                    icon={busAlertIcon}
+                  >
+                    <Popup>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "5px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <AlertTriangleIcon size={14} color="#d32f2f" />
+                          <strong
+                            style={{ fontWeight: "bold", color: "#d32f2f" }}
+                          >
+                            {bus.status}
+                          </strong>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <UserIcon size={14} color="#121212" />
+                          <strong
+                            style={{ fontWeight: "bold", color: "#121212" }}
+                          >
+                            {bus.driverName}
+                          </strong>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <KeySquareIcon size={14} color="#121212" />
+                          <strong
+                            style={{ fontWeight: "bold", color: "#121212" }}
+                          >
+                            {bus.busId}
+                          </strong>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <LocateFixedIcon size={14} color="#121212" />
+                          <button
+                            style={{
+                              fontWeight: "bold",
+                              color: "#0C6BFF",
+                              cursor: "copy",
+                            }}
+                            onClick={() => handleCopyLocation(bus)}
+                          >
+                            [{bus.lat + "" + bus.lng}]
+                          </button>
+                        </div>
+                        <small>{bus.route}</small>
+                      </div>
+                    </Popup>
+                  </Marker>
+                ) : (
+                  <Marker
+                    key={bus.busId}
+                    position={[bus.lat, bus.lng]}
+                    icon={busIcon}
+                  >
+                    <Popup>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "5px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <ArrowLeftRightIcon size={14} color="#121212" />
+                          <strong
+                            style={{ fontWeight: "bold", color: "#0C6BFF" }}
+                          >
+                            {bus.status}
+                          </strong>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <UserIcon size={14} color="#121212" />
+                          <strong
+                            style={{ fontWeight: "bold", color: "#121212" }}
+                          >
+                            {bus.driverName}
+                          </strong>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <KeySquareIcon size={14} color="#121212" />
+                          <strong
+                            style={{ fontWeight: "bold", color: "#121212" }}
+                          >
+                            {bus.busId}
+                          </strong>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "2px",
+                          }}
+                        >
+                          <LocateFixedIcon size={14} color="#121212" />
+                          <button
+                            style={{
+                              fontWeight: "bold",
+                              color: "#0C6BFF",
+                              cursor: "copy",
+                            }}
+                            onClick={() => handleCopyLocation(bus)}
+                          >
+                            [{bus.lat + "" + bus.lng}]
+                          </button>
+                        </div>
+                        <small>{bus.route}</small>
+                      </div>
+                    </Popup>
+                  </Marker>
+                )
+              //acaba
+            )}
             <FlyToLocation position={selectedPosition} />
           </MapContainer>
         </div>
+        {success && (
+          <AlertModal
+            text="Autocarro Desativado"
+            type="warning"
+            key={"success-alert"}
+          />
+        )}
       </div>
     </Layout>
   );
