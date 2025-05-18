@@ -23,7 +23,7 @@ const busIcon = new L.Icon({
 });
 
 const busAlertIcon = new L.Icon({
-  iconUrl: "/navigationIcon.png",
+  iconUrl: "/busMarkerAlert.png",
   iconSize: [32, 32],
 });
 
