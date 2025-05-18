@@ -23,9 +23,14 @@ import {
   useGetActiveDriversCount,
   useGetInactiveDriversCount,
 } from "../../hooks/driver/useDriverQuerys";
+import { toast } from "sonner";
 
 export default function DriversPage() {
-  const { mutate: deleteDriver } = useDeleteDriver();
+  const {
+    mutate: deleteDriver,
+    successMessage: success,
+    errorMessage: error,
+  } = useDeleteDriver();
 
   const { data: driversCount } = useGetDriversCount();
   const { data: pendingDriversCount } = useGetPendingDriversCount();
@@ -47,25 +52,27 @@ export default function DriversPage() {
   return (
     <Layout>
       <div className="content-container">
+        {success && toast.success(success)}
+        {error && toast.error(error)}
         <div className="data-summarization-container">
           <DashboardDataCard
             label="Motoristas Cadastrados"
-            value={drivers +""}
+            value={drivers + ""}
             icon={faCheckCircle}
           />
           <DashboardDataCard
             label="Motoristas Pendentes"
-            value={pendingDrivers +""}
+            value={pendingDrivers + ""}
             icon={faClock}
           />
           <DashboardDataCard
             label="Motoristas Ativos"
-            value={activeDrivers +""}
+            value={activeDrivers + ""}
             icon={faUser}
           />
           <DashboardDataCard
             label="Motoristas Inativos"
-            value={inactiveDrivers +""}
+            value={inactiveDrivers + ""}
             icon={faClose}
           />
         </div>
