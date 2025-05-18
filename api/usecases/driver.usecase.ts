@@ -35,7 +35,7 @@ export const updateDriver = async (id: number, body: Driver) => {
   const token = getToken();
   const response = await api.put(
     `/driver/${id}`,
-    { body },
+    body,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ export const getInactiveDriversCount = async (): Promise<CountDriverResponse> =>
 
 export const getPendingDriversCount = async (): Promise<CountDriverResponse> => {
   const token = getToken();
-  const response = await api.get("/driver/pending", {
+  const response = await api.get("/driver/count-pending", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
