@@ -9,22 +9,18 @@ import {
   TableRow,
 } from "../src/components/ui/table";
 import "./BusesRoutesTable.css";
-import { useBus } from "../hooks/useBus";
+import { useGetBusesWithAssignedRoutes } from "../hooks/bus/useBusQuerys";
 
 export default function BusesRoutesTable() {
-
-  const { useGetBusesWithAssignedRoutes } = useBus()
-  const { data: routeAssignedBuses } = useGetBusesWithAssignedRoutes;
-  const buses = routeAssignedBuses ?? [];
+  const { data: fetchedBuses } = useGetBusesWithAssignedRoutes();
+  const buses = fetchedBuses ?? [];
 
   return (
     <Table className="buses-route-table">
       <TableCaption>Rotas atribuidas à cada autocarro.</TableCaption>
       <TableHeader className="buses-route-table-header">
         <TableRow className="buses-route-table-row">
-          <TableHead className="w-[100px] buses-route-table-head">
-            ID
-          </TableHead>
+          <TableHead className="w-[100px] buses-route-table-head">ID</TableHead>
           <TableHead className="w-[100px] buses-route-table-head">
             Rota
           </TableHead>

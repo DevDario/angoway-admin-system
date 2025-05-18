@@ -14,6 +14,7 @@ import {
   faMoneyBills,
   faDownload,
   faWarning,
+  faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
@@ -21,38 +22,40 @@ import DashboardTable from "../../components/DashboardTable";
 import { useNavigate } from "react-router";
 import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 import { toast } from "sonner";
-import { useBus } from "../../hooks/useBus";
-import { useDriver } from "../../hooks/useDriver";
-import { useTravel } from "../../hooks/useTravel";
+import {
+  useGetActiveBusesCount,
+  useGetPendingBusesCount,
+  useGetInactiveBusesCount,
+  useGetBusesCount,
+} from "../../hooks/bus/useBusQuerys";
+import {
+  useGetPendingDriversCount,
+  useGetDriversCount,
+} from "../../hooks/driver/useDriverQuerys";
+import { useGetMonthlyTravelCount } from "../../hooks/travel/useTravelQuerys";
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
   const navigator = useNavigate();
 
-  const {
-    useGetBuses,
-    useGetActiveBusesCount,
-    useGetPendingBusesCount,
-    useGetInactiveBusesCount,
-  } = useBus();
-  const { useGetPendingDriversCount, useGetDriversCount } = useDriver();
-  const { useGetMonthlyTravelCount } = useTravel();
+  const { data: monthlyTravelCount } = useGetMonthlyTravelCount();
 
-  const { data: buses } = useGetBuses;
-  const { data: activeBuses } = useGetActiveBusesCount;
-  const { data: inactiveBuses } = useGetInactiveBusesCount;
-  const { data: pendingBuses } = useGetPendingBusesCount;
+  const { data: buses } = useGetBusesCount();
+  const { data: activeBuses } = useGetActiveBusesCount();
+  const { data: inactiveBuses } = useGetInactiveBusesCount();
+  const { data: pendingBuses } = useGetPendingBusesCount();
 
-  const { data: drivers } = useGetDriversCount;
-  const { data: pendingDrivers } = useGetPendingDriversCount;
+  const { data: drivers } = useGetDriversCount();
+  const { data: pendingDrivers } = useGetPendingDriversCount();
 
   const driversCount = drivers?.count ?? 0;
   const pendingDriversCount = pendingDrivers?.count ?? 0;
 
-  const { data: travels } = useGetMonthlyTravelCount;
-  const travelsProfitCount = Array.isArray(travels) ? travels : [];
+  const travelsProfitCount = Array.isArray(monthlyTravelCount)
+    ? monthlyTravelCount
+    : [];
 
-  const busesCount = buses?.length ?? 0;
+  const busesCount = buses?.count ?? 0;
   const activeBusesCount = activeBuses?.count ?? 0;
   const inactiveBusesCount = inactiveBuses?.count ?? 0;
   const pendingBusesCount = pendingBuses?.count ?? 0;
@@ -73,7 +76,7 @@ export default function DashboardPage() {
           <DashboardDataCard
             label="Motoristas"
             value={driversCount + ""}
-            icon={faUser}
+            icon={faUserTie}
           />
           <DashboardDataCard
             label="Autocarros Ativos"

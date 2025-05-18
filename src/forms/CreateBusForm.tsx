@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { createBusSchema } from "@/schemas/bus.create.schema";
 import { Bus } from "types/Bus";
-import { useBus } from "../../hooks/useBus";
+import { useCreateBus } from "../../hooks/bus/useBusMutations";
 import { toast } from "sonner";
 
 export default function CreateBusForm() {
@@ -31,20 +31,26 @@ export default function CreateBusForm() {
     },
   });
 
-  const { useCreateBus,success, error } = useBus();
-  const { isError } = useCreateBus;
+  const {
+    mutate: create,
+    successMessage: success,
+    errorMessage: error,
+  } = useCreateBus();
 
   async function handleCreateBus(body: Bus) {
-    useCreateBus.mutateAsync(body);
+    create(body);
   }
 
   if (success) {
-    toast.success(success)
+    toast.success(success);
   }
 
-  if (error || isError) {
+  if (error) {
     toast.error("Erro ao cadastrar o autocarro !", {
-      description: error !== null ? error: `Houve um erro ao cadastrar o autocarro. Tente submeter novamente`,
+      description:
+        error !== null
+          ? error
+          : `Houve um erro ao cadastrar o autocarro. Tente submeter novamente`,
     });
   }
 

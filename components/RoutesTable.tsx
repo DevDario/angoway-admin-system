@@ -11,7 +11,7 @@ import {
 import "./RoutesTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
-import { useRoute } from "../hooks/useRoute";
+import { useGetRoutes } from "../hooks/route/useRouteQuerys";
 import { useState, useEffect } from "react";
 import { RouteResponse } from "../types/route.response";
 
@@ -21,13 +21,12 @@ type RoutesTableProps = {
 };
 
 export default function RoutesTable({ onDelete, onEdit }: RoutesTableProps) {
-  const { useGetRoutes } = useRoute();
-  const { data } = useGetRoutes;
+  const { data: fetchedRoutes } = useGetRoutes();
   const [routes, setRoutes] = useState<RouteResponse[] | []>([]);
 
   useEffect(() => {
-    if (data !== undefined) setRoutes(data);
-  }, [data]);
+    if (fetchedRoutes !== undefined) setRoutes(fetchedRoutes);
+  }, [fetchedRoutes]);
 
   return (
     <Table className="routes-table">
@@ -36,9 +35,7 @@ export default function RoutesTable({ onDelete, onEdit }: RoutesTableProps) {
         <TableRow className="routes-table-row">
           <TableHead className="w-[100px] routes-table-head">ID</TableHead>
           <TableHead className="w-[100px] routes-table-head">nome</TableHead>
-          <TableHead className="w-[100px] routes-table-head">
-            Origem
-          </TableHead>
+          <TableHead className="w-[100px] routes-table-head">Origem</TableHead>
           <TableHead className="routes-table-head">Destino</TableHead>
           <TableHead className="routes-table-head">Status</TableHead>
         </TableRow>
@@ -55,7 +52,9 @@ export default function RoutesTable({ onDelete, onEdit }: RoutesTableProps) {
             <TableCell className="font-medium p-30 routes-table-cell">
               {route.origin}
             </TableCell>
-            <TableCell className="routes-table-cell">{route.destination}</TableCell>
+            <TableCell className="routes-table-cell">
+              {route.destination}
+            </TableCell>
             <TableCell className="routes-table-cell">{route.status}</TableCell>
             <TableCell className="text-right routes-table-cell">
               <button

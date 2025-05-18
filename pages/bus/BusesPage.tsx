@@ -9,35 +9,33 @@ import "./BusesPage.css";
 import Button from "../../components/Button";
 import CreateBusForm from "../../src/forms/CreateBusForm";
 import CreateBusDialog from "../../components/CreateBusDialog";
-import { useBus } from "../../hooks/useBus";
+import { useDeleteBus, useUpdateBus } from "../../hooks/bus/useBusMutations";
+import {
+  useGetBuses,
+  useGetActiveBusesCount,
+  useGetInactiveBusesCount,
+  useGetPendingBusesCount,
+} from "../../hooks/bus/useBusQuerys";
 
 export default function BusesPage() {
-  const { 
-    useDeleteBus, 
-    useUpdateBus, 
-    useGetBuses, 
-    useGetActiveBusesCount, 
-    useGetInactiveBusesCount, 
-    useGetPendingBusesCount 
-  } = useBus();
-
-  const { data: buses } = useGetBuses;
-  const { data: activeBuses } = useGetActiveBusesCount;
-  const { data: inactiveBuses } = useGetInactiveBusesCount;
-  const { data: pendingBuses } = useGetPendingBusesCount;
+  const { data: buses } = useGetBuses();
+  const { data: activeBuses } = useGetActiveBusesCount();
+  const { data: inactiveBuses } = useGetInactiveBusesCount();
+  const { data: pendingBuses } = useGetPendingBusesCount();
 
   const busesCount = buses?.length ?? 0;
   const activeBusesCount = activeBuses?.count ?? 0;
   const inactiveBusesCount = inactiveBuses?.count ?? 0;
   const pendingBusesCount = pendingBuses?.count ?? 0;
 
+  const {
+    mutate: deleteBus,
+    successMessage: deleteSuccess,
+    errorMessage: deleteError,
+  } = useDeleteBus();
 
   async function handleDelete(id: number) {
-    useDeleteBus.mutateAsync(id);
-  }
-
-  async function handleEdit() {
-    useUpdateBus.mutateAsync();
+    deleteBus(id);
   }
 
   return (
@@ -83,7 +81,7 @@ export default function BusesPage() {
           <div className="buses-table-box">
             <BusesTable
               onDelete={(id: number) => handleDelete(id)}
-              onEdit={() => handleEdit}
+              onEdit={() => {}}
             />
           </div>
         </div>

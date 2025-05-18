@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthState } from "../hooks/useAuthState";
 import LoginPage from "../pages/login/LoginPage";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import BusesPage from "../pages/bus/BusesPage";
@@ -11,7 +11,7 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import MapPage from "../pages/map/MapPage";
 
 export default function AppRouter() {
-  const { authToken } = useAuth();
+  const { authToken } = useAuthState();
 
   return (
     <Routes>

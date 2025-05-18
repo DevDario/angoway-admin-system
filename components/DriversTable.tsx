@@ -11,33 +11,30 @@ import {
 import "./DriversTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
-import { useDriver } from "../hooks/useDriver";
+import { useGetDrivers } from "../hooks/driver/useDriverQuerys";
 import { DriverResponse } from "../types/driver.response";
 import { toast } from "sonner";
 
 type DriversTableProps = {
-  onDelete: (id:number) => void;
-  onEdit: (id:number) => void;
+  onDelete: (id: number) => void;
+  onEdit: (id: number) => void;
 };
 
 export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
-  const { useGetDrivers} = useDriver()
-  const { data,error } = useGetDrivers;
+  const { data: fetchedDrivers, error } = useGetDrivers();
   const [drivers, setDrivers] = useState<DriverResponse[] | []>([]);
 
   useEffect(() => {
-    if (data !== undefined) setDrivers(data);
-  }, [data]);
+    if (fetchedDrivers !== undefined) setDrivers(fetchedDrivers);
+  }, [fetchedDrivers]);
 
-  if (error) { 
+  if (error) {
     toast.error("Erro ao carregar motoristas", {
-        description: error.message.includes("500") ? "Erro no Servidor. Recarregue a página" : "Tente mais tarde",
-      })
+      description: error.message.includes("500")
+        ? "Erro no Servidor. Recarregue a página"
+        : "Tente mais tarde",
+    });
   }
-
-  // if (!error) {
-  //   toast("Lista de Motoristas actualizada");
-  // }
 
   return (
     <Table className="drivers-table">

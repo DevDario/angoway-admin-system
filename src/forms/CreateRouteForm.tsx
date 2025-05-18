@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createRouteSchema, RouteCreateInput } from "@/schemas/route.create.schema";
-import { useRoute } from "../../hooks/useRoute";
+import { useCreateRoute } from "../../hooks/route/useRouteMutations";
 import { toast } from "sonner";
 
 export default function CreateRouteForm() {
@@ -30,18 +30,17 @@ export default function CreateRouteForm() {
     },
   });
 
-  const { useCreateRoute, success, error } = useRoute();
-  const { isError } = useCreateRoute;
+  const { mutate:create, successMessage:success, errorMessage:error } = useCreateRoute();
 
   async function handleCreateRoute(body: RouteCreateInput) {
-      useCreateRoute.mutateAsync(body);
+      create(body);
   }
 
   if (success) {
     toast.success(success);
   }
 
-  if (error || isError) {
+  if (error) {
     toast.error("Erro ao cadastrar a rota !", {
       description:
         error !== null

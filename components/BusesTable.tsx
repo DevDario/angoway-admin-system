@@ -11,8 +11,7 @@ import {
 import "./BusesTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
-import IdDialog from "./IdDialog";
-import { useBus } from "../hooks/useBus";
+import { useGetBuses } from "../hooks/bus/useBusQuerys";
 import { useState, useEffect } from "react";
 import { BusResponse } from "../types/bus.response";
 
@@ -22,13 +21,12 @@ type BusesTableProps = {
 };
 
 export default function BusesTable({ onDelete, onEdit }: BusesTableProps) {
-  const { useGetBuses } = useBus();
-  const { data } = useGetBuses;
+  const { data: fetchedBuses } = useGetBuses();
   const [buses, setBuses] = useState<BusResponse[] | []>([]);
 
   useEffect(() => {
-    if (data !== undefined) setBuses(data);
-  }, [data]);
+    if (fetchedBuses !== undefined) setBuses(fetchedBuses);
+  }, [fetchedBuses]);
 
   return (
     <Table className="buses-table">

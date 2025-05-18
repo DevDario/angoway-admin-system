@@ -9,12 +9,11 @@ import {
   TableRow,
 } from "../src/components/ui/table";
 import "./BusesDriversTable.css";
-import { useDriver } from "../hooks/useDriver";
+import { useGetDriversWithAssignedBus } from "../hooks/driver/useDriverQuerys";
 
 export default function BusesDriversTable() {
-  const { useGetDriversWithAssignedBus } = useDriver();
-  const { data } = useGetDriversWithAssignedBus;
-  const drivers = data ?? [];
+  const { data: fetchedDrivers } = useGetDriversWithAssignedBus();
+  const drivers = fetchedDrivers ?? [];
 
   return (
     <Table className="buses-drivers-table">

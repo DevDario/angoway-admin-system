@@ -2,7 +2,7 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/login.schema";
-import { useAuth } from "../../hooks/useAuth";
+import { useLogin } from "../../hooks/auth/useAuthMutations";
 import AlertModal from "../../components/AlertModal";
 import "./LoginPage.css";
 
@@ -17,10 +17,10 @@ export default function Login() {
     defaultValues: { number: "", password: "" },
   });
 
-  const { useLogin, isCheckingAuth, authError } = useAuth();
+  const { mutate: login, isPending, errorMessage, successMessage } = useLogin();
 
   function handleLogin(data: any) {
-    useLogin.mutate(data);
+    login(data);
   }
 
   return (
@@ -73,13 +73,13 @@ export default function Login() {
           <button
             type="submit"
             className="login-button"
-            disabled={isCheckingAuth}
+            disabled={isPending}
           >
-            {isCheckingAuth ? "Entrando..." : "Entrar"}
+            {isPending ? "Entrando..." : "Entrar"}
           </button>
         </form>
-
-        {authError && <AlertModal text={authError} type="error" />}
+        {errorMessage && <AlertModal text={errorMessage} type="error" />}
+        {successMessage && <AlertModal text={successMessage} type="warning" />}
       </div>
 
       <div className="side-section">

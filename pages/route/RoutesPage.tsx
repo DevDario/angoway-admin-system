@@ -11,26 +11,35 @@ import RoutePreviewCard from "../../components/RoutePreviewCard";
 import SectionHeader from "../../components/SectionHeader";
 import Button from "../../components/Button";
 import TriggerableDialog from "../../components/TriggerableDialog";
-import CreateRouteForm from "@/forms/CreateRouteForm";
+import CreateRouteForm from "../../src/forms/CreateRouteForm";
 import RoutesTable from "../../components/RoutesTable";
-import { useRoute } from "../../hooks/useRoute";
+import {
+  useDeleteRoute,
+  useUpdateRoute,
+} from "../../hooks/route/useRouteMutations";
+import {
+  useGetRoutesCount,
+  useGetActiveRoutesCount,
+  useGetInactiveRoutesCount,
+  useGetPreviewRoutes,
+} from "../../hooks/route/useRouteQuerys";
 
 export default function RoutesPage() {
-  const {
-    useGetRoutesCount,
-    useGetActiveRoutesCount,
-    useGetInactiveRoutesCount,
-    useGetPreviewRoutes,
-  } = useRoute();
-//   const { data: routesCount } = useGetRoutesCount;
-//   const { data: activeRoutesCount } = useGetActiveRoutesCount;
-//   const { data: inactiveRoutesCount } = useGetInactiveRoutesCount;
-  const { data: routes } = useGetPreviewRoutes;
 
-  const numRoutes =  0;
-  const activeRoutes =  0;
-  const inactiveRoutes =  0;
-  const routesData = Array.isArray(routes) ? routes : [];
+  const { data: numRoutes } = useGetRoutesCount();
+  const { data: activeRoutes } = useGetActiveRoutesCount();
+  const { data: inactiveRoutes } = useGetInactiveRoutesCount();
+  const { data: routesData } = useGetPreviewRoutes();
+
+  const { mutate: deleteRoute } = useDeleteRoute();
+  const { mutate: updateRoute } = useUpdateRoute();
+
+  const routesCount = numRoutes?.count ?? 0;
+  const activeRoutesCount = activeRoutes?.count ?? 0;
+  const inactiveRoutesCount = inactiveRoutes?.count ?? 0;
+  const routes = Array.isArray(routesData) ? routesData : [];
+
+
 
   function handleDelete(id: number): void {
     throw new Error("Function not implemented.");
@@ -46,17 +55,17 @@ export default function RoutesPage() {
         <div className="data-summarization-container">
           <DashboardDataCard
             label="Rotas"
-            value={numRoutes}
+            value={routesCount}
             icon={faDirections}
           />
           <DashboardDataCard
             label="Rotas Ativas"
-            value={activeRoutes}
+            value={activeRoutesCount}
             icon={faRoad}
           />
           <DashboardDataCard
             label="Rotas Inativas"
-            value={inactiveRoutes}
+            value={inactiveRoutesCount}
             icon={faRoad}
           />
         </div>
@@ -66,7 +75,7 @@ export default function RoutesPage() {
           key={"preview-routes-section"}
         />
         <div className="routes-card-container">
-          {/* {routesData.map((route, index) => (
+          {routes.map((route, index) => (
             <RoutePreviewCard
               name={route.name}
               destination={route.destination}
@@ -76,7 +85,7 @@ export default function RoutesPage() {
               stops={route.stops}
               schedules={route.schedules}
             />
-          ))} */}
+          ))}
 
           <RoutePreviewCard
             destination={{ lat: -9.0037, lng: 13.2732 }}

@@ -16,13 +16,15 @@ import "./DriversPage.css";
 import Button from "../../components/Button";
 import CreateDriverForm from "../../src/forms/CreateDriverForm";
 import CreateDriverDialog from "../../components/CreateDriverDialog";
-import { useDriver } from "../../hooks/useDriver";
+import {
+  useDeleteDriver,
+} from "../../hooks/driver/useDriverMutations";
 
 export default function DriversPage() {
-  const { useDeleteDriver } = useDriver();
+  const { mutate: deleteDriver } = useDeleteDriver();
 
   async function handleDelete(id: number) {
-    useDeleteDriver.mutateAsync(id)
+    deleteDriver(id);
   }
 
   function handleEdit(id: number) {}

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createDriverSchema } from "@/schemas/driver.create.schema";
-import { useDriver } from "../../hooks/useDriver";
+import { useCreateDriver } from "../../hooks/driver/useDriverMutations";
 import { toast } from "sonner";
 
 export default function CreateDriverForm() {
@@ -33,11 +33,10 @@ export default function CreateDriverForm() {
     },
   });
 
-  const { useCreateDriver, success, error } = useDriver();
-  const { isError } = useCreateDriver;
+  const { mutate:create, successMessage:success, errorMessage:error } = useCreateDriver();
 
   function onSubmit(values: z.infer<typeof createDriverSchema>) {
-    useCreateDriver.mutateAsync({
+    create({
       name: values.name,
       email: values.email,
       phone: values.number,
@@ -51,7 +50,7 @@ export default function CreateDriverForm() {
     toast.success(success);
   }
 
-  if (error || isError) {
+  if (error) {
     toast.error("Erro ao cadastrar o motorista !", {
       description:
         error !== null
