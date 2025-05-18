@@ -77,7 +77,7 @@ export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
             <TableCell className="drivers-table-cell">
               {driver.efectivationDate + ""}
             </TableCell>
-            <TableCell className="drivers-table-cell">{driver.NIA}</TableCell>
+            <TableCell className="drivers-table-cell">{driver.busNia}</TableCell>
             <TableCell className="text-right drivers-table-cell font-bold">
               {driver.status}
             </TableCell>

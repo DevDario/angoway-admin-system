@@ -7,6 +7,6 @@ export type DriverResponse = {
   licenseNumber: string;
   experienceTime: number;
   status: string;
-  NIA: string;
+  busNia: string;
   efectivationDate: Date;
 };

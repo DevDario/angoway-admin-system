@@ -28,7 +28,7 @@ export const getDrivers = async (): Promise<DriverResponse[] | []> => {
     },
   });
 
-  return response.data;
+  return response.data as DriverResponse[];
 };
 
 export const updateDriver = async (id: number, body: Driver) => {
