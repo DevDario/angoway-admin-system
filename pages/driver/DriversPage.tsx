@@ -16,12 +16,27 @@ import "./DriversPage.css";
 import Button from "../../components/Button";
 import CreateDriverForm from "../../src/forms/CreateDriverForm";
 import CreateDriverDialog from "../../components/CreateDriverDialog";
+import { useDeleteDriver } from "../../hooks/driver/useDriverMutations";
 import {
-  useDeleteDriver,
-} from "../../hooks/driver/useDriverMutations";
+  useGetDriversCount,
+  useGetPendingDriversCount,
+  useGetActiveDriversCount,
+  useGetInactiveDriversCount,
+} from "../../hooks/driver/useDriverQuerys";
 
 export default function DriversPage() {
   const { mutate: deleteDriver } = useDeleteDriver();
+
+  const { data: driversCount } = useGetDriversCount();
+  const { data: pendingDriversCount } = useGetPendingDriversCount();
+  const { data: activeDriversCount } = useGetActiveDriversCount();
+
+  const { data: inactiveDriversCount } = useGetInactiveDriversCount();
+
+  const drivers = driversCount?.count || 0;
+  const pendingDrivers = pendingDriversCount?.count || 0;
+  const activeDrivers = activeDriversCount?.count || 0;
+  const inactiveDrivers = inactiveDriversCount?.count || 0;
 
   async function handleDelete(id: number) {
     deleteDriver(id);
@@ -35,22 +50,22 @@ export default function DriversPage() {
         <div className="data-summarization-container">
           <DashboardDataCard
             label="Motoristas Cadastrados"
-            value={20}
+            value={drivers +""}
             icon={faCheckCircle}
           />
           <DashboardDataCard
             label="Motoristas Pendentes"
-            value={5}
+            value={pendingDrivers +""}
             icon={faClock}
           />
           <DashboardDataCard
             label="Motoristas Ativos"
-            value={10}
+            value={activeDrivers +""}
             icon={faUser}
           />
           <DashboardDataCard
             label="Motoristas Inativos"
-            value={10}
+            value={inactiveDrivers +""}
             icon={faClose}
           />
         </div>
