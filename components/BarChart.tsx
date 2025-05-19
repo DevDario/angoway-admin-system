@@ -15,38 +15,22 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../src/components/ui/chart";
-
-const chartData = [
-  { month: "Janeiro", viagens: 186 },
-  { month: "Fevereiro", viagens: 305 },
-  { month: "Março", viagens: 237 },
-  { month: "Abril", viagens: 73 },
-  { month: "Maio", viagens: 209 },
-  { month: "Junho", viagens: 214 },
-  { month: "Julho", viagens: 200 },
-  { month: "Agosto", viagens: 204 },
-  { month: "Setembro", viagens: 109 },
-  { month: "Outubro", viagens: 205 },
-  { month: "Novembro", viagens: 104 },
-  { month: "Dezembro", viagens: 84 },
-];
-
-const chartConfig = {
-  viagens: {
-    label: "viagens",
-  },
-} satisfies ChartConfig;
+import { CountMonthlyResponse } from "../types/count-monthly.response";
 
 export default function CustomBarChart({
   data,
   config,
   description,
   footerText,
+  axisDataKey,
+  barDataKey,
 }: {
-  data?: { [month: string]: number }[];
-  config?: ChartConfig;
-  description?: string;
-  footerText?: string;
+  data: CountMonthlyResponse[] | any;
+  config: ChartConfig;
+  description: string;
+  footerText: string;
+  axisDataKey: string;
+  barDataKey: string;
 }) {
   return (
     <Card style={{ padding: 20 }}>
@@ -56,17 +40,17 @@ export default function CustomBarChart({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={config || chartConfig}>
+        <ChartContainer config={config}>
           <BarChart
             accessibilityLayer
-            data={data || chartData}
+            data={data}
             margin={{
               top: 10,
             }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey={axisDataKey}
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -76,7 +60,7 @@ export default function CustomBarChart({
               cursor={true}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="viagens" fill="#0C6BFF" radius={8}>
+            <Bar dataKey={barDataKey} fill="#0C6BFF" radius={8}>
               <LabelList
                 position="top"
                 offset={12}
