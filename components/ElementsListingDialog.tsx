@@ -23,7 +23,7 @@ export default function ElementsListingDialog({
   children: ReactNode;
   dialogTitle: string;
   dialogLabel: string;
-    buttonText: string;
+  buttonText: string;
   emptyStateText: string;
   action: (value: string) => void;
   data: { prop: string }[];
@@ -45,22 +45,38 @@ export default function ElementsListingDialog({
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
         </DialogHeader>
-              <p className="label">{dialogLabel}</p>
+        <p className="label">{dialogLabel}</p>
         <div className="list-container">
           <ul className="list-items">
             {data.length > 0 ? (
-              data.map((item,index) => (
-                <li className="list-item" onClick={() => setSelectedItem(item)} key={index}>
+              data.map((item, index) => (
+                <li
+                  className={`list-item${
+                    selectedItem?.prop === item.prop ? " selected" : ""
+                  }`}
+                  onClick={() => setSelectedItem(item)}
+                  key={index}
+                >
                   <div className="item-card">
                     <h1>{item.prop}</h1>
                   </div>
                 </li>
               ))
             ) : (
-                <p className="label" style={{ display: "flex",flexDirection:"row", gap: 5, alignItems: "center", alignContent:"center",justifyContent: "center" }}>
-                  <SearchX color="#0C6BFF" size={12}/>
-                  {emptyStateText}
-                </p>
+              <p
+                className="label"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 5,
+                  alignItems: "center",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <SearchX color="#0C6BFF" size={12} />
+                {emptyStateText}
+              </p>
             )}
           </ul>
         </div>

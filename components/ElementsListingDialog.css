@@ -2,24 +2,24 @@
     border: 2px solid #0C6BFF;
 }
 
-.label{
+.label {
     color: #8a8a8a;
     font-weight: 300;
     font-size: 14px;
 }
 
-.list-container .list-items{
+.list-container .list-items {
     display: flex;
     flex-direction: row;
     gap: 4px;
     flex-wrap: wrap;
 }
 
-.list-items .list-item{
+.list-items .list-item {
     cursor: pointer;
 }
 
-.list-items .list-item .item-card{
+.list-items .list-item .item-card {
     background-color: #0c69ff31;
     width: max-content;
     height: 30px;
@@ -31,7 +31,15 @@
     border-radius: 4px;
 }
 
-.list-items .list-item .item-card > h1{
+.list-items .list-item .item-card>h1 {
     color: #0C6BFF;
     font-weight: bold;
+}
+
+.list-items .list-item.selected .item-card {
+    background-color: #0C6BFF;
+}
+
+.list-items .list-item.selected .item-card>h1 {
+    color: #FCFCFB;
 }
