@@ -99,7 +99,7 @@ export const updateBus = async (
   const token = getToken();
   const response = await api.put(
     `/bus/${id}`,
-    { body },
+    body,
     {
       headers: {
         Authorization: `Bearer ${token}`,
