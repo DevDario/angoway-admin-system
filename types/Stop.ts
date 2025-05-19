@@ -1,4 +1,5 @@
 export type Stop = {
   name: string;
-  routeId: number;
+  latitude: number;
+  longitude: number;
 };
