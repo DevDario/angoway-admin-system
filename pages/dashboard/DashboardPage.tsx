@@ -121,8 +121,6 @@ export default function DashboardPage() {
           <SectionHeader icon={faClock} title="Motoristas Recentes" />
           <div className="employees-table-box">
             <DashboardTable
-              onDelete={() => handleDelete}
-              onEdit={() => handleEdit}
             />
           </div>
         </div>
