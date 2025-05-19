@@ -46,7 +46,6 @@ export default function ElementsListingDialog({
           <DialogTitle>{dialogTitle}</DialogTitle>
         </DialogHeader>
               <p className="label">{dialogLabel}</p>
-              {selectedItem?.prop}
         <div className="list-container">
           <ul className="list-items">
             {data.length > 0 ? (
