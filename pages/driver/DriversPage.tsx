@@ -16,7 +16,7 @@ import "./DriversPage.css";
 import Button from "../../components/Button";
 import CreateDriverForm from "../../src/forms/CreateDriverForm";
 import CreateDriverDialog from "../../components/CreateDriverDialog";
-import { useDeleteDriver } from "../../hooks/driver/useDriverMutations";
+import { useDeleteDriver, useAssignBusToDriver } from "../../hooks/driver/useDriverMutations";
 import {
   useGetDriversCount,
   useGetPendingDriversCount,
@@ -47,7 +47,6 @@ export default function DriversPage() {
     deleteDriver(id);
   }
 
-  async function handleAssign(d: number) {}
 
   function handleEdit(id: number) {}
 
@@ -96,8 +95,6 @@ export default function DriversPage() {
           <div className="employees-table-box">
             <DriversTable
               onDelete={(id: number) => handleDelete(id)}
-              onEdit={(id: number) => handleEdit(id)}
-              onAssign={(id: number) => handleAssign(id)}
             />
           </div>
         </div>
