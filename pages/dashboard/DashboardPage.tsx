@@ -34,6 +34,7 @@ import {
 } from "../../hooks/driver/useDriverQuerys";
 import { useGetMonthlyTravelCount } from "../../hooks/travel/useTravelQuerys";
 import { ChartConfig } from "../../src/components/ui/chart";
+import { exportMonthlyTravelCount } from "../../api/usecases/travel.usecase";
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
@@ -64,6 +65,19 @@ export default function DashboardPage() {
   function handleDelete() {}
 
   function handleEdit() { }
+
+  async function handleTravelsCountDownload(){
+    const blob = await exportMonthlyTravelCount();
+
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "monthly-travels.xlsx";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  };
   
   const travelsChartConfig = {
     travels: {
@@ -110,7 +124,7 @@ export default function DashboardPage() {
           <div className="chart-action-buttons-container">
             <Button
               text="Baixar"
-              onClick={() => {}}
+              onClick={() => handleTravelsCountDownload()}
               icon={faDownload}
               iconColor="#FFF"
               title="exportar dados"

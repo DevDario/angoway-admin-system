@@ -54,13 +54,25 @@ export const deleteTravel = async (id: number) => {
   return response.data;
 };
 
-export const getMonthlyTravelCount =
-  async (): Promise<CountMonthlyResponse[]> => {
-    const token = getToken();
-    const response = await api.get("/travel/monthly-count", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data as CountMonthlyResponse[];
-  };
+export const getMonthlyTravelCount = async (): Promise<
+  CountMonthlyResponse[]
+> => {
+  const token = getToken();
+  const response = await api.get("/travel/monthly-count", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data as CountMonthlyResponse[];
+};
+
+export const exportMonthlyTravelCount = async (year?:number) => {
+  const token = getToken();
+  const response = await api.get("/travel/monthly-count/export", {
+    responseType: "blob",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
