@@ -103,7 +103,7 @@ export const useAssignDriver = (
     mutationFn: ({ id, driverEmail }: { id: number; driverEmail: string }) =>
       assignDriver(id, driverEmail),
     onSuccess: (res) => {
-      queryClient.invalidateQueries({ queryKey: ["assign-driver"] });
+      queryClient.invalidateQueries({ queryKey: ["buses"] });
       handleSuccess(res.message);
       onSuccess?.();
     },

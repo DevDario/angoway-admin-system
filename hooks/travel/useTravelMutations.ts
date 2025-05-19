@@ -34,6 +34,7 @@ export const useCreateTravel = (
     mutationFn: createTravel,
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["travels"] });
+      queryClient.invalidateQueries({ queryKey: ["travels-count"] });
       handleSuccess(res.message);
       onSuccess?.();
     },
@@ -57,6 +58,7 @@ export const useUpdateTravel = (
       updateTravel(id, body),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["travels"] });
+      queryClient.invalidateQueries({ queryKey: ["travels-count"] });
       handleSuccess(res.message);
       onSuccess?.();
     },
@@ -79,6 +81,7 @@ export const useDeleteTravel = (
     mutationFn: deleteTravel,
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["travels"] });
+      queryClient.invalidateQueries({ queryKey: ["travels-count"] });
       handleSuccess(res.message);
       onSuccess?.();
     },
