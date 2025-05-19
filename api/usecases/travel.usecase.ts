@@ -55,12 +55,12 @@ export const deleteTravel = async (id: number) => {
 };
 
 export const getMonthlyTravelCount =
-  async (): Promise<CountMonthlyResponse> => {
+  async (): Promise<CountMonthlyResponse[]> => {
     const token = getToken();
     const response = await api.get("/travel/monthly-count", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data as CountMonthlyResponse;
+    return response.data as CountMonthlyResponse[];
   };
