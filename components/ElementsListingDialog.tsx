@@ -25,10 +25,10 @@ export default function ElementsListingDialog({
   dialogLabel: string;
   buttonText: string;
   emptyStateText: string;
-  action: (value: string) => void;
+  action: (value: { prop: string }) => void;
   data: { prop: string }[];
 }) {
-  function onSubmit(value: any) {
+  function onSubmit(value: { prop: string }) {
     return action(value);
   }
   const [selectedItem, setSelectedItem] = useState<{ prop: string } | null>(
@@ -85,11 +85,12 @@ export default function ElementsListingDialog({
           style={{
             height: 45,
             width: 400,
-            cursor: "pointer",
+            cursor: selectedItem ? "pointer" : "not-allowed",
             backgroundColor: "#0C6BFF",
             color: "#FCFCFB",
           }}
-          onClick={() => onSubmit(selectedItem)}
+          onClick={() => selectedItem && onSubmit(selectedItem)}
+          disabled={!selectedItem}
         >
           {buttonText}
         </Button>
