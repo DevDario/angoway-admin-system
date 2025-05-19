@@ -47,6 +47,8 @@ export default function DriversPage() {
     deleteDriver(id);
   }
 
+  async function handleAssign(d: number) {}
+
   function handleEdit(id: number) {}
 
   return (
@@ -95,6 +97,7 @@ export default function DriversPage() {
             <DriversTable
               onDelete={(id: number) => handleDelete(id)}
               onEdit={(id: number) => handleEdit(id)}
+              onAssign={(id: number) => handleAssign(id)}
             />
           </div>
         </div>
