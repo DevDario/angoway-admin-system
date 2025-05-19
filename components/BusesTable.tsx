@@ -11,22 +11,43 @@ import {
 import "./BusesTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
-import { useGetBuses } from "../hooks/bus/useBusQuerys";
+import { useGetPendingDriversCount } from "../hooks/driver/useDriverQuerys";
 import { useState, useEffect } from "react";
 import { BusResponse } from "../types/bus.response";
+import { CirclePlusIcon } from "lucide-react";
+import ElementsListingDialog from "./ElementsListingDialog";
+import { useGetBuses } from "../hooks/bus/useBusQuerys";
+import { DriverResponse } from "types/driver.response";
 
 type BusesTableProps = {
   onDelete: (id: number) => void;
   onEdit: (id: number) => void;
+  onAssign: (id: number, driver: string) => void;
 };
 
-export default function BusesTable({ onDelete, onEdit }: BusesTableProps) {
+export default function BusesTable({
+  onDelete,
+  onEdit,
+  onAssign,
+}: BusesTableProps) {
   const { data: fetchedBuses } = useGetBuses();
+  const { data: fetchedDrivers } = useGetPendingDriversCount();
   const [buses, setBuses] = useState<BusResponse[] | []>([]);
+
+  const [driversList, setDriversList] = useState<{ prop: string }[]>([]);
 
   useEffect(() => {
     if (fetchedBuses !== undefined) setBuses(fetchedBuses);
-  }, [fetchedBuses]);
+
+    if (fetchedDrivers && Array.isArray(fetchedDrivers.drivers)) {
+      const namesList = (fetchedDrivers.drivers as Partial<DriverResponse>[])
+        .filter((driver) => typeof driver?.name === "string")
+        .map((driver) => ({ prop: driver.name as string }));
+      setDriversList(namesList);
+    } else {
+      setDriversList([]);
+    }
+  }, [fetchedDrivers, fetchedBuses]);
 
   return (
     <Table className="buses-table">
@@ -58,7 +79,33 @@ export default function BusesTable({ onDelete, onEdit }: BusesTableProps) {
             </TableCell>
             <TableCell className="buses-table-cell">{bus.route}</TableCell>
             <TableCell className="buses-table-cell">{bus.capacity}</TableCell>
-            <TableCell className="buses-table-cell">{bus.driverName}</TableCell>
+            <TableCell className="buses-table-cell">
+              {bus.driverName === "N/A" ? (
+                <ElementsListingDialog
+                  dialogLabel="Motoristas Disponíveis"
+                  dialogTitle="Atribuir Motorista"
+                  emptyStateText="Nenhum motorista disponível."
+                  buttonText="Salvar"
+                  action={(selected) => onAssign(bus.id, selected?.prop || "")}
+                  data={driversList}
+                >
+                  <button
+                    className="action-button"
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <CirclePlusIcon color="#0C6BFF" size={18} />
+                    Atribuir
+                  </button>
+                </ElementsListingDialog>
+              ) : (
+                bus.driverName
+              )}
+            </TableCell>
             <TableCell className="text-right buses-table-cell">
               <button
                 className="action-button"
