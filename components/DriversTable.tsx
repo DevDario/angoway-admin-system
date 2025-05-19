@@ -28,14 +28,6 @@ export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
     if (fetchedDrivers !== undefined) setDrivers(fetchedDrivers);
   }, [fetchedDrivers]);
 
-  if (error) {
-    toast.error("Erro ao carregar motoristas", {
-      description: error.message.includes("500")
-        ? "Erro no Servidor. Recarregue a página"
-        : "Tente mais tarde",
-    });
-  }
-
   return (
     <Table className="drivers-table">
       <TableCaption>Motoristas na Empresa.</TableCaption>
