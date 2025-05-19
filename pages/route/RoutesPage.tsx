@@ -16,6 +16,7 @@ import RoutesTable from "../../components/RoutesTable";
 import {
   useDeleteRoute,
   useUpdateRoute,
+  useUpdateRouteStatus,
 } from "../../hooks/route/useRouteMutations";
 import {
   useGetRoutesCount,
@@ -25,7 +26,6 @@ import {
 } from "../../hooks/route/useRouteQuerys";
 
 export default function RoutesPage() {
-
   const { data: numRoutes } = useGetRoutesCount();
   const { data: activeRoutes } = useGetActiveRoutesCount();
   const { data: inactiveRoutes } = useGetInactiveRoutesCount();
@@ -33,20 +33,19 @@ export default function RoutesPage() {
 
   const { mutate: deleteRoute } = useDeleteRoute();
   const { mutate: updateRoute } = useUpdateRoute();
+  const { mutate: updateRouteStatus } = useUpdateRouteStatus();
 
   const routesCount = numRoutes?.count ?? 0;
   const activeRoutesCount = activeRoutes?.count ?? 0;
   const inactiveRoutesCount = inactiveRoutes?.count ?? 0;
   const routes = Array.isArray(routesData) ? routesData : [];
 
-
-
   function handleDelete(id: number): void {
-    throw new Error("Function not implemented.");
+    deleteRoute(id);
   }
 
   function handleEdit(id: number): void {
-    throw new Error("Function not implemented.");
+    updateRouteStatus(id);
   }
 
   return (
@@ -75,68 +74,21 @@ export default function RoutesPage() {
           key={"preview-routes-section"}
         />
         <div className="routes-card-container">
-          {routes.map((route, index) => (
-            <RoutePreviewCard
-              name={route.name}
-              destination={route.destination}
-              origin={route.origin}
-              status={route.status}
-              key={index}
-              stops={route.stops}
-              schedules={route.schedules}
-            />
-          ))}
-
-          <RoutePreviewCard
-            destination={{ lat: -9.0037, lng: 13.2732 }}
-            origin={{ lat: -8.8383, lng: 13.2344 }}
-            name="Luanda to Viana"
-            status="active"
-            key={"Luanda Central para Viana"}
-            stops={[
-              { name: "Luanda", routeId: 0 },
-              { name: "Viana", routeId: 0 },
-            ]}
-            schedules={[
-              {
-                departureTime: "07:00",
-                arrivalTime: "07:45",
-              },
-              {
-                departureTime: "09:00",
-                arrivalTime: "09:45",
-              },
-              {
-                departureTime: "17:00",
-                arrivalTime: "17:45",
-              },
-            ]}
-          />
-          <RoutePreviewCard
-            destination={{ lat: -9.0037, lng: 13.2732 }}
-            origin={{ lat: -8.8383, lng: 13.2344 }}
-            name="Luanda to Viana"
-            status="active"
-            key={"Luanda Central para Viana"}
-            stops={[
-              { name: "Luanda", routeId: 0 },
-              { name: "Viana", routeId: 0 },
-            ]}
-            schedules={[
-              {
-                departureTime: "07:00",
-                arrivalTime: "07:45",
-              },
-              {
-                departureTime: "09:00",
-                arrivalTime: "09:45",
-              },
-              {
-                departureTime: "17:00",
-                arrivalTime: "17:45",
-              },
-            ]}
-          />
+          {routes.length > 0 ? (
+            routes.map((route, index) => (
+              <RoutePreviewCard
+                key={index}
+                name={route.name}
+                destination={route.destination}
+                origin={route.origin}
+                status={route.status}
+                stops={route.stops}
+                schedules={route.schedules}
+              />
+            ))
+          ) : (
+            <div className="empty-state-message">Sem rotas preview</div>
+          )}
         </div>
         <div className="routes-table-container">
           <div className="routes-table-action-buttons-container">
