@@ -130,7 +130,7 @@ export const assignBus = async (
   busNia: string
 ): Promise<ResponseBody> => {
   const token = getToken();
-  const response = await api.put(`/bus/assign-bus/${id}`, busNia, {
+  const response = await api.post(`/driver/assign-bus/${id}`, {busNia}, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
