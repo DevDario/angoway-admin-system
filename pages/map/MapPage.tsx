@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../_layout";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -6,16 +6,19 @@ import "leaflet/dist/leaflet.css";
 import "./MapPage.css";
 import { useBusesLocation } from "../../hooks/useBusesLocation";
 import {
-  AlertTriangle,
   AlertTriangleIcon,
   ArrowLeftRightIcon,
+  BusFrontIcon,
   KeySquareIcon,
   LocateFixedIcon,
+  StopCircleIcon,
   UserIcon,
   UserSearchIcon,
 } from "lucide-react";
 import AlertModal from "../../components/AlertModal";
 import { toast } from "sonner";
+import { StopsResponse } from "../../types/stops.response";
+import { useGetStops } from "../../hooks/stops/useStopsQuerys";
 
 const busIcon = new L.Icon({
   iconUrl: "/busMarker.png",
@@ -25,6 +28,11 @@ const busIcon = new L.Icon({
 const busAlertIcon = new L.Icon({
   iconUrl: "/busMarkerAlert.png",
   iconSize: [32, 32],
+});
+
+const busStopIcon = new L.Icon({
+  iconUrl: "/busStopIcon.png",
+  iconSize: [25, 25],
 });
 
 function FlyToLocation({ position }: { position: [number, number] | null }) {
@@ -42,7 +50,14 @@ export default function MapPage() {
     [number, number] | null
   >(null);
   const { buses } = useBusesLocation();
+  const { data: fetchedStops } = useGetStops();
+
   const [success, setSuccess] = React.useState<string>("");
+  const [stops, setStops] = React.useState<StopsResponse[]>([]);
+
+  useEffect(() => {
+    if (fetchedStops !== undefined) setStops(fetchedStops);
+  }, [fetchedStops]);
 
   function handleDeactivateDriver(id: number) {
     setSuccess("Autocarro desativado");
@@ -130,169 +145,198 @@ export default function MapPage() {
               url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
               attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             />
-            {buses.map(
-              (bus) =>
-                bus.status !== "IN_TRANSIT" ? (
-                  <Marker
-                    key={bus.busId}
-                    position={[bus.lat, bus.lng]}
-                    icon={busAlertIcon}
-                  >
-                    <Popup>
+            {buses.map((bus) =>
+              bus.status !== "IN_TRANSIT" ? (
+                <Marker
+                  key={bus.busId}
+                  position={[bus.lat, bus.lng]}
+                  icon={busAlertIcon}
+                >
+                  <Popup>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "5px",
+                      }}
+                    >
                       <div
                         style={{
                           display: "flex",
-                          flexDirection: "column",
-                          gap: "5px",
+                          flexDirection: "row",
+                          gap: "2px",
                         }}
                       >
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
+                        <AlertTriangleIcon size={14} color="#d32f2f" />
+                        <strong
+                          style={{ fontWeight: "bold", color: "#d32f2f" }}
                         >
-                          <AlertTriangleIcon size={14} color="#d32f2f" />
-                          <strong
-                            style={{ fontWeight: "bold", color: "#d32f2f" }}
-                          >
-                            {bus.status}
-                          </strong>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
-                        >
-                          <UserIcon size={14} color="#121212" />
-                          <strong
-                            style={{ fontWeight: "bold", color: "#121212" }}
-                          >
-                            {bus.driverName}
-                          </strong>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
-                        >
-                          <KeySquareIcon size={14} color="#121212" />
-                          <strong
-                            style={{ fontWeight: "bold", color: "#121212" }}
-                          >
-                            {bus.busId}
-                          </strong>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
-                        >
-                          <LocateFixedIcon size={14} color="#121212" />
-                          <button
-                            style={{
-                              fontWeight: "bold",
-                              color: "#0C6BFF",
-                              cursor: "copy",
-                            }}
-                            onClick={() => handleCopyLocation(bus)}
-                          >
-                            [{bus.lat + "" + bus.lng}]
-                          </button>
-                        </div>
-                        <small>{bus.route}</small>
+                          {bus.status}
+                        </strong>
                       </div>
-                    </Popup>
-                  </Marker>
-                ) : (
-                  <Marker
-                    key={bus.busId}
-                    position={[bus.lat, bus.lng]}
-                    icon={busIcon}
-                  >
-                    <Popup>
                       <div
                         style={{
                           display: "flex",
-                          flexDirection: "column",
-                          gap: "5px",
+                          flexDirection: "row",
+                          gap: "2px",
                         }}
                       >
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
+                        <UserIcon size={14} color="#121212" />
+                        <strong
+                          style={{ fontWeight: "bold", color: "#121212" }}
                         >
-                          <ArrowLeftRightIcon size={14} color="#121212" />
-                          <strong
-                            style={{ fontWeight: "bold", color: "#0C6BFF" }}
-                          >
-                            {bus.status}
-                          </strong>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
-                        >
-                          <UserIcon size={14} color="#121212" />
-                          <strong
-                            style={{ fontWeight: "bold", color: "#121212" }}
-                          >
-                            {bus.driverName}
-                          </strong>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
-                        >
-                          <KeySquareIcon size={14} color="#121212" />
-                          <strong
-                            style={{ fontWeight: "bold", color: "#121212" }}
-                          >
-                            {bus.busId}
-                          </strong>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "2px",
-                          }}
-                        >
-                          <LocateFixedIcon size={14} color="#121212" />
-                          <button
-                            style={{
-                              fontWeight: "bold",
-                              color: "#0C6BFF",
-                              cursor: "copy",
-                            }}
-                            onClick={() => handleCopyLocation(bus)}
-                          >
-                            [{bus.lat + "" + bus.lng}]
-                          </button>
-                        </div>
-                        <small>{bus.route}</small>
+                          {bus.driverName}
+                        </strong>
                       </div>
-                    </Popup>
-                  </Marker>
-                )
-              //acaba
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "2px",
+                        }}
+                      >
+                        <KeySquareIcon size={14} color="#121212" />
+                        <strong
+                          style={{ fontWeight: "bold", color: "#121212" }}
+                        >
+                          {bus.busId}
+                        </strong>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "2px",
+                        }}
+                      >
+                        <LocateFixedIcon size={14} color="#121212" />
+                        <button
+                          style={{
+                            fontWeight: "bold",
+                            color: "#0C6BFF",
+                            cursor: "copy",
+                          }}
+                          onClick={() => handleCopyLocation(bus)}
+                        >
+                          [{bus.lat + "" + bus.lng}]
+                        </button>
+                      </div>
+                      <small>{bus.route}</small>
+                    </div>
+                  </Popup>
+                </Marker>
+              ) : (
+                <Marker
+                  key={bus.busId}
+                  position={[bus.lat, bus.lng]}
+                  icon={busIcon}
+                >
+                  <Popup>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "5px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "2px",
+                        }}
+                      >
+                        <ArrowLeftRightIcon size={14} color="#121212" />
+                        <strong
+                          style={{ fontWeight: "bold", color: "#0C6BFF" }}
+                        >
+                          {bus.status}
+                        </strong>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "2px",
+                        }}
+                      >
+                        <UserIcon size={14} color="#121212" />
+                        <strong
+                          style={{ fontWeight: "bold", color: "#121212" }}
+                        >
+                          {bus.driverName}
+                        </strong>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "2px",
+                        }}
+                      >
+                        <KeySquareIcon size={14} color="#121212" />
+                        <strong
+                          style={{ fontWeight: "bold", color: "#121212" }}
+                        >
+                          {bus.busId}
+                        </strong>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "2px",
+                        }}
+                      >
+                        <LocateFixedIcon size={14} color="#121212" />
+                        <button
+                          style={{
+                            fontWeight: "bold",
+                            color: "#0C6BFF",
+                            cursor: "copy",
+                          }}
+                          onClick={() => handleCopyLocation(bus)}
+                        >
+                          [{bus.lat + "" + bus.lng}]
+                        </button>
+                      </div>
+                      <small>{bus.route}</small>
+                    </div>
+                  </Popup>
+                </Marker>
+              )
             )}
+
+            {stops.map((stop) => (
+              <Marker
+                position={[stop.latitude, stop.longitude]}
+                key={stop.id}
+                icon={busStopIcon}
+              >
+                <Popup>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "5px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "2px",
+                      }}
+                    >
+                      <BusFrontIcon color="#0C6BFF" size={15}/>
+                      <strong style={{ fontWeight: "bold", color: "#0C6BFF" }}>
+                        {stop.name}
+                      </strong>
+                    </div>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
             <FlyToLocation position={selectedPosition} />
           </MapContainer>
         </div>
