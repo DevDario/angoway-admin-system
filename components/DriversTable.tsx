@@ -16,7 +16,7 @@ import { DriverResponse } from "../types/driver.response";
 import ElementsListingDialog from "./ElementsListingDialog";
 import { CirclePlusIcon } from "lucide-react";
 import { toast } from "sonner";
-import { useGetBuses } from "../hooks/bus/useBusQuerys";
+import { useGetPendingBusesCount } from "../hooks/bus/useBusQuerys";
 import { BusResponse } from "types/bus.response";
 import { useAssignBusToDriver } from "../hooks/driver/useDriverMutations";
 
@@ -26,7 +26,7 @@ type DriversTableProps = {
 
 export default function DriversTable({ onDelete }: DriversTableProps) {
   const { data: fetchedDrivers } = useGetDrivers();
-  const { data: fetchedBuses } = useGetBuses();
+  const { data: fetchedBuses } = useGetPendingBusesCount();
   const { mutateAsync: assign } = useAssignBusToDriver();
 
   const [drivers, setDrivers] = useState<DriverResponse[] | []>([]);
@@ -35,9 +35,9 @@ export default function DriversTable({ onDelete }: DriversTableProps) {
   useEffect(() => {
     if (fetchedDrivers !== undefined) setDrivers(fetchedDrivers);
 
-    if (fetchedBuses !== undefined) {
-      const niaList = Array.isArray(fetchedBuses)
-        ? fetchedBuses
+    if (fetchedBuses?.buses !== undefined) {
+      const niaList = Array.isArray(fetchedBuses.buses)
+        ? fetchedBuses.buses
             .filter((bus: BusResponse) => typeof bus.nia === "string")
             .map((bus: BusResponse) => ({ prop: bus.nia }))
         : [];
@@ -100,10 +100,11 @@ export default function DriversTable({ onDelete }: DriversTableProps) {
               {driver.efectivationDate + ""}
             </TableCell>
             <TableCell className="drivers-table-cell">
-              {driver.busNia !== "N/A" ? (
+              {driver.busNia === "N/A" ? (
                 <ElementsListingDialog
                   dialogLabel="Autocarros Disponíveis"
                   dialogTitle="Atribuir Autocarro"
+                  emptyStateText="Não existem autocarros disponíveis"
                   buttonText="Salvar"
                   action={(selected) =>
                     handleAssignBusToDriver(driver.id, selected?.prop || "")
