@@ -9,19 +9,22 @@ import React, { ReactNode, useState } from "react";
 import "./ElementsListingDialog.css";
 
 import { Button } from "../src/components/ui/button";
+import { SearchX } from "lucide-react";
 
 export default function ElementsListingDialog({
   children,
   dialogTitle,
   dialogLabel,
   buttonText,
+  emptyStateText,
   action,
   data,
 }: {
   children: ReactNode;
   dialogTitle: string;
   dialogLabel: string;
-  buttonText: string;
+    buttonText: string;
+  emptyStateText: string;
   action: (value: string) => void;
   data: { prop: string }[];
 }) {
@@ -55,7 +58,10 @@ export default function ElementsListingDialog({
                 </li>
               ))
             ) : (
-              <p className="label">Sem autocarros Disponíveis</p>
+                <p className="label" style={{ display: "flex",flexDirection:"row", gap: 5, alignItems: "center", alignContent:"center",justifyContent: "center" }}>
+                  <SearchX color="#0C6BFF" size={12}/>
+                  {emptyStateText}
+                </p>
             )}
           </ul>
         </div>
