@@ -22,7 +22,7 @@ export const useGetTravelById = (id: number) =>
 
 export const useGetMonthlyTravelCount = () =>
   useQuery({
-    queryKey: ["travels-profit"],
+    queryKey: ["travels-count"],
     queryFn: getMonthlyTravelCount,
     staleTime: 1000 * 60 * 5,
   });
