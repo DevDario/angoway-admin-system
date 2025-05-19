@@ -33,6 +33,7 @@ import {
   useGetDriversCount,
 } from "../../hooks/driver/useDriverQuerys";
 import { useGetMonthlyTravelCount } from "../../hooks/travel/useTravelQuerys";
+import { ChartConfig } from "../../src/components/ui/chart";
 
 export default function DashboardPage() {
   const { recentAlert } = useAlertsChannel();
@@ -51,7 +52,7 @@ export default function DashboardPage() {
   const driversCount = drivers?.count ?? 0;
   const pendingDriversCount = pendingDrivers?.count ?? 0;
 
-  const travelsProfitCount = Array.isArray(monthlyTravelCount)
+  const travelsData = Array.isArray(monthlyTravelCount)
     ? monthlyTravelCount
     : [];
 
@@ -62,7 +63,13 @@ export default function DashboardPage() {
 
   function handleDelete() {}
 
-  function handleEdit() {}
+  function handleEdit() { }
+  
+  const travelsChartConfig = {
+    travels: {
+      label: "viagens",
+    },
+  } satisfies ChartConfig;
 
   return (
     <Layout>
@@ -114,14 +121,17 @@ export default function DashboardPage() {
             <CustomBarChart
               description={`Janeiro - Dezembro ${new Date().getFullYear()}`}
               footerText="Mostrando o total de viagens realizadas em cada mês."
+              data={travelsData}
+              config={travelsChartConfig}
+              axisDataKey="month"
+              barDataKey="travels"
             />
           </div>
         </div>
         <div className="employees-table-container">
           <SectionHeader icon={faClock} title="Motoristas Recentes" />
           <div className="employees-table-box">
-            <DashboardTable
-            />
+            <DashboardTable />
           </div>
         </div>
         <div className="chart-container">
