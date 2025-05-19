@@ -23,8 +23,6 @@ import { toast } from "sonner";
 
 type BusesTableProps = {
   onDelete: (id: number) => void;
-  onEdit: (id: number) => void;
-  onAssign: (id: number, driver: string) => void;
 };
 
 export default function BusesTable({ onDelete }: BusesTableProps) {

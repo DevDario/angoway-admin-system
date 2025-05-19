@@ -39,10 +39,6 @@ export default function BusesPage() {
     deleteBus(id);
   }
 
-  async function handleBusAssignment(id: number) {
-    return id;
-  }
-
   return (
     <Layout>
       {deleteSuccess && toast.success("Motorista apagado com sucesso !")}
@@ -92,8 +88,6 @@ export default function BusesPage() {
           <div className="buses-table-box">
             <BusesTable
               onDelete={(id: number) => handleDelete(id)}
-              onEdit={() => {}}
-              onAssign={(id: number) => handleBusAssignment(id)}
             />
           </div>
         </div>
