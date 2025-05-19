@@ -3,6 +3,7 @@ import {
   createDriver,
   updateDriver,
   deleteDriver,
+  assignBus
 } from "../../api/usecases/driver.usecase";
 import { Driver } from "../../types/Driver";
 import { useState } from "react";
@@ -86,6 +87,30 @@ export const useDeleteDriver = (
     onError: (error: any) => {
       handleError(error, "Erro ao remover motorista.");
       onError?.(error?.message || "Erro ao remover motorista.");
+    },
+  });
+  return { ...mutation, successMessage, errorMessage };
+};
+
+
+export const useAssignBusToDriver = (
+  onSuccess?: () => void,
+  onError?: (msg: string) => void
+) => {
+  const queryClient = useQueryClient();
+  const { successMessage, errorMessage, handleSuccess, handleError } =
+    useDriverMutationMessages();
+  const mutation = useMutation({
+    mutationFn: ({ id, busNia }: { id: number; busNia: string }) =>
+      assignBus(id, busNia),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["drivers"] });
+      handleSuccess(res.message);
+      onSuccess?.();
+    },
+    onError: (error: any) => {
+      handleError(error, "Erro ao atribuir autocarro.");
+      onError?.(error?.message || "Erro ao atribuir autocarro.");
     },
   });
   return { ...mutation, successMessage, errorMessage };
