@@ -59,16 +59,16 @@ export default function DashboardTable() {
               {driver.phone}
             </TableCell>
             <TableCell className="employees-table-cell">
-              {driver.experienceTime}
+              {driver.experienceTime > 1 ?  driver.experienceTime + " Anos" : driver.experienceTime + " Ano"}
+            </TableCell>
+            <TableCell className="employees-table-cell font-bold">
+              {driver.licenseNumber}
+            </TableCell>
+            <TableCell className="employees-table-cell font-bold">
+              {driver.busNia}
             </TableCell>
             <TableCell className="text-right employees-table-cell font-bold">
               {driver.status}
-            </TableCell>
-            <TableCell className="text-right employees-table-cell font-bold">
-              {driver.licenseNumber}
-            </TableCell>
-            <TableCell className="text-right employees-table-cell font-bold">
-              {driver.busNia}
             </TableCell>
           </TableRow>
         ))}
