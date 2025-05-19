@@ -16,6 +16,7 @@ import {
   useGetInactiveBusesCount,
   useGetPendingBusesCount,
 } from "../../hooks/bus/useBusQuerys";
+import { toast } from "sonner";
 
 export default function BusesPage() {
   const { data: buses } = useGetBuses();
@@ -40,6 +41,12 @@ export default function BusesPage() {
 
   return (
     <Layout>
+      {deleteSuccess && toast.success("Motorista apagado com sucesso !")}
+
+      {deleteError &&
+        toast.error("Não foi possível apagar o motorista", {
+          description: "Recarregue a página e tente novamente",
+        })}
       <div className="content-container">
         <div className="data-summarization-container">
           <DashboardDataCard
