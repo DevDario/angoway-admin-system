@@ -3,6 +3,7 @@ import {
   createBus,
   updateBus,
   deleteBus,
+  assignDriver,
 } from "../../api/usecases/bus.usecase";
 import { Bus } from "../../types/Bus";
 import { useState } from "react";
@@ -86,6 +87,29 @@ export const useDeleteBus = (
     onError: (error: any) => {
       handleError(error, "Erro ao remover autocarro.");
       onError?.(error?.message || "Erro ao remover autocarro.");
+    },
+  });
+  return { ...mutation, successMessage, errorMessage };
+};
+
+export const useAssignDriver = (
+  onSuccess?: () => void,
+  onError?: (msg: string) => void
+) => {
+  const queryClient = useQueryClient();
+  const { successMessage, errorMessage, handleSuccess, handleError } =
+    useBusMutationMessages();
+  const mutation = useMutation({
+    mutationFn: ({ id, driverEmail }: { id: number; driverEmail: string }) =>
+      assignDriver(id, driverEmail),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["assign-driver"] });
+      handleSuccess(res.message);
+      onSuccess?.();
+    },
+    onError: (error: any) => {
+      handleError(error, "Erro ao atribuir Motorista.");
+      onError?.(error?.message || "Erro ao atribuir Motorista.");
     },
   });
   return { ...mutation, successMessage, errorMessage };

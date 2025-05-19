@@ -18,6 +18,8 @@ import { CirclePlusIcon } from "lucide-react";
 import ElementsListingDialog from "./ElementsListingDialog";
 import { useGetBuses } from "../hooks/bus/useBusQuerys";
 import { DriverResponse } from "types/driver.response";
+import { useAssignDriver } from "../hooks/bus/useBusMutations";
+import { toast } from "sonner";
 
 type BusesTableProps = {
   onDelete: (id: number) => void;
@@ -25,13 +27,10 @@ type BusesTableProps = {
   onAssign: (id: number, driver: string) => void;
 };
 
-export default function BusesTable({
-  onDelete,
-  onEdit,
-  onAssign,
-}: BusesTableProps) {
+export default function BusesTable({ onDelete }: BusesTableProps) {
   const { data: fetchedBuses } = useGetBuses();
   const { data: fetchedDrivers } = useGetPendingDriversCount();
+  const { mutateAsync: assign } = useAssignDriver();
   const [buses, setBuses] = useState<BusResponse[] | []>([]);
 
   const [driversList, setDriversList] = useState<{ prop: string }[]>([]);
@@ -48,6 +47,19 @@ export default function BusesTable({
       setDriversList([]);
     }
   }, [fetchedDrivers, fetchedBuses]);
+
+  async function handleAssignDriver(driverId: number, driverEmail: string) {
+    await assign({
+      id: driverId,
+      driverEmail: driverEmail,
+    }).then((res) => {
+      if (res.code === 200) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
+    });
+  }
 
   return (
     <Table className="buses-table">
@@ -86,7 +98,9 @@ export default function BusesTable({
                   dialogTitle="Atribuir Motorista"
                   emptyStateText="Nenhum motorista disponível."
                   buttonText="Salvar"
-                  action={(selected) => onAssign(bus.id, selected?.prop || "")}
+                  action={(selected) =>
+                    handleAssignDriver(bus.id, selected?.prop || "")
+                  }
                   data={driversList}
                 >
                   <button
@@ -122,7 +136,7 @@ export default function BusesTable({
               <button
                 className="action-button"
                 style={{ cursor: "pointer" }}
-                onClick={() => onEdit(bus.id)}
+                onClick={() => {}}
               >
                 <FontAwesomeIcon
                   icon={faUserEdit}
