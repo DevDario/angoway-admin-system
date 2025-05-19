@@ -31,6 +31,17 @@ export const getDrivers = async (): Promise<DriverResponse[] | []> => {
   return response.data as DriverResponse[];
 };
 
+export const getRecentDrivers = async (): Promise<DriverResponse[] | []> => {
+  const token = getToken();
+  const response = await api.get("/driver/recent", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data as DriverResponse[];
+};
+
 export const updateDriver = async (id: number, body: Driver) => {
   const token = getToken();
   const response = await api.put(

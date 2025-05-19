@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   getDrivers,
+  getRecentDrivers,
   getDriversWithAssignedBus,
   getDriversCount,
   getActiveDriversCount,
@@ -14,6 +15,13 @@ export const useGetDrivers = () =>
     queryFn: getDrivers,
     staleTime: 1000 * 60 * 5,
   });
+
+  export const useGetRecentDrivers = () =>
+    useQuery({
+      queryKey: ["recent-drivers"],
+      queryFn: getRecentDrivers,
+      staleTime: 1000 * 60 * 5,
+    });
 
 export const useGetDriversWithAssignedBus = () =>
   useQuery({

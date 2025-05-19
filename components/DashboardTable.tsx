@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -9,132 +9,66 @@ import {
   TableRow,
 } from "../src/components/ui/table";
 import "./DashboardTable.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
-import IdDialog from "../components/IdDialog"
+import { useGetRecentDrivers } from "../hooks/driver/useDriverQuerys";
+import { DriverResponse } from "../types/driver.response";
+import { toast } from "sonner";
 
-const mockEmployees = [
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-  {
-    nome: "Dario",
-    dataNasc: "01/12/2006",
-    dataEfectivacao: "23/02/2025",
-    estado: "Em Serviço",
-  },
-];
+export default function DashboardTable() {
+  const { data: fetchedDrivers, error } = useGetRecentDrivers();
+  const [drivers, setDrivers] = useState<DriverResponse[] | []>([]);
 
-type DashboardTableProps = {
-  data?: typeof mockEmployees;
-  onDelete: () => void;
-  onEdit: () => void;
-};
+  useEffect(() => {
+    if (fetchedDrivers !== undefined) setDrivers(fetchedDrivers);
+  }, [fetchedDrivers]);
 
-export default function DashboardTable({
-  data,
-  onDelete,
-  onEdit,
-}: DashboardTableProps) {
+  if (error) {
+    toast.error("Erro ao carregar motoristas recentes", {
+      description: error.message.includes("500")
+        ? "Erro no Servidor. Recarregue a página"
+        : "Tente mais tarde",
+    });
+  }
   return (
     <Table className="employees-table">
-      <TableCaption>Lista de Motoristas Recém Contratados.</TableCaption>
+      <TableCaption>
+        {drivers.length > 0
+          ? "Lista de Motoristas Recém Contratados."
+          : "Sem motoristas recentes"}
+      </TableCaption>
       <TableHeader className="employees-table-header">
         <TableRow className="employees-table-row">
           <TableHead className="w-[100px] employees-table-head">Nome</TableHead>
+          <TableHead className="employees-table-head">Telefone</TableHead>
+          <TableHead className="employees-table-head">Experiência</TableHead>
           <TableHead className="employees-table-head">
-            Data de Nascimento
+            Carta de Condução
           </TableHead>
-          <TableHead className="employees-table-head">
-            Data de Efectivação
-          </TableHead>
+          <TableHead className="employees-table-head">NIA</TableHead>
           <TableHead className="text-right employees-table-head">
             Estado
-          </TableHead>
-          <TableHead className="text-right employees-table-head">
-            Acções
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="employees-table-body">
-        {mockEmployees.map((e) => (
+        {drivers.map((driver: DriverResponse) => (
           <TableRow>
             <TableCell className="font-medium p-30 employees-table-cell">
-              {e.nome}
+              {driver.name}
             </TableCell>
-            <TableCell className="employees-table-cell">{e.dataNasc}</TableCell>
             <TableCell className="employees-table-cell">
-              {e.dataEfectivacao}
+              {driver.phone}
+            </TableCell>
+            <TableCell className="employees-table-cell">
+              {driver.experienceTime}
             </TableCell>
             <TableCell className="text-right employees-table-cell font-bold">
-              {e.estado}
+              {driver.status}
             </TableCell>
-            <TableCell className="text-right employees-table-cell">
-              <IdDialog dialogLabel="ID" dialogTitle="Apagar Motorista" buttonText="Apagar">
-                <button
-                  className="action-button"
-                  style={{ marginRight: 20, cursor: "pointer" }}
-                  onClick={() => onDelete()}
-                >
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    width={18}
-                    height={18}
-                    color="#FCFCFB"
-                  />
-                </button>
-              </IdDialog>
-              <button
-                className="action-button"
-                style={{ cursor: "pointer" }}
-                onClick={() => onEdit()}
-              >
-                <FontAwesomeIcon
-                  icon={faUserEdit}
-                  width={18}
-                  height={18}
-                  color="#0C6BFF"
-                />
-              </button>
+            <TableCell className="text-right employees-table-cell font-bold">
+              {driver.licenseNumber}
+            </TableCell>
+            <TableCell className="text-right employees-table-cell font-bold">
+              {driver.busNia}
             </TableCell>
           </TableRow>
         ))}
