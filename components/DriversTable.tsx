@@ -13,23 +13,50 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { useGetDrivers } from "../hooks/driver/useDriverQuerys";
 import { DriverResponse } from "../types/driver.response";
-import { toast } from "sonner";
-import CreateBusDialog from "./CreateBusDialog";
+import ElementsListingDialog from "./ElementsListingDialog";
 import { CirclePlusIcon } from "lucide-react";
+import { toast } from "sonner";
+import { useGetBuses } from "../hooks/bus/useBusQuerys";
+import { BusResponse } from "types/bus.response";
+import { useAssignBusToDriver } from "../hooks/driver/useDriverMutations";
 
 type DriversTableProps = {
   onDelete: (id: number) => void;
-  onEdit: (id: number) => void;
-  onAssign: (id: number) => void;
 };
 
-export default function DriversTable({ onDelete, onEdit, onAssign }: DriversTableProps) {
-  const { data: fetchedDrivers, error } = useGetDrivers();
+export default function DriversTable({ onDelete }: DriversTableProps) {
+  const { data: fetchedDrivers } = useGetDrivers();
+  const { data: fetchedBuses } = useGetBuses();
+  const { mutateAsync: assign } = useAssignBusToDriver();
+
   const [drivers, setDrivers] = useState<DriverResponse[] | []>([]);
+  const [busesNia, setBusesNia] = useState<{ prop: string }[]>([]);
 
   useEffect(() => {
     if (fetchedDrivers !== undefined) setDrivers(fetchedDrivers);
-  }, [fetchedDrivers]);
+
+    if (fetchedBuses !== undefined) {
+      const niaList = Array.isArray(fetchedBuses)
+        ? fetchedBuses
+            .filter((bus: BusResponse) => typeof bus.nia === "string")
+            .map((bus: BusResponse) => ({ prop: bus.nia }))
+        : [];
+      setBusesNia(niaList);
+    }
+  }, [fetchedDrivers, fetchedBuses]);
+
+  async function handleAssignBusToDriver(driverId: number, busNia: string) {
+    await assign({
+      id: driverId,
+      busNia: busNia,
+    }).then((res) => {
+      if (res.code === 200) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
+    });
+  }
 
   return (
     <Table className="drivers-table">
@@ -73,8 +100,16 @@ export default function DriversTable({ onDelete, onEdit, onAssign }: DriversTabl
               {driver.efectivationDate + ""}
             </TableCell>
             <TableCell className="drivers-table-cell">
-              {driver.busNia === "N/A" ? (
-                <CreateBusDialog>
+              {driver.busNia !== "N/A" ? (
+                <ElementsListingDialog
+                  dialogLabel="Autocarros Disponíveis"
+                  dialogTitle="Atribuir Autocarro"
+                  buttonText="Salvar"
+                  action={(selected) =>
+                    handleAssignBusToDriver(driver.id, selected?.prop || "")
+                  }
+                  data={busesNia}
+                >
                   <button
                     className="action-button"
                     style={{
@@ -83,12 +118,11 @@ export default function DriversTable({ onDelete, onEdit, onAssign }: DriversTabl
                       fontWeight: "bold",
                       cursor: "pointer",
                     }}
-                    onClick={() => onAssign(driver.id)}
                   >
                     <CirclePlusIcon color="#0C6BFF" size={18} />
                     Atribuir Autocarro
                   </button>
-                </CreateBusDialog>
+                </ElementsListingDialog>
               ) : (
                 driver.busNia
               )}
@@ -109,11 +143,7 @@ export default function DriversTable({ onDelete, onEdit, onAssign }: DriversTabl
                   color="#FCFCFB"
                 />
               </button>
-              <button
-                className="action-button"
-                style={{ cursor: "pointer" }}
-                onClick={() => onEdit(driver.id)}
-              >
+              <button className="action-button" style={{ cursor: "pointer" }}>
                 <FontAwesomeIcon
                   icon={faUserEdit}
                   width={18}
