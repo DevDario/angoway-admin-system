@@ -14,13 +14,16 @@ import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { useGetDrivers } from "../hooks/driver/useDriverQuerys";
 import { DriverResponse } from "../types/driver.response";
 import { toast } from "sonner";
+import CreateBusDialog from "./CreateBusDialog";
+import { CirclePlusIcon } from "lucide-react";
 
 type DriversTableProps = {
   onDelete: (id: number) => void;
   onEdit: (id: number) => void;
+  onAssign: (id: number) => void;
 };
 
-export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
+export default function DriversTable({ onDelete, onEdit, onAssign }: DriversTableProps) {
   const { data: fetchedDrivers, error } = useGetDrivers();
   const [drivers, setDrivers] = useState<DriverResponse[] | []>([]);
 
@@ -69,7 +72,27 @@ export default function DriversTable({ onDelete, onEdit }: DriversTableProps) {
             <TableCell className="drivers-table-cell">
               {driver.efectivationDate + ""}
             </TableCell>
-            <TableCell className="drivers-table-cell">{driver.busNia}</TableCell>
+            <TableCell className="drivers-table-cell">
+              {driver.busNia === "N/A" ? (
+                <CreateBusDialog>
+                  <button
+                    className="action-button"
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => onAssign(driver.id)}
+                  >
+                    <CirclePlusIcon color="#0C6BFF" size={18} />
+                    Atribuir Autocarro
+                  </button>
+                </CreateBusDialog>
+              ) : (
+                driver.busNia
+              )}
+            </TableCell>
             <TableCell className="text-right drivers-table-cell font-bold">
               {driver.status}
             </TableCell>
