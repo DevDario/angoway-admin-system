@@ -17,7 +17,7 @@ import { BusResponse } from "../types/bus.response";
 import { CirclePlusIcon } from "lucide-react";
 import ElementsListingDialog from "./ElementsListingDialog";
 import { useGetBuses } from "../hooks/bus/useBusQuerys";
-import { DriverResponse } from "types/driver.response";
+import { DriverResponse } from "../types/driver.response";
 import { useAssignDriver } from "../hooks/bus/useBusMutations";
 import { toast } from "sonner";
 

@@ -17,7 +17,7 @@ import ElementsListingDialog from "./ElementsListingDialog";
 import { CirclePlusIcon } from "lucide-react";
 import { toast } from "sonner";
 import { useGetPendingBusesCount } from "../hooks/bus/useBusQuerys";
-import { BusResponse } from "types/bus.response";
+import { BusResponse } from "../types/bus.response";
 import { useAssignBusToDriver } from "../hooks/driver/useDriverMutations";
 
 type DriversTableProps = {
