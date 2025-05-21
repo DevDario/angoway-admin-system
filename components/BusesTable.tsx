@@ -31,7 +31,7 @@ export default function BusesTable({ onDelete }: BusesTableProps) {
   const { mutateAsync: assign } = useAssignDriver();
   const [buses, setBuses] = useState<BusResponse[] | []>([]);
 
-  const [driversList, setDriversList] = useState<{ prop: string }[]>([]);
+  const [driversList, setDriversList] = useState<{ prop: string, value?:string }[]>([]);
 
   useEffect(() => {
     if (fetchedBuses !== undefined) setBuses(fetchedBuses);
@@ -39,17 +39,17 @@ export default function BusesTable({ onDelete }: BusesTableProps) {
     if (fetchedDrivers && Array.isArray(fetchedDrivers.drivers)) {
       const namesList = (fetchedDrivers.drivers as Partial<DriverResponse>[])
         .filter((driver) => typeof driver?.name === "string")
-        .map((driver) => ({ prop: driver.name as string }));
+        .map((driver) => ({ prop: driver.name as string, value:driver.email }));
       setDriversList(namesList);
     } else {
       setDriversList([]);
     }
   }, [fetchedDrivers, fetchedBuses]);
 
-  async function handleAssignDriver(driverId: number, driverEmail: string) {
+  async function handleAssignDriver(busId: number,  driverEmail:string) {
     await assign({
-      id: driverId,
-      driverEmail: driverEmail,
+      busId: busId,
+      email: driverEmail,
     }).then((res) => {
       if (res.code === 200) {
         toast.success(res.message);
@@ -97,7 +97,7 @@ export default function BusesTable({ onDelete }: BusesTableProps) {
                   emptyStateText="Nenhum motorista disponível."
                   buttonText="Salvar"
                   action={(selected) =>
-                    handleAssignDriver(bus.id, selected?.prop || "")
+                    handleAssignDriver(bus.id, selected?.value || "")
                   }
                   data={driversList}
                 >
