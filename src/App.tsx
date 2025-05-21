@@ -1,6 +1,6 @@
 import { useAuthState } from "../hooks/useAuthState";
 import { BrowserRouter } from "react-router";
-import AppRouter from "../routes/AppRouter";
+import AppRouter from "../router/AppRouter";
 import "./App.css";
 import { useEffect, useState } from "react";
 
