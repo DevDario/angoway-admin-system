@@ -5,6 +5,7 @@ import AlertPreviewMapView from "../components/AlertPreviewMapView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "sonner";
+import { formatTimestamp } from "../utils/date-time-formatter";
 
 export default function AlertPreview({
   type,
@@ -16,18 +17,7 @@ export default function AlertPreview({
   busNIA,
   route,
 }: AlertNotification) {
-  function formatTimestamp(timestamp: number): string {
-    const date = new Date(timestamp);
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    };
-    return date.toLocaleString("pt-BR", options);
-  }
+  
   const formattedTimestamp = formatTimestamp(Number(timestamp));
 
   function handleCopyLocation() {
