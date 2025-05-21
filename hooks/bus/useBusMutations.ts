@@ -100,8 +100,8 @@ export const useAssignDriver = (
   const { successMessage, errorMessage, handleSuccess, handleError } =
     useBusMutationMessages();
   const mutation = useMutation({
-    mutationFn: ({ id, driverEmail }: { id: number; driverEmail: string }) =>
-      assignDriver(id, driverEmail),
+    mutationFn: ({ busId, email }: { busId: number; email: string }) =>
+      assignDriver(busId, email),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["buses"] });
       handleSuccess(res.message);

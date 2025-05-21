@@ -122,11 +122,11 @@ export const deleteBus = async (id: number): Promise<ResponseBody> => {
 };
 
 export const assignDriver = async (
-  id: number,
+  busId: number,
   driverEmail: string
 ): Promise<ResponseBody> => {
   const token = getToken();
-  const response = await api.put(`/bus/assign-driver/${id}`, {driverEmail}, {
+  const response = await api.put(`/bus/assign-driver/${busId}`, {driverEmail}, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
