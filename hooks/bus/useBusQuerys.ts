@@ -6,6 +6,7 @@ import {
   getInactiveBusesCount,
   getPendingBusesCount,
   getBusesWithAssignedRoutes,
+  getBusById
 } from "../../api/usecases/bus.usecase";
 
 export const useGetBuses = () =>
@@ -49,3 +50,11 @@ export const useGetBusesWithAssignedRoutes = () =>
     queryFn: getBusesWithAssignedRoutes,
     staleTime: 1000 * 60 * 5,
   });
+
+  export const useGetBusById = (id: number) =>
+    useQuery({
+      queryKey: ["buses", id],
+      queryFn: () => getBusById(id),
+      enabled: !!id,
+      staleTime: 1000 * 60 * 5,
+    });
