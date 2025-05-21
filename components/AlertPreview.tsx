@@ -1,6 +1,6 @@
 import React from "react";
 import "./AlertPreview.css";
-import { AlertNotification } from "types/alert.notification";
+import { AlertNotification } from "../types/alert.notification";
 import AlertPreviewMapView from "../components/AlertPreviewMapView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
