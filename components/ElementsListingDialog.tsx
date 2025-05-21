@@ -25,13 +25,13 @@ export default function ElementsListingDialog({
   dialogLabel: string;
   buttonText: string;
   emptyStateText: string;
-  action: (value: { prop: string }) => void;
-  data: { prop: string }[];
+  action: (value: { prop: string, value?:string }) => void;
+  data: { prop: string, value?:string }[];
 }) {
   function onSubmit(value: { prop: string }) {
     return action(value);
   }
-  const [selectedItem, setSelectedItem] = useState<{ prop: string } | null>(
+  const [selectedItem, setSelectedItem] = useState<{ prop: string, value?:string } | null>(
     null
   );
 
