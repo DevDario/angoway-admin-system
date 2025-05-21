@@ -5,6 +5,6 @@ export type RoutePreviewResponse = {
   origin: { lat: number; lng: number };
   destination: { lat: number; lng: number };
   status: string;
-  stops: Stop[];
+  routeStops: { stop: { name: string } }[];
   schedules: { departureTime: string; arrivalTime: string }[];
 };
