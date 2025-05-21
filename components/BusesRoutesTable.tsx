@@ -36,7 +36,7 @@ export default function BusesRoutesTable() {
               {bus.id}
             </TableCell>
             <TableCell className="font-medium p-30 buses-route-table-cell">
-              {bus.route}
+              {bus.route.name}
             </TableCell>
             <TableCell className="font-medium p-30 buses-route-table-cell">
               {bus.nia}

@@ -1,5 +1,5 @@
 export type BusesWithAssignedRoutesResponse = {
   id: number;
-  route: string;
+  route: {name:string};
   nia: string;
 };
