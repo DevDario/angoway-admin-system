@@ -11,14 +11,19 @@ import "leaflet/dist/leaflet.css";
 import { RoutePreviewResponse } from "../types/route.preview.response";
 import "./RoutePreviewCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBusSimple, faClock, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBusSimple,
+  faClock,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { formatDate } from "../utils/date-time-formatter";
 
 export default function RoutePreviewCard({
   name,
   origin,
   destination,
   status,
-  stops,
+  routeStops,
   schedules,
 }: RoutePreviewResponse) {
   const customIcon = new L.Icon({
@@ -37,7 +42,7 @@ export default function RoutePreviewCard({
       <div className="route-preview-card-container">
         <div className="route-preview-card-map">
           <MapContainer
-            center={[destination.lat, destination.lng]}
+            center={[destination.lat ?? 0, destination.lng ?? 0]}
             zoom={14}
             style={{ height: "200px", width: "100%", borderRadius: "8px" }}
           >
@@ -47,22 +52,22 @@ export default function RoutePreviewCard({
             />
             <Marker
               key={"route-origin-point"}
-              position={[origin.lat, origin.lng]}
+              position={[origin.lat ?? 0, origin.lng ?? 0]}
               icon={customIcon}
             >
               <Popup>Ponto de Partida</Popup>
             </Marker>
             <Marker
               key={"route-destination-point"}
-              position={[destination.lat, destination.lng]}
+              position={[destination.lat ?? 0, destination.lng ?? 0]}
               icon={customIcon}
             >
               <Popup>Fim da Rota</Popup>
             </Marker>
             <Polyline
               positions={[
-                [origin.lat, origin.lng],
-                [destination.lat, destination.lng],
+                [origin.lat ?? 0, origin.lng ?? 0],
+                [destination.lat ?? 0, destination.lng ?? 0],
               ]}
               pathOptions={{ color: "#0C6BFF", weight: 4 }}
             />
@@ -81,11 +86,15 @@ export default function RoutePreviewCard({
                 Paragens
               </h2>
               <ol className="stops-list">
-                {stops.map((stop, index) => (
-                  <li className="stops-list-item" key={index}>
-                    {stop.name}
-                  </li>
-                ))}
+                {routeStops.length > 0 ? (
+                  routeStops.map((stop, index) => (
+                    <li className="stops-list-item" key={index}>
+                      {stop.stop.name}
+                    </li>
+                  ))
+                ) : (
+                  <p>Sem paragens</p>
+                )}
               </ol>
             </div>
             <div className="route-schedules-container">
@@ -99,11 +108,17 @@ export default function RoutePreviewCard({
                 Horários
               </h2>
               <ol className="schedules-list">
-                {schedules.map((schedule, index) => (
-                  <li className="schedules-list-item" key={index}>
-                    {schedule.departureTime + " - " + schedule.arrivalTime}
-                  </li>
-                ))}
+                {schedules.length > 0 ? (
+                  schedules.map((schedule, index) => (
+                    <li className="schedules-list-item" key={index}>
+                      {formatDate(new Date(schedule.departureTime)) +
+                        " - " +
+                        formatDate(new Date(schedule.arrivalTime))}
+                    </li>
+                  ))
+                ) : (
+                  <p>Sem horários</p>
+                )}
               </ol>
             </div>
             <div className="route-details-container">
@@ -118,7 +133,7 @@ export default function RoutePreviewCard({
               </h2>
               <ul className="route-details-list">
                 <li className="route-details-list-item">
-                  <strong>Paragens:</strong> {stops.length}
+                  <strong>Paragens:</strong> {routeStops.length}
                 </li>
                 <li className="route-details-list-item">
                   <strong>Horários:</strong> {schedules.length}
