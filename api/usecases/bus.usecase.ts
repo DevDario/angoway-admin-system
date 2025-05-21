@@ -83,7 +83,7 @@ export const getPendingBusesCount = async (): Promise<CountBusResponse> => {
 
 export const getBusesWithAssignedRoutes = async (): Promise<BusesWithAssignedRoutesResponse[] | []> => {
   const token = getToken();
-  const response = await api.get("/bus/assigned-routes", {
+  const response = await api.get("/bus/with-route", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -106,6 +106,19 @@ export const updateBus = async (
       },
     }
   );
+
+  return response.data;
+};
+
+export const getBusById = async (
+  id: number,
+): Promise<BusResponse> => {
+  const token = getToken();
+  const response = await api.get(`/bus/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
