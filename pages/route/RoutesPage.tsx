@@ -24,6 +24,7 @@ import {
   useGetInactiveRoutesCount,
   useGetPreviewRoutes,
 } from "../../hooks/route/useRouteQuerys";
+import { RoutePreviewResponse } from "../../types/route.preview.response";
 
 export default function RoutesPage() {
   const { data: numRoutes } = useGetRoutesCount();
@@ -75,14 +76,14 @@ export default function RoutesPage() {
         />
         <div className="routes-card-container">
           {routes.length > 0 ? (
-            routes.map((route, index) => (
+            routes.map((route:RoutePreviewResponse, index) => (
               <RoutePreviewCard
                 key={index}
                 name={route.name}
                 destination={route.destination}
                 origin={route.origin}
                 status={route.status}
-                stops={route.stops}
+                routeStops={route.routeStops}
                 schedules={route.schedules}
               />
             ))
