@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { useGetPendingBusesCount } from "../hooks/bus/useBusQuerys";
 import { BusResponse } from "../types/bus.response";
 import { useAssignBusToDriver } from "../hooks/driver/useDriverMutations";
+import EditDriverDialog from "./EditDriverDialog";
 
 type DriversTableProps = {
   onDelete: (id: number) => void;
@@ -144,14 +145,16 @@ export default function DriversTable({ onDelete }: DriversTableProps) {
                   color="#FCFCFB"
                 />
               </button>
-              <button className="action-button" style={{ cursor: "pointer" }}>
-                <FontAwesomeIcon
-                  icon={faUserEdit}
-                  width={18}
-                  height={18}
-                  color="#0C6BFF"
-                />
-              </button>
+              <EditDriverDialog driverData={driver}>
+                <button className="action-button" style={{ cursor: "pointer" }}>
+                  <FontAwesomeIcon
+                    icon={faUserEdit}
+                    width={18}
+                    height={18}
+                    color="#0C6BFF"
+                  />
+                </button>
+              </EditDriverDialog>
             </TableCell>
           </TableRow>
         ))}

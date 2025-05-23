@@ -55,7 +55,7 @@ export const useUpdateDriver = (
   const { successMessage, errorMessage, handleSuccess, handleError } =
     useDriverMutationMessages();
   const mutation = useMutation({
-    mutationFn: ({ id, body }: { id: number; body: Driver }) =>
+    mutationFn: ({ id, body }: { id: number; body: Partial<Driver> }) =>
       updateDriver(id, body),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["drivers"] });

@@ -43,10 +43,10 @@ export const getRecentDrivers = async (): Promise<DriverResponse[] | []> => {
   return response.data as DriverResponse[];
 };
 
-export const updateDriver = async (id: number, body: Driver) => {
+export const updateDriver = async (id: number, body: Partial<Driver>) => {
   const token = getToken();
-  const response = await api.put(
-    `/driver/${id}`,
+  const response = await api.patch(
+    `/driver/update/${id}`,
     body,
     {
       headers: {
