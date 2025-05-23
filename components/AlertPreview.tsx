@@ -1,4 +1,3 @@
-import React from "react";
 import "./AlertPreview.css";
 import { AlertNotification } from "../types/alert.notification";
 import AlertPreviewMapView from "../components/AlertPreviewMapView";

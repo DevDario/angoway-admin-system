@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect,useState } from "react";
 import Layout from "../_layout";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -36,7 +36,7 @@ const busStopIcon = new L.Icon({
 
 function FlyToLocation({ position }: { position: [number, number] | null }) {
   const map = useMap();
-  React.useEffect(() => {
+  useEffect(() => {
     if (position) {
       map.flyTo(position, 15, { duration: 1.2 });
     }
@@ -45,13 +45,13 @@ function FlyToLocation({ position }: { position: [number, number] | null }) {
 }
 
 export default function MapPage() {
-  const [selectedPosition, setSelectedPosition] = React.useState<
+  const [selectedPosition, setSelectedPosition] = useState<
     [number, number] | null
   >(null);
   const { buses } = useBusesLocation();
   const { data: fetchedStops } = useGetStops();
 
-  const [stops, setStops] = React.useState<StopsResponse[]>([]);
+  const [stops, setStops] = useState<StopsResponse[]>([]);
   const {
     mutate: changeBusStatus,
     successMessage: statusSuccess,

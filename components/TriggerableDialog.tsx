@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../src/components/ui/dialog";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import "./TriggerableDialog.css";
 
 export default function TriggerableDialog({

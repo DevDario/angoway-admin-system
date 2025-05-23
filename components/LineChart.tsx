@@ -1,7 +1,6 @@
 // "use client";
 
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
-import React from "react";
 
 import {
   Card,

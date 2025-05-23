@@ -3,7 +3,6 @@ import { useAuthState } from "../hooks/useAuthState";
 import LoginPage from "../pages/login/LoginPage";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import BusesPage from "../pages/bus/BusesPage";
-import React from "react";
 import DriversPage from "../pages/driver/DriversPage";
 import AlertsPage from "../pages/alerts/AlertsPage";
 import RoutesPage from "../pages/route/RoutesPage";

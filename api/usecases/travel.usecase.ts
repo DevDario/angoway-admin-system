@@ -66,7 +66,7 @@ export const getMonthlyTravelCount = async (): Promise<
   return response.data as CountMonthlyResponse[];
 };
 
-export const exportMonthlyTravelCount = async (year?:number) => {
+export const exportMonthlyTravelCount = async () => {
   const token = getToken();
   const response = await api.get("/travel/monthly-count/export", {
     responseType: "blob",

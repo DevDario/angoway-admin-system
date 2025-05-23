@@ -3,7 +3,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import "./SectionHeader.css";
 
 type sectionHeaderProps = {
-  icon?: IconProp;
+  icon: IconProp;
   title: string;
 };
 

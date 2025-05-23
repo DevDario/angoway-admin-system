@@ -1,4 +1,3 @@
-import React from "react";
 import Layout from "../_layout";
 import DashboardDataCard from "../../components/DashboardDataCard";
 import {
@@ -16,7 +15,7 @@ import "./DriversPage.css";
 import Button from "../../components/Button";
 import CreateDriverForm from "../../src/forms/CreateDriverForm";
 import CreateDriverDialog from "../../components/CreateDriverDialog";
-import { useDeleteDriver, useAssignBusToDriver } from "../../hooks/driver/useDriverMutations";
+import { useDeleteDriver } from "../../hooks/driver/useDriverMutations";
 import {
   useGetDriversCount,
   useGetPendingDriversCount,
@@ -46,9 +45,6 @@ export default function DriversPage() {
   async function handleDelete(id: number) {
     deleteDriver(id);
   }
-
-
-  function handleEdit(id: number) {}
 
   return (
     <Layout>

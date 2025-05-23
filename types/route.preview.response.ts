@@ -1,5 +1,3 @@
-import { Stop } from "./Stop";
-
 export type RoutePreviewResponse = {
   name: string;
   origin: { lat: number; lng: number };

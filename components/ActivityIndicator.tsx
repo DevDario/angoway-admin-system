@@ -1,5 +1,4 @@
-import React from "react";
-import "./ActivityIndicator.css"
+import "./ActivityIndicator.css";
 
 export default function ActivityIndicator() {
   return (

@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../src/components/ui/dialog";
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import "./ElementsListingDialog.css";
 
 import { Button } from "../src/components/ui/button";
@@ -25,15 +25,16 @@ export default function ElementsListingDialog({
   dialogLabel: string;
   buttonText: string;
   emptyStateText: string;
-  action: (value: { prop: string, value?:string }) => void;
-  data: { prop: string, value?:string }[];
+  action: (value: { prop: string; value?: string }) => void;
+  data: { prop: string; value?: string }[];
 }) {
   function onSubmit(value: { prop: string }) {
     return action(value);
   }
-  const [selectedItem, setSelectedItem] = useState<{ prop: string, value?:string } | null>(
-    null
-  );
+  const [selectedItem, setSelectedItem] = useState<{
+    prop: string;
+    value?: string;
+  } | null>(null);
 
   return (
     <Dialog>

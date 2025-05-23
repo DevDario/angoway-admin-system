@@ -15,7 +15,6 @@ import CreateRouteForm from "../../src/forms/CreateRouteForm";
 import RoutesTable from "../../components/RoutesTable";
 import {
   useDeleteRoute,
-  useUpdateRoute,
   useUpdateRouteStatus,
 } from "../../hooks/route/useRouteMutations";
 import {
@@ -33,7 +32,6 @@ export default function RoutesPage() {
   const { data: routesData } = useGetPreviewRoutes();
 
   const { mutate: deleteRoute } = useDeleteRoute();
-  const { mutate: updateRoute } = useUpdateRoute();
   const { mutate: updateRouteStatus } = useUpdateRouteStatus();
 
   const routesCount = numRoutes?.count ?? 0;

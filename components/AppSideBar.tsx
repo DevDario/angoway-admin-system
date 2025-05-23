@@ -6,10 +6,9 @@ import {
   RouteIcon,
   LocateFixedIcon,
   MessageSquareWarning,
-  Map as MapIcon, // <-- add this import
+  Map as MapIcon,
 } from "lucide-react";
 import { Link } from "react-router";
-import React from "react";
 
 import {
   Sidebar,
@@ -22,7 +21,6 @@ import {
   useSidebar,
 } from "../src/components/ui/sidebar";
 
-// Menu items.
 const items = [
   {
     title: "Pagina Inicial",
@@ -57,7 +55,7 @@ const items = [
   {
     title: "Mapa",
     url: "/map",
-    icon: MapIcon, // <-- use the map icon
+    icon: MapIcon,
   },
   {
     title: "Configurações",

@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../src/components/ui/dialog";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import "./CreateBusDialog.css";
 
 export default function EditBusDialog({

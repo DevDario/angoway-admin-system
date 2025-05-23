@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -59,7 +59,9 @@ export default function DashboardTable() {
               {driver.phone}
             </TableCell>
             <TableCell className="employees-table-cell">
-              {driver.experienceTime > 1 ?  driver.experienceTime + " Anos" : driver.experienceTime + " Ano"}
+              {driver.experienceTime > 1
+                ? driver.experienceTime + " Anos"
+                : driver.experienceTime + " Ano"}
             </TableCell>
             <TableCell className="employees-table-cell font-bold">
               {driver.licenseNumber}

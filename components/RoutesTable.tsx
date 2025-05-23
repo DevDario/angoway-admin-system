@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   TableBody,
@@ -21,7 +20,7 @@ type RoutesTableProps = {
   onEdit: (id: number) => void;
 };
 
-export default function RoutesTable({ onDelete, onEdit }: RoutesTableProps) {
+export default function RoutesTable({ onDelete }: RoutesTableProps) {
   const { data: fetchedRoutes } = useGetRoutes();
   const [routes, setRoutes] = useState<RouteResponse[] | []>([]);
 

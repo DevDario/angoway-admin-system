@@ -1,4 +1,3 @@
-import React from "react";
 import "./Button.css";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +8,7 @@ type ButtonProps = {
   disabled?: boolean;
   icon?: IconProp;
   iconColor?: string;
-  title?:string
+  title?: string;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,15 +17,23 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   icon,
   iconColor,
-  title
+  title,
 }: ButtonProps) => {
   return (
-    <button className="button" onClick={onClick} disabled={disabled} title={title}>
+    <button
+      className="button"
+      onClick={onClick}
+      disabled={disabled}
+      title={title}
+    >
       {text}
       {icon && (
         <FontAwesomeIcon
           icon={icon}
-          style={{ color: iconColor ? iconColor : "#0C6DFF", marginLeft:"8px"}}
+          style={{
+            color: iconColor ? iconColor : "#0C6DFF",
+            marginLeft: "8px",
+          }}
           width={13}
           height={13}
         />

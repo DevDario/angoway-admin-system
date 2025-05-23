@@ -1,6 +1,5 @@
-import React from "react";
 import { Controller } from "react-hook-form";
-import "./Input.css"
+import "./Input.css";
 
 type InputProps = {
   name: string;

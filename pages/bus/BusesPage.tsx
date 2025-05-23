@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import Layout from "../_layout";
 import DashboardDataCard from "../../components/DashboardDataCard";
 import { faPlusCircle, faBusSimple } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +8,7 @@ import "./BusesPage.css";
 import Button from "../../components/Button";
 import CreateBusForm from "../../src/forms/CreateBusForm";
 import CreateBusDialog from "../../components/CreateBusDialog";
-import { useDeleteBus, useUpdateBus } from "../../hooks/bus/useBusMutations";
+import { useDeleteBus } from "../../hooks/bus/useBusMutations";
 import {
   useGetBuses,
   useGetActiveBusesCount,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./AlertModal.css";

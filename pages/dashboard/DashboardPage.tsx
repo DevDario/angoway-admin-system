@@ -1,4 +1,3 @@
-import React from "react";
 import DashboardDataCard from "../../components/DashboardDataCard";
 import Layout from "../_layout";
 import "./DashboardPage.css";
@@ -7,9 +6,6 @@ import CustomLineChart from "../../components/LineChart";
 import Button from "../../components/Button";
 import {
   faBusSimple,
-  faClose,
-  faUser,
-  faQuestionCircle,
   faClock,
   faMoneyBills,
   faDownload,
@@ -61,10 +57,6 @@ export default function DashboardPage() {
   const activeBusesCount = activeBuses?.count ?? 0;
   const inactiveBusesCount = inactiveBuses?.count ?? 0;
   const pendingBusesCount = pendingBuses?.count ?? 0;
-
-  function handleDelete() {}
-
-  function handleEdit() { }
 
   async function handleTravelsCountDownload(){
     const blob = await exportMonthlyTravelCount();

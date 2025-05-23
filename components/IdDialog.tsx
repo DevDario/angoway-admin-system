@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../src/components/ui/dialog";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import "./IdDialog.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -50,7 +50,7 @@ export default function IdDialog({
   function onSubmit(values: z.infer<typeof idDialogSchema>) {
     return action(Number(values.id));
   }
-  
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
