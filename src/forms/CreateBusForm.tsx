@@ -18,8 +18,16 @@ import { createBusSchema } from "@/schemas/bus.create.schema";
 import { Bus } from "types/Bus";
 import { useCreateBus } from "../../hooks/bus/useBusMutations";
 import { toast } from "sonner";
+import { useGetRoutes } from "../../hooks/route/useRouteQuerys";
+import { useGetDrivers, useGetPendingDriversCount } from "../../hooks/driver/useDriverQuerys";
 
 export default function CreateBusForm() {
+  const { data: routes = [] } = useGetRoutes();
+  const { data: drivers = [] } = useGetDrivers();
+  const { data: pendingDrivers } = useGetPendingDriversCount();
+  
+  const pendingDriversList = Array.isArray(pendingDrivers?.drivers) ? pendingDrivers.drivers : [];
+
   const form = useForm({
     resolver: zodResolver(createBusSchema),
     defaultValues: {
@@ -36,7 +44,7 @@ export default function CreateBusForm() {
     errorMessage: error,
   } = useCreateBus();
 
-  async function handleCreateBus(body: Bus) {
+  async function handleCreateBus(body: Bus & { driverId?: number }) {
     create(body);
   }
 
@@ -59,6 +67,7 @@ export default function CreateBusForm() {
       currentLoad: 0,
       matricula: values.matricula,
       routeId: Number(values.rota),
+      driverId: Number(values.motorista),
     });
   }
 
@@ -94,17 +103,25 @@ export default function CreateBusForm() {
             <FormItem style={{ marginBottom: 15 }}>
               <FormLabel>Rota</FormLabel>
               <FormControl>
-                <Input
+                <select
                   className="input"
-                  placeholder="Benfica - Kilamba"
-                  {...field}
                   style={{
                     padding: 10,
                     height: 45,
                     width: 400,
+                    backgroundColor: "#121212",
+                    borderRadius: "8px",
                   }}
-                  type="number"
-                />
+                  value={field.value}
+                  onChange={field.onChange}
+                >
+                  <option value="">Selecione uma rota</option>
+                  {routes.map((route: any) => (
+                    <option key={route.id} value={route.id}>
+                      {route.name}
+                    </option>
+                  ))}
+                </select>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -139,16 +156,25 @@ export default function CreateBusForm() {
             <FormItem style={{ marginBottom: 15 }}>
               <FormLabel>Motorista</FormLabel>
               <FormControl>
-                <Input
+                <select
                   className="input"
-                  {...field}
                   style={{
                     padding: 10,
                     height: 45,
                     width: 400,
+                    backgroundColor: "#121212",
+                    borderRadius: "8px",
                   }}
-                  type="number"
-                />
+                  value={field.value}
+                  onChange={field.onChange}
+                >
+                  <option value="">Selecione um motorista</option>
+                  {pendingDriversList.map((driver: any) => (
+                    <option key={driver.id} value={driver.id}>
+                      {driver.name}
+                    </option>
+                  ))}
+                </select>
               </FormControl>
               <FormMessage />
             </FormItem>

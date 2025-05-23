@@ -7,7 +7,7 @@ export const createBusSchema = z.object({
       /^([A-Z]{2}-\d{2}-\d{2}-[A-Z]{2}|[A-Z]{3}-\d{3}-[A-Z]{2}|[A-Z]{2}-\d{3}-[A-Z]{2})$/
     ,"Formato inválido. Exemplo: AB-12-34-CD ou ABC-123-DE ou AB-123-DE")
     .max(11, "A matrícula deve ter no máximo 11 caracteres")
-    .min(11, "A matrícula deve ter no mínimo 11 caracteres")
+    .min(9, "A matrícula deve ter no mínimo 11 caracteres")
     .nonempty("Você precisa informar a matrícula"),
   rota: z
     .string(z.number().int().positive())
@@ -25,4 +25,4 @@ export const createBusSchema = z.object({
     .optional(),
 });
 
-export type DriverCreateInput = z.infer<typeof createBusSchema>;
+export type BusCreateInput = z.infer<typeof createBusSchema>;
