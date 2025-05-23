@@ -94,12 +94,12 @@ export default function SettingsPage() {
                 <SectionHeader icon={faBell} title="Notificações" />
                 <div className="settings-fields">
                   <label>
-                    <input type="checkbox" />
-                    Notificações por Email
+                    <input type="checkbox" checked/>
+                    Receber notificações dos alertas
                   </label>
                   <label>
                     <input type="checkbox" />
-                    Notificações por SMS
+                    Efeitos sonoros
                   </label>
                 </div>
               </div>
