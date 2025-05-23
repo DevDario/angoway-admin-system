@@ -68,9 +68,23 @@ export default function EditDriverForm({ driverData }: { driverData: any }) {
     });
   }
 
+  const isDriverActive = driverData?.status === "ON_ROUTE";
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {isDriverActive && (
+          <div
+            style={{
+              color: "#d32f2f",
+              marginBottom: 10,
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            Não é possível editar enquanto em rota.
+          </div>
+        )}
         <FormField
           control={form.control}
           name="name"
@@ -82,6 +96,7 @@ export default function EditDriverForm({ driverData }: { driverData: any }) {
                   className="input"
                   {...field}
                   style={{ padding: 10, height: 45, width: 400 }}
+                  disabled={isDriverActive}
                 />
               </FormControl>
               <FormMessage />
@@ -93,12 +108,13 @@ export default function EditDriverForm({ driverData }: { driverData: any }) {
           name="email"
           render={({ field }) => (
             <FormItem style={{ marginBottom: 15 }}>
-              <FormLabel>Nome</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
                   className="input"
                   {...field}
                   style={{ padding: 10, height: 45, width: 400 }}
+                  disabled={isDriverActive}
                 />
               </FormControl>
               <FormMessage />
@@ -116,6 +132,7 @@ export default function EditDriverForm({ driverData }: { driverData: any }) {
                   className="input"
                   {...field}
                   style={{ padding: 10, height: 45, width: 400 }}
+                  disabled={isDriverActive}
                 />
               </FormControl>
               <FormMessage />
@@ -134,6 +151,7 @@ export default function EditDriverForm({ driverData }: { driverData: any }) {
                   {...field}
                   type="number"
                   style={{ padding: 10, height: 45, width: 400 }}
+                  disabled={isDriverActive}
                 />
               </FormControl>
               <FormMessage />
@@ -151,6 +169,7 @@ export default function EditDriverForm({ driverData }: { driverData: any }) {
                   className="input"
                   {...field}
                   style={{ padding: 10, height: 45, width: 400 }}
+                  disabled={isDriverActive}
                 />
               </FormControl>
               <FormMessage />
@@ -162,10 +181,11 @@ export default function EditDriverForm({ driverData }: { driverData: any }) {
           style={{
             height: 45,
             width: 400,
-            cursor: "pointer",
-            backgroundColor: "#0C6BFF",
+            cursor: isDriverActive ? "not-allowed" : "pointer",
+            backgroundColor: isDriverActive ? "#888" : "#0C6BFF",
             color: "#FCFCFB",
           }}
+          disabled={isDriverActive}
         >
           Salvar Alterações
         </Button>
