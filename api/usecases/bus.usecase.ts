@@ -94,11 +94,11 @@ export const getBusesWithAssignedRoutes = async (): Promise<BusesWithAssignedRou
 
 export const updateBus = async (
   id: number,
-  body: Bus
+  body: Partial<Bus>
 ): Promise<ResponseBody> => {
   const token = getToken();
-  const response = await api.put(
-    `/bus/${id}`,
+  const response = await api.patch(
+    `/bus/update/${id}`,
     body,
     {
       headers: {

@@ -55,7 +55,7 @@ export const useUpdateBus = (
   const { successMessage, errorMessage, handleSuccess, handleError } =
     useBusMutationMessages();
   const mutation = useMutation({
-    mutationFn: ({ id, body }: { id: number; body: Bus }) =>
+    mutationFn: ({ id, body }: { id: number; body: Partial<Bus> }) =>
       updateBus(id, body),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["buses"] });
