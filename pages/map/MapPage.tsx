@@ -11,17 +11,16 @@ import {
   BusFrontIcon,
   KeySquareIcon,
   LocateFixedIcon,
-  StopCircleIcon,
   UserIcon,
   UserSearchIcon,
 } from "lucide-react";
-import AlertModal from "../../components/AlertModal";
 import { toast } from "sonner";
 import { StopsResponse } from "../../types/stops.response";
 import { useGetStops } from "../../hooks/stops/useStopsQuerys";
+import { useChangeBusStatus } from "../../hooks/bus/useBusMutations";
 
 const busIcon = new L.Icon({
-  iconUrl: "/busMarker.png",
+  iconUrl: "/busMarker2.png",
   iconSize: [32, 32],
 });
 
@@ -52,18 +51,27 @@ export default function MapPage() {
   const { buses } = useBusesLocation();
   const { data: fetchedStops } = useGetStops();
 
-  const [success, setSuccess] = React.useState<string>("");
   const [stops, setStops] = React.useState<StopsResponse[]>([]);
+  const {
+    mutate: changeBusStatus,
+    successMessage: statusSuccess,
+    errorMessage: statusError,
+  } = useChangeBusStatus();
 
   useEffect(() => {
     if (fetchedStops !== undefined) setStops(fetchedStops);
   }, [fetchedStops]);
 
   function handleDeactivateDriver(id: number) {
-    setSuccess("Autocarro desativado");
+    changeBusStatus({
+      driverId: id,
+      body: {
+        status: "OFF_SERVICE",
+      }
+    });
   }
 
-  function handleCopyLocation(bus) {
+  function handleCopyLocation(bus: { busId?: number; driverName?: string; route?: string; lat: any; lng: any; status?: string; driverPhoto?: string; }) {
     if (bus.lat) {
       navigator.clipboard.writeText(`${bus.lat},${bus.lng}`);
       toast.success("Localização Copiada");
@@ -146,7 +154,7 @@ export default function MapPage() {
               attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             />
             {buses.map((bus) =>
-              bus.status !== "IN_TRANSIT" ? (
+              bus.status !== "IN_TRANSIT" && bus.status !== "OFF_SERVICE" ? (
                 <Marker
                   key={bus.busId}
                   position={[bus.lat, bus.lng]}
@@ -328,7 +336,7 @@ export default function MapPage() {
                         gap: "2px",
                       }}
                     >
-                      <BusFrontIcon color="#0C6BFF" size={15}/>
+                      <BusFrontIcon color="#0C6BFF" size={15} />
                       <strong style={{ fontWeight: "bold", color: "#0C6BFF" }}>
                         {stop.name}
                       </strong>
@@ -340,13 +348,8 @@ export default function MapPage() {
             <FlyToLocation position={selectedPosition} />
           </MapContainer>
         </div>
-        {success && (
-          <AlertModal
-            text="Autocarro Desativado"
-            type="warning"
-            key={"success-alert"}
-          />
-        )}
+        {statusSuccess && toast.success(statusSuccess)}
+        {statusError && toast.error(statusError)}
       </div>
     </Layout>
   );

@@ -147,3 +147,20 @@ export const assignDriver = async (
 
   return response.data;
 };
+
+export const changeStatus = async (
+  driverId: number,
+  body: { status: string }
+): Promise<ResponseBody> => {
+  const token = getToken();
+  const response = await api.patch(
+    `/bus/status/${driverId}`, body,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};

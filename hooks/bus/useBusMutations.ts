@@ -4,6 +4,7 @@ import {
   updateBus,
   deleteBus,
   assignDriver,
+  changeStatus,
 } from "../../api/usecases/bus.usecase";
 import { Bus } from "../../types/Bus";
 import { useState } from "react";
@@ -110,6 +111,34 @@ export const useAssignDriver = (
     onError: (error: any) => {
       handleError(error, "Erro ao atribuir Motorista.");
       onError?.(error?.message || "Erro ao atribuir Motorista.");
+    },
+  });
+  return { ...mutation, successMessage, errorMessage };
+};
+
+export const useChangeBusStatus = (
+  onSuccess?: () => void,
+  onError?: (msg: string) => void
+) => {
+  const queryClient = useQueryClient();
+  const { successMessage, errorMessage, handleSuccess, handleError } =
+    useBusMutationMessages();
+  const mutation = useMutation({
+    mutationFn: ({
+      driverId,
+      body,
+    }: {
+      driverId: number;
+      body: {status: string };
+    }) => changeStatus(driverId, body),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["buses"] });
+      handleSuccess(res.message);
+      onSuccess?.();
+    },
+    onError: (error: any) => {
+      handleError(error, "Erro ao alterar status do autocarro.");
+      onError?.(error?.message || "Erro ao alterar status do autocarro.");
     },
   });
   return { ...mutation, successMessage, errorMessage };
