@@ -7,3 +7,26 @@
     padding: 10px;
     border-radius: 5px;
 }
+
+.table-scroll-container {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.table-scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+    background: #0C6BFF;
+    border-radius: 4px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.table-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: #0C6BFF transparent;
+}
