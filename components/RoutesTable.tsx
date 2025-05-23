@@ -14,6 +14,7 @@ import { faTrashCan, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { useGetRoutes } from "../hooks/route/useRouteQuerys";
 import { useState, useEffect } from "react";
 import { RouteResponse } from "../types/route.response";
+import EditRouteDialog from "./EditRouteDialog";
 
 type RoutesTableProps = {
   onDelete: (id: number) => void;
@@ -69,18 +70,16 @@ export default function RoutesTable({ onDelete, onEdit }: RoutesTableProps) {
                   color="#FCFCFB"
                 />
               </button>
-              <button
-                className="action-button"
-                style={{ cursor: "pointer" }}
-                onClick={() => onEdit(route.id)}
-              >
-                <FontAwesomeIcon
-                  icon={faUserEdit}
-                  width={18}
-                  height={18}
-                  color="#0C6BFF"
-                />
-              </button>
+              <EditRouteDialog routeData={route}>
+                <button className="action-button" style={{ cursor: "pointer" }}>
+                  <FontAwesomeIcon
+                    icon={faUserEdit}
+                    width={18}
+                    height={18}
+                    color="#0C6BFF"
+                  />
+                </button>
+              </EditRouteDialog>
             </TableCell>
           </TableRow>
         ))}

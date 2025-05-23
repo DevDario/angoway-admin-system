@@ -57,7 +57,7 @@ export const updateRoute = async (id: number, body: Route) => {
   const token = getToken();
   const response = await api.put(
     `/routes/${id}`,
-    { body },
+    body,
     {
       headers: {
         Authorization: `Bearer ${token}`,
