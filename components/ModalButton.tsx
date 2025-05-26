@@ -8,7 +8,7 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({ text, onClick, disabled }) => {
   return (
-    <button className="button" onClick={onClick} disabled={disabled}>
+    <button className="modal-button" onClick={onClick} disabled={disabled}>
       {text}
     </button>
   );

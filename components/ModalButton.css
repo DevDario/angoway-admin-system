@@ -1,4 +1,4 @@
-.button {
+.modal-button {
     padding: 0px 20px;
     width: 120px;
     height: 45px;
@@ -11,7 +11,7 @@
     transition: all 300ms ease-out;
 }
 
-.button:hover {
+.modal-button:hover {
     background-color: #0b59d8;
     color: #FCFCFB;
     transition: all 300ms ease-in;
