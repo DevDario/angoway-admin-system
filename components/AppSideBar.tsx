@@ -7,6 +7,7 @@ import {
   LocateFixedIcon,
   MessageSquareWarning,
   Map as MapIcon,
+  DoorOpen,
 } from "lucide-react";
 import { Link } from "react-router";
 
@@ -62,6 +63,15 @@ const items = [
     url: "/settings",
     icon: Settings,
   },
+  {
+    title: "Sair",
+    url: "/",
+    icon: DoorOpen,
+    fn: () => {
+      localStorage.removeItem("access_token")
+      window.location.reload()
+    }
+  },
 ];
 
 export default function AppSidebar() {
@@ -101,7 +111,7 @@ export default function AppSidebar() {
               <SidebarMenu style={{ paddingRight: 10 }}>
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title} style={{ marginTop: 10 }}>
-                    <SidebarMenuButton asChild style={{ padding: 20 }}>
+                    <SidebarMenuButton asChild style={{ padding: 20 }} onClick={item.fn}>
                       <Link to={item.url}>
                         <item.icon />
                         <span>{item.title}</span>

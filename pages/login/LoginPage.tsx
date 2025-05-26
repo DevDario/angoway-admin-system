@@ -16,7 +16,7 @@ export default function Login() {
     defaultValues: { number: "", password: "" },
   });
 
-  const { mutate: login, isPending, errorMessage, successMessage } = useLogin();
+  const { mutate: login, isPending, errorMessage } = useLogin();
 
   function handleLogin(data: any) {
     login(data);
@@ -78,7 +78,6 @@ export default function Login() {
           </button>
         </form>
         {errorMessage && <AlertModal text={errorMessage} type="error" />}
-        {successMessage && <AlertModal text={successMessage} type="warning" />}
       </div>
 
       <div className="side-section">
