@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
 
@@ -15,36 +15,22 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../src/components/ui/chart";
-
-const chartData = [
-  { day: "1", faturado: 80000 },
-  { day: "2", faturado: 50000 },
-  { day: "3", faturado: 30000 },
-  { day: "4", faturado: 90000 },
-  { day: "5", faturado: 10000 },
-  { day: "6", faturado: 14300 },
-  { day: "7", faturado: 26300 },
-];
-
-const chartConfig = {
-  day: {
-    label: "dia",
-  },
-  faturado: {
-    label: "faturado(Kz) ",
-  },
-} satisfies ChartConfig;
+import { WeeklyEarningsResponse } from "types/weekly-earnings.response";
 
 export default function CustomLineChart({
   data,
   config,
   description,
   footerText,
+  axisDataKey,
+  lineDataKey
 }: {
-  data?: { [day: string]: number }[];
-  config?: ChartConfig;
-  description?: string;
+  data: WeeklyEarningsResponse[] | any;
+  config: ChartConfig;
+  description: string;
   footerText?: string;
+  axisDataKey: string;
+  lineDataKey: string;
 }) {
   return (
     <Card style={{ padding: 20 }}>
@@ -55,12 +41,12 @@ export default function CustomLineChart({
       </CardHeader>
       <CardContent>
         <ChartContainer
-          config={config || chartConfig}
+          config={config}
           style={{ height: 250, width: "100%" }}
         >
           <LineChart
             accessibilityLayer
-            data={data || chartData}
+            data={data}
             margin={{
               top: 20,
               left: 12,
@@ -69,7 +55,7 @@ export default function CustomLineChart({
           >
             <CartesianGrid vertical={true} />
             <XAxis
-              dataKey="day"
+              dataKey={axisDataKey}
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -79,7 +65,7 @@ export default function CustomLineChart({
               content={<ChartTooltipContent indicator="line" />}
             />
             <Line
-              dataKey="faturado"
+              dataKey={lineDataKey}
               type="natural"
               stroke="#0C6BFF"
               strokeWidth={2}
