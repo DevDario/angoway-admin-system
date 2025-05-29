@@ -16,8 +16,15 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { formatDate } from "../utils/date-time-formatter";
+import ElementsListingDialog from "../components/ElementsListingDialog";
+import { toast } from "sonner";
+import { useGetPreviewRoutes } from "../hooks/route/useRouteQuerys";
+import { useEffect, useState } from "react";
+import { useAssignSchedule } from "../hooks/route/useRouteMutations";
+import { CirclePlusIcon } from "lucide-react";
 
 export default function RoutePreviewCard({
+  id,
   name,
   origin,
   destination,
@@ -29,6 +36,45 @@ export default function RoutePreviewCard({
     iconUrl: "/busStopIcon.png",
     iconSize: [32, 32],
   });
+
+  const { data: routesData } = useGetPreviewRoutes();
+  const { mutateAsync: assign } = useAssignSchedule();
+
+  const routes = Array.isArray(routesData) ? routesData : [];
+  const [schedulesList, setSchedulesList] = useState<
+    { prop: string; value : string }[]
+  >([]);
+
+  useEffect(() => {
+    if (routesData && Array.isArray(routes)) {
+      const schedules = (routesData as Partial<RoutePreviewResponse>[])
+        .flatMap(
+          (routeData) =>
+            routeData?.schedules?.map((schedule) => ({
+              prop: `${formatDate(
+                new Date(schedule.departureTime)
+              )} - ${formatDate(new Date(schedule.arrivalTime))}`,
+              value: schedule.id+"",
+            })) || []
+        );
+      setSchedulesList(schedules);
+    } else {
+      setSchedulesList([]);
+    }
+  }, [routesData]);
+
+  async function handleAssignSchedule(scheduleId: string, routeId: string) {
+    await assign({
+      scheduleId: Number(scheduleId),
+      routeId: Number(routeId),
+    }).then((res) => {
+      if (res.code === 200) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
+    });
+  }
 
   return (
     <div className="route-preview-card">
@@ -43,7 +89,12 @@ export default function RoutePreviewCard({
           <MapContainer
             center={[destination.lat ?? 0, destination.lng ?? 0]}
             zoom={14}
-            style={{ height: "200px", width: "100%", borderRadius: "8px" }}
+            style={{
+              height: "200px",
+              width: "100%",
+              borderRadius: "8px",
+              zIndex: "-1",
+            }}
           >
             <TileLayer
               url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
@@ -107,17 +158,38 @@ export default function RoutePreviewCard({
                 Horários
               </h2>
               <ol className="schedules-list">
-                {schedules.length > 0 ? (
+                {schedules.length > 0 &&
                   schedules.map((schedule, index) => (
                     <li className="schedules-list-item" key={index}>
                       {formatDate(new Date(schedule.departureTime)) +
                         " - " +
                         formatDate(new Date(schedule.arrivalTime))}
                     </li>
-                  ))
-                ) : (
-                  <p>Sem horários</p>
-                )}
+                  ))}
+                <ElementsListingDialog
+                  dialogLabel="Horários Registados"
+                  dialogTitle="Atribuir Horários"
+                  emptyStateText="Nenhum horário disponível."
+                  buttonText="Atribuir"
+                  action={(selected) =>
+                    handleAssignSchedule(selected.value || "", id + "")
+                  }
+                  data={schedulesList}
+                >
+                  <button
+                    className="action-button"
+                    style={{
+                      marginTop: "4px",
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <CirclePlusIcon color="#0C6BFF" size={18} />
+                    Atribuir
+                  </button>
+                </ElementsListingDialog>
               </ol>
             </div>
             <div className="route-details-container">
