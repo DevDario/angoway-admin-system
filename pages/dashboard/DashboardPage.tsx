@@ -28,7 +28,7 @@ import {
   useGetPendingDriversCount,
   useGetDriversCount,
 } from "../../hooks/driver/useDriverQuerys";
-import { useGetMonthlyTravelCount } from "../../hooks/travel/useTravelQuerys";
+import { useGetMonthlyTravelCount, useGetWeeklyEarningsCount } from "../../hooks/travel/useTravelQuerys";
 import { ChartConfig } from "../../src/components/ui/chart";
 import { exportMonthlyTravelCount } from "../../api/usecases/travel.usecase";
 
@@ -37,6 +37,7 @@ export default function DashboardPage() {
   const navigator = useNavigate();
 
   const { data: monthlyTravelCount } = useGetMonthlyTravelCount();
+  const { data: weeklyEarningsCount } = useGetWeeklyEarningsCount();
 
   const { data: buses } = useGetBusesCount();
   const { data: activeBuses } = useGetActiveBusesCount();
@@ -53,12 +54,16 @@ export default function DashboardPage() {
     ? monthlyTravelCount
     : [];
 
+  const weeklyProfitData = Array.isArray(weeklyEarningsCount)
+    ? weeklyEarningsCount
+    : [];
+
   const busesCount = buses?.count ?? 0;
   const activeBusesCount = activeBuses?.count ?? 0;
   const inactiveBusesCount = inactiveBuses?.count ?? 0;
   const pendingBusesCount = pendingBuses?.count ?? 0;
 
-  async function handleTravelsCountDownload(){
+  async function handleTravelsCountDownload() {
     const blob = await exportMonthlyTravelCount();
 
     const url = window.URL.createObjectURL(blob);
@@ -69,11 +74,23 @@ export default function DashboardPage() {
     link.click();
     link.remove();
     window.URL.revokeObjectURL(url);
-  };
-  
+  }
+
+  async function handleWeeklyEarningsReportDownload() {
+  }
+
   const travelsChartConfig = {
     travels: {
       label: "viagens",
+    },
+  } satisfies ChartConfig;
+
+  const profitChartConfig = {
+    day: {
+      label: "dia",
+    },
+    bill: {
+      label: "faturado(Kz) ",
     },
   } satisfies ChartConfig;
 
@@ -145,7 +162,7 @@ export default function DashboardPage() {
             <SectionHeader icon={faMoneyBills} title="Faturação (Diário)" />
             <Button
               text="Baixar"
-              onClick={() => {}}
+              onClick={() => handleWeeklyEarningsReportDownload()}
               icon={faDownload}
               iconColor="#FFF"
               title="exportar dados"
@@ -153,7 +170,14 @@ export default function DashboardPage() {
           </div>
           <div className="chart-box" style={{ height: "450px" }}>
             <h2 className="chart-title">Faturação Total</h2>
-            <CustomLineChart />
+            <CustomLineChart
+              description="Total Faturado na Semana"
+              footerText="Mostrando o total faturado nos últimos 7 dias."
+              config={profitChartConfig}
+              data={weeklyProfitData}
+              axisDataKey="day"
+              lineDataKey="bill"
+            />
           </div>
         </div>
         {recentAlert &&
