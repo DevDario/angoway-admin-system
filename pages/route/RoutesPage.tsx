@@ -77,6 +77,7 @@ export default function RoutesPage() {
             routes.map((route:RoutePreviewResponse, index) => (
               <RoutePreviewCard
                 key={index}
+                id={route.id}
                 name={route.name}
                 destination={route.destination}
                 origin={route.origin}
