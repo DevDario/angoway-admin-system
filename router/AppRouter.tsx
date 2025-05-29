@@ -8,6 +8,7 @@ import AlertsPage from "../pages/alerts/AlertsPage";
 import RoutesPage from "../pages/route/RoutesPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import MapPage from "../pages/map/MapPage";
+import StopsPage from "../pages/stops/StopsPage";
 
 export default function AppRouter() {
   const { authToken } = useAuthState();
@@ -28,6 +29,7 @@ export default function AppRouter() {
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/map" element={<MapPage />} />
+          <Route path="/stops" element={<StopsPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </>
       )}
