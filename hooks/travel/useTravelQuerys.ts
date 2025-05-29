@@ -3,6 +3,7 @@ import {
   getTravels,
   getTravelById,
   getMonthlyTravelCount,
+  getWeeklyTravelProfit,
 } from "../../api/usecases/travel.usecase";
 
 export const useGetTravels = () =>
@@ -26,3 +27,12 @@ export const useGetMonthlyTravelCount = () =>
     queryFn: getMonthlyTravelCount,
     staleTime: 1000 * 60 * 5,
   });
+
+
+  export const useGetWeeklyEarningsCount = () =>
+    useQuery({
+      queryKey: ["travels-count"],
+      queryFn: getWeeklyTravelProfit,
+      staleTime: 1000 * 60 * 5,
+    });
+  

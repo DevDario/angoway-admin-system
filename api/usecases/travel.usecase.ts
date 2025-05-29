@@ -3,6 +3,7 @@ import { api } from "../axios-instance";
 import { getToken } from "../../utils/secure-store";
 import { TravelResponse } from "../../types/travel.response";
 import { CountMonthlyResponse } from "../../types/count-monthly.response";
+import { WeeklyEarningsResponse } from "../../types/weekly-earnings.response";
 
 export const createTravel = async (body: Travel) => {
   const token = getToken();
@@ -64,6 +65,18 @@ export const getMonthlyTravelCount = async (): Promise<
     },
   });
   return response.data as CountMonthlyResponse[];
+};
+
+export const getWeeklyTravelProfit = async (): Promise<
+  WeeklyEarningsResponse[]
+> => {
+  const token = getToken();
+  const response = await api.get("/travel/weekly-earnings", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data as WeeklyEarningsResponse[];
 };
 
 export const exportMonthlyTravelCount = async () => {
