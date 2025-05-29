@@ -4,6 +4,7 @@ import {
   updateRoute,
   deleteRoute,
   updateRouteStatus,
+  assignSchedule,
 } from "../../api/usecases/route.usecase";
 import { Route } from "../../types/Route";
 import { useState } from "react";
@@ -119,5 +120,29 @@ export const useUpdateRouteStatus = (
     },
   });
 
+  return { ...mutation, successMessage, errorMessage };
+};
+
+
+export const useAssignSchedule = (
+  onSuccess?: () => void,
+  onError?: (msg: string) => void
+) => {
+  const queryClient = useQueryClient();
+  const { successMessage, errorMessage, handleSuccess, handleError } =
+    useRouteMutationMessages();
+  const mutation = useMutation({
+    mutationFn: ({ scheduleId, routeId }: { scheduleId: number; routeId: number }) =>
+      assignSchedule(scheduleId, routeId),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["routes"] });
+      handleSuccess(res.message);
+      onSuccess?.();
+    },
+    onError: (error: any) => {
+      handleError(error, "Erro ao atribuir Horario.");
+      onError?.(error?.message || "Erro ao atribuir Horario.");
+    },
+  });
   return { ...mutation, successMessage, errorMessage };
 };

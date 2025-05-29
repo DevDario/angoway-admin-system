@@ -4,6 +4,7 @@ import { getToken } from "../../utils/secure-store";
 import { RouteResponse } from "../../types/route.response";
 import { CountRouteResponse } from "../../types/count.route.response";
 import { RoutePreviewResponse } from "../../types/route.preview.response";
+import { ResponseBody } from "types/response.body";
 
 export const createRoute = async ({name, origin, destination, status}: Route) => {
   const token = getToken();
@@ -34,6 +35,20 @@ export const getRoutes = async (): Promise<RouteResponse[] | []> => {
 export const getPreviewRoutes = async (): Promise<RoutePreviewResponse[] | []> => {
   const token = getToken();
   const response = await api.get("/routes/detailed", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const assignSchedule = async (
+  scheduleId: number,
+  routeId: number
+): Promise<ResponseBody> => {
+  const token = getToken();
+  const response = await api.put(`/routes/assign-schedule/${scheduleId}`, {routeId}, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
