@@ -4,11 +4,20 @@ import { getToken } from "../../utils/secure-store";
 import { ScheduleResponse } from "../../types/schedule.response";
 import { ResponseBody } from "../../types/response.body";
 
-export const createSchedule = async (body: Partial<Schedule>) => {
+export const createSchedule = async ({departureLocation,departureTime,arrivalLocation,arrivalTime,status,distanceKM,estimatedDurationMinutes,routeId}: Partial<Schedule>) => {
   const token = getToken();
   const response = await api.post(
     "/schedules",
-    { body },
+    {
+      departureLocation,
+      departureTime,
+      arrivalTime,
+      arrivalLocation,
+      status,
+      distanceKM,
+      estimatedDurationMinutes,
+      routeId,
+    },
     {
       headers: {
         Authorization: `Bearer ${token}`,
