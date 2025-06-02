@@ -64,18 +64,26 @@ export default function StopsPage() {
                     setSelectedPosition([stop.latitude, stop.longitude])
                   }
                   tabIndex={0}
-                  style={{ cursor: "pointer",display:"flex", justifyContent:"space-between" }}
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  <div className="driver-name">{stop.name}</div>
+                  <div className="driver-name">
+                    {stop.name === "N/A"
+                      ? `[${stop.latitude},${stop.longitude}]`
+                      : stop.name}
+                  </div>
                   <button
                     style={{
                       color: "#0C6BFF",
                       cursor: "copy",
                     }}
-                          onClick={() => handleCopyLocation(stop)}
-                          title="copiar localização"
-                      >
-                          <CopyIcon size={15}/>
+                    onClick={() => handleCopyLocation(stop)}
+                    title="copiar localização"
+                  >
+                    <CopyIcon size={15} />
                   </button>
                 </li>
               ))
