@@ -12,6 +12,7 @@ import SectionHeader from "../../components/SectionHeader";
 import Button from "../../components/Button";
 import TriggerableDialog from "../../components/TriggerableDialog";
 import CreateRouteForm from "../../src/forms/CreateRouteForm";
+import CreateScheduleForm from "../../src/forms/CreateScheduleForm";
 import RoutesTable from "../../components/RoutesTable";
 import {
   useDeleteRoute,
@@ -74,7 +75,7 @@ export default function RoutesPage() {
         />
         <div className="routes-card-container">
           {routes.length > 0 ? (
-            routes.map((route:RoutePreviewResponse, index) => (
+            routes.map((route: RoutePreviewResponse, index) => (
               <RoutePreviewCard
                 key={index}
                 id={route.id}
@@ -113,6 +114,14 @@ export default function RoutesPage() {
               onDelete={(id: number) => handleDelete(id)}
               onEdit={(id: number) => handleEdit(id)}
             />
+          </div>
+        </div>
+        <div className="register-schedule-form-container">
+          <SectionHeader icon={faPlusCircle} title="Registrar novo Horário" />
+          <div className="register-schedule-form-box">
+            <div className="register-schedule-form">
+              <CreateScheduleForm />
+            </div>
           </div>
         </div>
       </div>

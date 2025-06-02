@@ -1,8 +1,8 @@
-.content-container .header-container{
+.content-container .header-container {
     margin: 2rem 0 1rem 0;
 }
 
-.content-container .routes-card-container{
+.content-container .routes-card-container {
     margin-top: .5rem;
     display: flex;
     flex-direction: row;
@@ -61,6 +61,20 @@
 }
 
 .content-container .actions-area-container .bus-routes-table-container .bus-routes-table-box {
+    margin-top: 1.4rem;
+    border: 1px solid #212121;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.content-container .register-schedule-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: max-content;
+}
+
+.content-container .register-schedule-form-container .register-schedule-form-box {
     margin-top: 1.4rem;
     border: 1px solid #212121;
     border-radius: 10px;
