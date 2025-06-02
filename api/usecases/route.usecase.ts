@@ -4,7 +4,7 @@ import { getToken } from "../../utils/secure-store";
 import { RouteResponse } from "../../types/route.response";
 import { CountRouteResponse } from "../../types/count.route.response";
 import { RoutePreviewResponse } from "../../types/route.preview.response";
-import { ResponseBody } from "types/response.body";
+import { ResponseBody } from "../../types/response.body";
 
 export const createRoute = async ({name, origin, destination, status}: Route) => {
   const token = getToken();
