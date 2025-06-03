@@ -20,6 +20,7 @@ import { useGetPendingBusesCount } from "../hooks/bus/useBusQuerys";
 import { BusResponse } from "../types/bus.response";
 import { useAssignBusToDriver } from "../hooks/driver/useDriverMutations";
 import EditDriverDialog from "./EditDriverDialog";
+import { formatTimestamp } from "../utils/date-time-formatter"
 
 type DriversTableProps = {
   onDelete: (id: number) => void;
@@ -99,7 +100,7 @@ export default function DriversTable({ onDelete }: DriversTableProps) {
                 {driver.experienceTime + " Anos"}
               </TableCell>
               <TableCell className="drivers-table-cell">
-                {driver.efectivationDate + ""}
+                {driver.effectiveDate === null ? "N/A":new Date(driver.effectiveDate).toUTCString() + ""}
               </TableCell>
               <TableCell className="drivers-table-cell">
                 {driver.busNia === "N/A" ? (

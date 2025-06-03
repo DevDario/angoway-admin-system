@@ -8,5 +8,5 @@ export type DriverResponse = {
   experienceTime: number;
   status: string;
   busNia: string;
-  efectivationDate: Date;
+  effectiveDate: Date;
 };
