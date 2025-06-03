@@ -97,7 +97,7 @@ export default function DriversTable({ onDelete }: DriversTableProps) {
                 {driver.phone}
               </TableCell>
               <TableCell className="drivers-table-cell">
-                {driver.experienceTime + " Anos"}
+                {driver.experienceTime > 1 ? driver.experienceTime + " Anos": driver.experienceTime + " Ano"}
               </TableCell>
               <TableCell className="drivers-table-cell">
                 {driver.effectiveDate === null ? "N/A":new Date(driver.effectiveDate).toUTCString() + ""}
