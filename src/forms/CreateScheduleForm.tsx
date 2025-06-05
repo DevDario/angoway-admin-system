@@ -27,8 +27,8 @@ export default function CreateBusForm() {
     resolver: zodResolver(createScheduleSchema),
     defaultValues: {
       status: "active",
-      arrivalLocation: "",
-      departureLocation: "",
+      arrivalLocation: undefined,
+      departureLocation: undefined,
       estimatedDurationMinutes: "0",
       distanceKM: "0",
     },
