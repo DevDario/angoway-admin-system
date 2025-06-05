@@ -104,6 +104,7 @@
     filter: sepia(5);
     object-fit: cover;
     transition: all 500ms ease-out;
+    border-left: 5px solid #0C6BFF;
 }
 
 .side-section-image-container .side-section-image:hover {
