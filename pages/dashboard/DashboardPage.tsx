@@ -139,17 +139,37 @@ export default function DashboardPage() {
               iconColor="#FFF"
               title="exportar dados"
             />
-          </div>
-          <div className="chart-box">
-            <h2 className="chart-title">Viagens realizadas</h2>
-            <CustomBarChart
-              description={`Janeiro - Dezembro ${new Date().getFullYear()}`}
-              footerText="Mostrando o total de viagens realizadas em cada mês."
-              data={travelsData}
-              config={travelsChartConfig}
-              axisDataKey="month"
-              barDataKey="travels"
+            <Button
+              text="Baixar"
+              onClick={() => {}}
+              icon={faDownload}
+              iconColor="#FFF"
+              title="exportar dados"
             />
+          </div>
+          <div className="header-charts-container side-charts">
+            <div className="chart-box">
+              <h2 className="chart-title">Viagens realizadas</h2>
+              <CustomBarChart
+                description={`Janeiro - Dezembro ${new Date().getFullYear()}`}
+                footerText="Mostrando o total de viagens realizadas em cada mês."
+                data={travelsData}
+                config={travelsChartConfig}
+                axisDataKey="month"
+                barDataKey="travels"
+              />
+            </div>
+            <div className="chart-box">
+              <h2 className="chart-title">Resumos</h2>
+              <CustomBarChart
+                description={`Janeiro - Dezembro ${new Date().getFullYear()}`}
+                footerText="Mostrando o total de viagens realizadas em cada mês."
+                data={travelsData}
+                config={travelsChartConfig}
+                axisDataKey="month"
+                barDataKey="travels"
+              />
+            </div>
           </div>
         </div>
         <div className="employees-table-container">
