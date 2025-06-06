@@ -18,10 +18,11 @@ import {
 import { formatDate } from "../utils/date-time-formatter";
 import ElementsListingDialog from "../components/ElementsListingDialog";
 import { toast } from "sonner";
-import { useGetPreviewRoutes } from "../hooks/route/useRouteQuerys";
+import { useGetSchedules } from "../hooks/schedule/useSchedulesQuerys";
 import { useEffect, useState } from "react";
 import { useAssignSchedule } from "../hooks/route/useRouteMutations";
 import { CirclePlusIcon } from "lucide-react";
+import { Schedule } from "types/Schedule";
 
 export default function RoutePreviewCard({
   id,
@@ -37,31 +38,29 @@ export default function RoutePreviewCard({
     iconSize: [32, 32],
   });
 
-  const { data: routesData } = useGetPreviewRoutes();
+  
   const { mutateAsync: assign } = useAssignSchedule();
+  const { data: fetchedSchedules } = useGetSchedules();
 
-  const routes = Array.isArray(routesData) ? routesData : [];
   const [schedulesList, setSchedulesList] = useState<
-    { prop: string; value : string }[]
+    { prop: string; value: string }[]
   >([]);
 
   useEffect(() => {
-    if (routesData && Array.isArray(routes)) {
-      const schedules = (routesData as Partial<RoutePreviewResponse>[])
-        .flatMap(
-          (routeData) =>
-            routeData?.schedules?.map((schedule) => ({
-              prop: `${formatDate(
-                new Date(schedule.departureTime)
-              )} - ${formatDate(new Date(schedule.arrivalTime))}`,
-              value: schedule.id+"",
-            })) || []
-        );
+    if (fetchedSchedules && Array.isArray(fetchedSchedules)) {
+      const schedules = (fetchedSchedules as Schedule[])
+        .filter((schedule) => typeof schedule?.departureTime === "string")
+        .map((schedule) => ({
+          prop: `${formatDate(new Date(schedule.departureTime))} - ${formatDate(
+            new Date(schedule.arrivalTime)
+          )}`,
+          value: schedule.id + "",
+        }));
       setSchedulesList(schedules);
     } else {
       setSchedulesList([]);
     }
-  }, [routesData]);
+  }, [fetchedSchedules]);
 
   async function handleAssignSchedule(scheduleId: string, routeId: string) {
     await assign({
