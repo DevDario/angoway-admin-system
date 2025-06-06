@@ -6,7 +6,6 @@
 .content-container .data-summarization-container {
     display: flex;
     gap: 15px;
-    flex-wrap: wrap;
 }
 
 .content-container .dashboard-data-summarization-container .data-card-container {
@@ -21,12 +20,23 @@
     flex-direction: column;
 }
 
-.side-charts{
+.side-charts {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 1rem;
-    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 764px) {
+    .side-charts {
+        gap: 0px;
+        flex-wrap: wrap;
+    }
+
+    .content-container .data-summarization-container {
+        flex-wrap: wrap;
+    }
+
 }
 
 .chart-container .chart-action-buttons-container {
