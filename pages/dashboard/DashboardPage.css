@@ -6,6 +6,7 @@
 .content-container .data-summarization-container {
     display: flex;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .content-container .dashboard-data-summarization-container .data-card-container {
@@ -25,6 +26,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .chart-container .chart-action-buttons-container {
