@@ -21,6 +21,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "../src/components/ui/sidebar";
+import { useGetProfileDetails } from "../hooks/profile/useProfileQuerys";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { ProfileDetails } from "types/profile-details-response";
 
 const items = [
   {
@@ -68,14 +73,21 @@ const items = [
     url: "/",
     icon: DoorOpen,
     fn: () => {
-      localStorage.removeItem("access_token")
-      window.location.reload()
-    }
+      localStorage.removeItem("access_token");
+      window.location.reload();
+    },
   },
 ];
 
 export default function AppSidebar() {
   const { open, setOpen } = useSidebar();
+  const [profile, setProfile] = useState<ProfileDetails | null>(null);
+  const { data: profileDetails } = useGetProfileDetails();
+
+  useEffect(() => {
+    if (profileDetails !== undefined) setProfile(profileDetails);
+  }, [profileDetails]);
+
   return (
     <>
       {open && (
@@ -111,7 +123,11 @@ export default function AppSidebar() {
               <SidebarMenu style={{ paddingRight: 10 }}>
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title} style={{ marginTop: 10 }}>
-                    <SidebarMenuButton asChild style={{ padding: 20 }} onClick={item.fn}>
+                    <SidebarMenuButton
+                      asChild
+                      style={{ padding: 20 }}
+                      onClick={item.fn}
+                    >
                       <Link to={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
@@ -119,6 +135,67 @@ export default function AppSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
+                <SidebarMenuItem key={"profile-card"} style={{ marginTop: 70 }}>
+                  <SidebarMenuButton
+                    asChild
+                    style={{ padding: 20 }}
+                    onClick={() => {}}
+                  >
+                    <Link to={""}>
+                      <div
+                        className="profile-card"
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "10px",
+                          alignContent: "center",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <div
+                          className="profile-avatar"
+                          style={{
+                            alignContent: "center",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {profile?.url_foto_de_perfil ? (
+                            <img
+                              src={profile.url_foto_de_perfil}
+                              alt="eu"
+                              style={{
+                                width: "30px",
+                                height: "30px",
+                                borderRadius: "8px",
+                              }}
+                            />
+                          ) : (
+                            <div>
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                width="15"
+                                height="15"
+                                color="#FCFCFB"
+                              />
+                            </div>
+                          )}
+                        </div>
+                        <div
+                          className="profile-name"
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <h1>{profile?.name}</h1>
+                        </div>
+                      </div>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
