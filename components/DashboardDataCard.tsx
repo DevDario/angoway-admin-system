@@ -27,10 +27,11 @@ export default function DashboardDataCard({
               }}
               width={12}
               height={12}
+              title={label}
             />
           )}
         </div>
-        <p className="label">{label}</p>
+        <p className="label" title={label}>{label}</p>
       </div>
       <div className="data">
         <h2 className="data-value">{value}</h2>
