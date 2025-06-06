@@ -4,6 +4,7 @@ import { loginSchema } from "../../schemas/login.schema";
 import { useLogin } from "../../hooks/auth/useAuthMutations";
 import AlertModal from "../../components/AlertModal";
 import "./LoginPage.css";
+import mainImage from "../../src/assets/bg-image-auth.png"
 
 export default function Login() {
   const {
@@ -84,7 +85,7 @@ export default function Login() {
         <div className="side-section-container">
           <div className="side-section-image-container">
             <img
-              src="https://bufferwall.com/download/B20190923T000000374_1200x600.jpg"
+              src={mainImage}
               alt=""
               className="side-section-image"
             />
