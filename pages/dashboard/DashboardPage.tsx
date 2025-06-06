@@ -11,7 +11,6 @@ import {
   faDownload,
   faWarning,
   faUserTie,
-  faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
