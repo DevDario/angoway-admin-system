@@ -51,23 +51,22 @@ export default function CreateBusForm() {
   if (error) {
     toast.error("Erro ao cadastrar o horário !", {
       description:
-        error !== null
-          ? error
-          : `Houve um erro ao cadastrar o horário. Tente submeter novamente`,
+        error.includes("500") ? `Erro ao Criar Horário.\nVerifique os dados fornecidos` : error
     });
   }
 
   async function onSubmit(values: z.infer<typeof createScheduleSchema>) {
     return handleCreateSchedule({
-      arrivalTime: values.arrivalTime,
-      departureTime: values.departureTime,
+      arrivalTime: new Date(values.arrivalTime),
+      departureTime: new Date(values.departureTime),
       arrivalLocation: values.arrivalLocation,
       departureLocation: values.departureLocation,
       distanceKM: Number(values.distanceKM),
       estimatedDurationMinutes: Number(values.estimatedDurationMinutes),
       routeId: Number(values.route),
+      status: "active",
     });
-  }
+  } 
 
   return (
     <Form {...form}>
@@ -207,9 +206,9 @@ export default function CreateBusForm() {
                     backgroundColor: "#121212",
                     borderRadius: "8px",
                   }}
-                  value={field.value}
+                  value={field.value+""}
                   onChange={field.onChange}
-                  type="time"
+                  type="datetime-local"
                 />
               </FormControl>
               <FormMessage />
@@ -232,9 +231,9 @@ export default function CreateBusForm() {
                     backgroundColor: "#121212",
                     borderRadius: "8px",
                   }}
-                  value={field.value}
+                  value={field.value+""}
                   onChange={field.onChange}
-                  type="time"
+                  type="datetime-local"
                 />
               </FormControl>
               <FormMessage />
