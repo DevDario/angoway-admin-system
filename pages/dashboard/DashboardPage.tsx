@@ -11,6 +11,7 @@ import {
   faDownload,
   faWarning,
   faUserTie,
+  faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
@@ -99,12 +100,12 @@ export default function DashboardPage() {
       <div className="content-container">
         <div className="data-summarization-container dashboard-data-summarization-container">
           <DashboardDataCard
-            label="Autocarros"
+            label="Cadastrados"
             value={busesCount + ""}
             icon={faBusSimple}
           />
           <DashboardDataCard
-            label="Motoristas"
+            label="Cadastrados"
             value={driversCount + ""}
             icon={faUserTie}
           />
@@ -121,12 +122,12 @@ export default function DashboardPage() {
           <DashboardDataCard
             label="Pendentes"
             value={pendingDriversCount + ""}
-            icon={faClock}
+            icon={faUserTie}
           />
           <DashboardDataCard
             label="Inativos"
             value={inactiveBusesCount + ""}
-            icon={faClock}
+            icon={faBusSimple}
           />
         </div>
         <div className="chart-container">
