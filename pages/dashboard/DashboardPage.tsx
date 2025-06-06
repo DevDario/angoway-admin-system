@@ -97,7 +97,7 @@ export default function DashboardPage() {
   return (
     <Layout>
       <div className="content-container">
-        <div className="data-summarization-container">
+        <div className="data-summarization-container dashboard-data-summarization-container">
           <DashboardDataCard
             label="Autocarros"
             value={busesCount + ""}
@@ -109,22 +109,22 @@ export default function DashboardPage() {
             icon={faUserTie}
           />
           <DashboardDataCard
-            label="Autocarros Ativos"
+            label="Ativos"
             value={activeBusesCount + ""}
             icon={faBusSimple}
           />
           <DashboardDataCard
-            label="Autocarros Pendentes"
+            label="Pendentes"
             value={pendingBusesCount + ""}
             icon={faBusSimple}
           />
           <DashboardDataCard
-            label="Motoristas Pendentes"
+            label="Pendentes"
             value={pendingDriversCount + ""}
             icon={faClock}
           />
           <DashboardDataCard
-            label="Autocarros Inativos"
+            label="Inativos"
             value={inactiveBusesCount + ""}
             icon={faClock}
           />
