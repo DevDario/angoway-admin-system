@@ -8,6 +8,12 @@
     gap: 15px;
 }
 
+.content-container .dashboard-data-summarization-container .data-card-container {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
 .chart-container {
     margin: 2rem 0 2rem 0;
     display: flex;
