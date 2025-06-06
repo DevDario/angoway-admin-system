@@ -11,10 +11,13 @@ import {
   faDownload,
   faWarning,
   faUserTie,
+  faArrowAltCircleRight,
+  faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionHeader from "../../components/SectionHeader";
 import DashboardTable from "../../components/DashboardTable";
+import CustomRadialChart from "../../components/CustomRadialChart";
 import { useNavigate } from "react-router";
 import { useAlertsChannel } from "../../hooks/useAlertsChannel";
 import { toast } from "sonner";
@@ -129,6 +132,10 @@ export default function DashboardPage() {
             icon={faBusSimple}
           />
         </div>
+        <h1 className="main-title">
+          <FontAwesomeIcon icon={faChevronCircleRight} width={20} height={20} color="#0C6BFF" style={{marginRight:"10px"}}/>
+          Dashboard
+        </h1>
         <div className="chart-container">
           <div className="chart-action-buttons-container">
             <Button
@@ -138,28 +145,10 @@ export default function DashboardPage() {
               iconColor="#FFF"
               title="exportar dados"
             />
-            <Button
-              text="Baixar"
-              onClick={() => {}}
-              icon={faDownload}
-              iconColor="#FFF"
-              title="exportar dados"
-            />
           </div>
           <div className="header-charts-container side-charts">
             <div className="chart-box">
               <h2 className="chart-title">Viagens realizadas</h2>
-              <CustomBarChart
-                description={`Janeiro - Dezembro ${new Date().getFullYear()}`}
-                footerText="Mostrando o total de viagens realizadas em cada mês."
-                data={travelsData}
-                config={travelsChartConfig}
-                axisDataKey="month"
-                barDataKey="travels"
-              />
-            </div>
-            <div className="chart-box">
-              <h2 className="chart-title">Resumos</h2>
               <CustomBarChart
                 description={`Janeiro - Dezembro ${new Date().getFullYear()}`}
                 footerText="Mostrando o total de viagens realizadas em cada mês."
