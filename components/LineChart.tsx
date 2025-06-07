@@ -15,7 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../src/components/ui/chart";
-import { WeeklyEarningsResponse } from "types/weekly-earnings.response";
+import { WeeklyEarningsResponse } from "../types/weekly-earnings.response";
 
 export default function CustomLineChart({
   data,
