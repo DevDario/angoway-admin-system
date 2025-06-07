@@ -68,7 +68,7 @@ export const getMonthlyTravelCount = async (): Promise<
 };
 
 export const getWeeklyTravelProfit = async (): Promise<
-  WeeklyEarningsResponse[]
+  WeeklyEarningsResponse
 > => {
   const token = getToken();
   const response = await api.get("/travel/weekly-earnings", {
@@ -76,7 +76,7 @@ export const getWeeklyTravelProfit = async (): Promise<
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.data as WeeklyEarningsResponse[];
+  return response.data as WeeklyEarningsResponse;
 };
 
 export const exportMonthlyTravelCount = async () => {
