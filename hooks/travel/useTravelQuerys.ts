@@ -31,7 +31,7 @@ export const useGetMonthlyTravelCount = () =>
 
   export const useGetWeeklyEarningsCount = () =>
     useQuery({
-      queryKey: ["travels-count"],
+      queryKey: ["weekly-earnings"],
       queryFn: getWeeklyTravelProfit,
       staleTime: 1000 * 60 * 5,
     });
